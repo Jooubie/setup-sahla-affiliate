@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Launch an evidence-led Egypt-first PC/laptop setup affiliate business with five researched product opportunities, an auditable workbook and report, a complete brand system, three SEO articles, and a production-ready static website.
+**Goal:** Launch an evidence-led Egypt-first PC/laptop setup affiliate business with five researched product opportunities, an auditable workbook and report, a complete brand system, three SEO articles, and a production-ready crawlable website.
 
-**Architecture:** A research ledger is the single source of truth for product, provider, keyword, claim, and freshness data. Typed site data, the workbook, the report, and editorial product modules are derived from that ledger. The public website is statically generated so product and guide pages are crawlable, fast, inexpensive, and safe when retailer prices or inventory change.
+**Architecture:** A research ledger is the single source of truth for product, provider, keyword, claim, and freshness data. Typed site data, the workbook, the report, and editorial product modules are derived from that ledger. The public website uses the installed Sites React/Vite/vinext starter so product and guide routes are crawlable, fast, deployable through the supported Cloudflare-compatible workflow, and safe when retailer prices or inventory change.
 
-**Tech Stack:** Astro with TypeScript, Zod data validation, MDX content, Vitest, modern CSS, Playwright/browser verification, Python with the bundled spreadsheet/document libraries for `.xlsx` and PDF production, original generated raster creatives plus hand-authored SVG brand assets, and OpenAI Sites-compatible static output.
+**Tech Stack:** The installed OpenAI Sites React/Vite/vinext starter with TypeScript, Zod data validation, typed editorial content, Vitest, modern CSS, build-time route/link/accessibility checks, the bundled `@oai/artifact-tool` runtime for `.xlsx`, bundled ReportLab/Poppler for PDF production, original generated raster creatives plus hand-authored SVG brand assets, and Cloudflare Worker-compatible Sites output.
 
 ## Global Constraints
 
@@ -35,11 +35,11 @@
 - `docs/research/PRODUCT_RESEARCH_REPORT.md` — evidence-backed selection and provider report.
 - `brand/BRAND_SYSTEM.md` — identity, voice, visual tokens, and usage rules.
 - `public/brand/` — logo SVGs, favicon, and original raster creatives.
-- `content/guides/` — three source articles before Astro integration.
+- `content/guides/` — three source articles before Sites integration.
 - `scripts/validate_research.mjs` — rejects incomplete or dishonest product/research records.
-- `scripts/build_workbook.py` — generates the styled `.xlsx` from canonical data.
+- `scripts/build_workbook.mjs` — generates the styled `.xlsx` from canonical data with the bundled `@oai/artifact-tool` runtime.
 - `scripts/build_report.py` — generates the polished user-facing research report.
-- `site/` — complete Astro website.
+- `site/` — complete Sites React/Vite/vinext website.
 - `outputs/Setup-Sahla-Product-Research.xlsx` — final product/provider/keyword workbook.
 - `outputs/Setup-Sahla-Research-Report.pdf` — final research and launch rationale report.
 - `outputs/Setup-Sahla-Brand-Guide.pdf` — final brand/voice guide.
@@ -274,7 +274,7 @@ Run `node tests/brand-assets.test.mjs` and an image-dimension/size audit. Expect
 
 **Files:**
 
-- Create: `scripts/build_workbook.py`
+- Create: `scripts/build_workbook.mjs`
 - Create: `scripts/build_report.py`
 - Create: `outputs/Setup-Sahla-Product-Research.xlsx`
 - Create: `outputs/Setup-Sahla-Research-Report.pdf`
@@ -292,7 +292,7 @@ Assert the workbook and both PDFs exist and are non-empty. Open the workbook thr
 
 - [ ] **Step 2: Generate the workbook**
 
-Use frozen headers, filters, readable column widths, alternating rows, wrapped notes, hyperlink styling, conditional formatting for selection score and stale dates, a legend for affiliate/image status, and formulas for provider count, days since check, and owner-action count. Add a visible note that prices are dated snapshots and links remain direct until affiliate IDs are inserted.
+Use only the loader-provided `@oai/artifact-tool` runtime. Use frozen headers, filters, readable column widths, alternating rows, wrapped notes, hyperlink styling, conditional formatting for selection score and stale dates, a legend for affiliate/image status, and formulas for provider count, days since check, and owner-action count. Add a visible note that prices are dated snapshots and links remain direct until affiliate IDs are inserted.
 
 - [ ] **Step 3: Generate the research PDF**
 
@@ -310,32 +310,34 @@ Render every PDF page to images and inspect for overlap, clipping, missing glyph
 
 Run `node tests/deliverables.test.mjs`. Expected: `3 deliverables valid; 5 products; 7 workbook sheets`. Commit with `docs: publish Setup Sahla research and brand deliverables`.
 
-### Task 5: Astro foundation, canonical data adapter, and test harness
+### Task 5: Sites foundation, canonical data adapter, and test harness
 
 **Files:**
 
-- Create: `site/package.json`
-- Create: `site/astro.config.mjs`
-- Create: `site/tsconfig.json`
-- Create: `site/src/styles/global.css`
-- Create: `site/src/lib/products.ts`
-- Create: `site/src/lib/site.ts`
-- Create: `site/src/layouts/SiteLayout.astro`
-- Create: `site/src/components/AffiliateDisclosure.astro`
-- Create: `site/src/components/ProviderLink.astro`
-- Create: `site/src/components/ProductCard.astro`
-- Create: `site/src/content.config.ts`
+- Create through the installed Sites initializer, then preserve: `site/package.json`
+- Create through the installed Sites initializer, then preserve: `site/vite.config.ts`
+- Create through the installed Sites initializer, then preserve: `site/tsconfig.json`
+- Create through the installed Sites initializer, then preserve: `site/.openai/hosting.json`
+- Modify after initialization: `site/app/globals.css`
+- Create: `site/app/lib/products.ts`
+- Create: `site/app/lib/site.ts`
+- Modify after initialization: `site/app/layout.tsx`
+- Modify after initialization: `site/app/page.tsx`
+- Create: `site/app/components/AffiliateDisclosure.tsx`
+- Create: `site/app/components/ProviderLink.tsx`
+- Create: `site/app/components/ProductCard.tsx`
+- Create: `site/app/data/guides.ts`
 - Create: `site/tests/product-adapter.test.ts`
 - Create: `site/tests/provider-link.test.ts`
 
 **Interfaces:**
 
 - Consumes: canonical product JSON, brand tokens/assets, and affiliate status enum.
-- Produces: `getProducts(): Product[]`, `getProduct(slug: string): Product`, shared layout, and safe provider/product components.
+- Produces: `getProducts(): Product[]`, `getProduct(slug: string): Product`, shared app layout, and safe provider/product components.
 
-- [ ] **Step 1: Scaffold the test and build commands**
+- [ ] **Step 1: Initialize the supported Sites project exactly once**
 
-Define scripts `dev`, `build`, `preview`, `test`, `check`, and `validate:links`. Configure strict TypeScript, Astro sitemap integration, MDX integration, and Vitest.
+Make site setup the first task action. Run the installed Sites root `scripts/init-site.sh` with the new `site/` directory as its target, retain the installation session until it completes, and never run a second initializer. In this delegated/background implementation, do not open a browser-only preview. Preserve the generated package manager, lockfile, vinext structure, `sites()` Vite plugin, and `.openai/hosting.json`. Add only `test`, `check`, and `validate:links` scripts that the generated build does not already provide.
 
 - [ ] **Step 2: Write failing data-adapter tests**
 
@@ -347,7 +349,7 @@ Define the `Product`, `Provider`, `Score`, and `Evidence` types using the canoni
 
 - [ ] **Step 4: Implement layout and commercial components**
 
-`SiteLayout` must set unique title/description/canonical/Open Graph data, skip link, header, footer, disclosure link, and reduced-motion-safe global styles. `ProviderLink` must use `target="_blank" rel="sponsored nofollow noopener"`, retailer-specific accessible text, and `Check current price` language. `AffiliateDisclosure` must use plain language and not imply existing commissions when links are still direct.
+`app/layout.tsx` must set unique title/description/canonical/Open Graph data, skip link, header, footer, disclosure link, and reduced-motion-safe global styles. `ProviderLink` must use `target="_blank" rel="sponsored nofollow noopener"`, retailer-specific accessible text, and `Check current price` language. `AffiliateDisclosure` must use plain language and not imply existing commissions when links are still direct. Replace the starter loading skeleton completely, remove `app/_sites-preview` and its imports, remove unused `react-loading-skeleton`, and replace all starter metadata before the final build.
 
 - [ ] **Step 5: Apply the visual system**
 
@@ -355,7 +357,7 @@ Translate Task 3 tokens into `global.css`; include fluid typography, 44px minimu
 
 - [ ] **Step 6: Verify and commit**
 
-Run `npm test`, `npm run check`, and `npm run build` from `site/`. Expected: all tests pass, zero Astro/TypeScript errors, and a generated `dist/`. Commit with `feat: establish Setup Sahla site foundation`.
+Run `npm test`, `npm run check`, and `npm run build` from `site/`. Expected: all tests pass, zero TypeScript/build errors, the Sites `sites()` plugin remains configured, and a Cloudflare Worker-compatible `dist/` is generated. Commit with `feat: establish Setup Sahla site foundation`.
 
 ### Task 6: Three SEO launch guides and content-policy tests
 
@@ -364,7 +366,7 @@ Run `npm test`, `npm run check`, and `npm run build` from `site/`. Expected: all
 - Create: `content/guides/fix-laptop-desk-setup-egypt.mdx`
 - Create: `content/guides/choose-usb-c-hub-egypt.mdx`
 - Create: `content/guides/laptop-heat-posture-cable-fixes.mdx`
-- Create: `site/src/content/guides/` copies or imports of those files
+- Create: `site/app/data/guides.ts` typed integration of those files
 - Create: `site/tests/content-policy.test.ts`
 
 **Interfaces:**
@@ -396,20 +398,20 @@ Run the content-policy test, build the site, and inspect generated article HTML 
 
 **Files:**
 
-- Create: `site/src/pages/index.astro`
-- Create: `site/src/pages/products/index.astro`
-- Create: `site/src/pages/products/[slug].astro`
-- Create: `site/src/pages/guides/index.astro`
-- Create: `site/src/pages/guides/[...slug].astro`
-- Create: `site/src/pages/methodology.astro`
-- Create: `site/src/pages/about.astro`
-- Create: `site/src/pages/affiliate-disclosure.astro`
-- Create: `site/src/pages/privacy.astro`
-- Create: `site/src/pages/404.astro`
-- Create: `site/src/components/FrictionFinder.astro`
-- Create: `site/src/components/ScoreBreakdown.astro`
-- Create: `site/src/components/ProviderPanel.astro`
-- Create: `site/src/components/GuideCard.astro`
+- Modify: `site/app/page.tsx`
+- Create: `site/app/products/page.tsx`
+- Create: `site/app/products/[slug]/page.tsx`
+- Create: `site/app/guides/page.tsx`
+- Create: `site/app/guides/[slug]/page.tsx`
+- Create: `site/app/methodology/page.tsx`
+- Create: `site/app/about/page.tsx`
+- Create: `site/app/affiliate-disclosure/page.tsx`
+- Create: `site/app/privacy/page.tsx`
+- Create: `site/app/not-found.tsx`
+- Create: `site/app/components/FrictionFinder.tsx`
+- Create: `site/app/components/ScoreBreakdown.tsx`
+- Create: `site/app/components/ProviderPanel.tsx`
+- Create: `site/app/components/GuideCard.tsx`
 - Create: `site/tests/routes.test.ts`
 
 **Interfaces:**
@@ -439,7 +441,7 @@ Generate canonical URLs, Open Graph/Twitter fields, BreadcrumbList, ItemList, an
 
 - [ ] **Step 6: Verify responsive behavior and commit**
 
-Run route tests, full build, and browser checks at 390×844, 768×1024, and 1440×1000. Verify keyboard navigation, focus, mobile menu if present, no horizontal overflow, readable tables, and reduced motion. Commit with `feat: build Setup Sahla affiliate experience`.
+Run route tests, the full Sites build, generated-route checks, keyboard/focus semantics tests, minimum tap-target rules, overflow-risk checks, and reduced-motion CSS checks. Because this is a delegated/background Sites build and the user did not request browser QA, do not open or automate a browser during implementation. Commit with `feat: build Setup Sahla affiliate experience`.
 
 ### Task 8: Independent review, fixes, production deployment, and handoff
 
@@ -481,7 +483,7 @@ Expected: every command exits `0`; five products, three guides, all required rou
 
 - [ ] **Step 3: Perform browser and artifact inspection**
 
-Inspect phone/tablet/desktop screenshots, keyboard flow, disclosure placement, outbound retailer URLs, missing images, console errors, 404 behavior, sitemap, robots, and structured data. Re-open the workbook and render all PDF pages after their final regeneration.
+Inspect disclosure placement, outbound retailer URLs, missing images, generated route metadata, 404 behavior, sitemap, robots, structured data, and build output through automated checks. Re-open the workbook and render all PDF pages after their final regeneration. Do not add browser automation unless the user separately requests browser QA.
 
 - [ ] **Step 4: Write launch operations**
 
