@@ -31,23 +31,23 @@ This operating system governs the Egypt-first Setup Sahla launch and later MENA 
 ### G3 Claims
 
 - **Owner:** Editorial.
-- **Required inputs:** Passed G2 Selection; canonical product records; approved evidence IDs and URLs; voice rules; disclosure, price, compatibility, and prohibited-claims policies.
-- **Pass condition:** Every commercial, specification, compatibility, price, trend, or comparative claim is either directly supported by cited evidence or clearly labeled as editorial judgment. Prices are dated snapshots, limitations and skip guidance are present, and disclosure precedes the first commercial CTA.
-- **Artifact:** A source-linked claim inventory and exactly three publication-ready guide manuscripts.
+- **Required inputs:** Passed G2 Selection; canonical product records; approved evidence IDs and URLs; evidence/compliance rules; and the preliminary plain-language claim templates defined in Task 1.
+- **Pass condition:** Every factual, commercial, specification, compatibility, price, trend, or comparative claim requires direct evidence that supports that exact claim. Editorial judgment is permitted only for explicitly subjective fit or preference conclusions, must be labeled as such, and cannot introduce unsupported facts. Prices are dated snapshots, limitations and skip guidance are present, and planned disclosure precedes the first commercial CTA.
+- **Artifact:** An approved source-linked factual claim inventory and preliminary plain-language claims brief for later editorial drafting.
 - **Rollback action:** Remove or qualify the unsupported claim, disable affected commercial copy, and return the claim to Research Integration for new evidence when needed.
 
 ### G4 Creative
 
 - **Owner:** Identity/Creatives.
-- **Required inputs:** Passed G3 Claims; approved brand direction and tokens; image-rights policy; accessible copy and alt-text requirements; canonical problem categories.
+- **Required inputs:** Passed G3-approved factual claim inventory; approved brand direction from the design; Task 1 image-rights policy; accessibility requirements; and canonical problem categories.
 - **Pass condition:** Every public visual is original or has an approved rights value, contains no unapproved retailer asset or logo, matches the brand system, truthfully depicts the setup, and meets accessibility and delivery-size requirements.
-- **Artifact:** Brand system, voice guide, tested vector identity assets, and original launch creative set.
+- **Artifact:** Brand tokens and system, voice guide, tested vector identity assets, and original launch creative set.
 - **Rollback action:** Withdraw the asset, replace it with an approved original fallback, record the rights or accuracy defect, and return it to Identity/Creatives.
 
 ### G5 Publish
 
 - **Owner:** Website, with Final Review approval.
-- **Required inputs:** Passed G2 canonical data, passed G3 editorial content, passed G4 assets, operating/compliance policies, required route list, and the full verification matrix.
+- **Required inputs:** Passed G2 canonical data; passed G3 factual claim inventory; completed G4 brand tokens, voice guide, and assets; exactly three guide manuscripts drafted by Editorial after G4; operating/compliance policies; required route list; and the full verification matrix.
 - **Pass condition:** The production build contains exactly five product opportunities and three guides; disclosure appears before the first commercial CTA; links, metadata, structured data, responsive behavior, accessibility, data validation, tests, and build checks pass; owner-only dependencies remain explicit.
 - **Artifact:** Verified static production build, launch checklist, deployment record when available, and release commit.
 - **Rollback action:** Stop publication or restore the last verified build, set unsafe outbound links to the disabled status, and reopen the earliest failed gate.

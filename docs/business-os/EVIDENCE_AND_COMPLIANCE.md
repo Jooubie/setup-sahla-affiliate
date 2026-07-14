@@ -57,7 +57,23 @@ Amazon or Noon listing images default to `SOURCE_LINK_ONLY`. The public site use
 - Name the retailer in CTA text and use honest language such as `Check current price on Amazon Egypt`.
 - Apply sponsored/no-follow treatment to commercial links where appropriate and open external destinations safely.
 - Present a price only as a dated snapshot with its currency and check date. If the price is missing or uncertain, show `Check current price`; never make a live-price promise.
-- Separate evidence-backed facts from editorial judgment, state compatibility gates before purchase links, and include meaningful skip guidance.
+- Every factual, commercial, specification, compatibility, price, trend, or comparative claim requires direct evidence that supports the exact claim being made.
+- Editorial judgment is permitted only for explicitly subjective fit or preference conclusions. It must be labeled as judgment and cannot introduce unsupported facts, specifications, performance implications, comparisons, or market observations.
+- Missing evidence is not cured by labeling a factual statement as opinion. Remove the statement or return it to the evidence gate.
+- State compatibility gates before purchase links and include meaningful skip guidance.
+
+## Preliminary plain-language claim templates
+
+These neutral Task 1 templates support G3 claim review before the G4 voice guide exists. They are evidence/compliance patterns, not final branded copy:
+
+- **Specification:** `[Model] lists [specification], according to [direct source].`
+- **Compatibility:** `This fits only when [evidence-backed requirement]; check [device or port detail] before buying.`
+- **Price:** `[EGP amount] snapshot observed at [retailer] on [date]; check the retailer for the current price.`
+- **Commercial CTA:** `Check current price on [retailer].`
+- **Skip guidance:** `Skip this if [evidence-backed incompatibility or explicitly subjective preference].`
+- **Subjective fit:** `Editorial fit judgment: this may suit [user/use case] because [cited facts]; this is a fit conclusion, not a new product fact.`
+
+G3 may use these templates to approve factual claims and clearly bounded fit conclusions. Editorial applies the completed G4 voice guide only during later guide drafting; G3 does not require or create the G4 voice guide.
 
 ## Prohibited practices
 
