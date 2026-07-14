@@ -199,3 +199,140 @@ SELF_REVIEW_OK: 6/6 assertions passed
 ### Review-fix concerns
 
 None. The corrected sequence has no self- or forward-dependency: G3 claim approval precedes G4 identity/voice production, and complete Editorial drafting follows G4 before G5.
+
+## Final sequencing correction — independent parallel G3/G4 branches
+
+This section supersedes the preceding sequential G3-to-G4 review note. The final operating model is a fork/join: after G2, G3 Claims and G4 Creative run independently in parallel; Editorial consumes both passed outputs; G5 Publish is the join that requires both branches plus the completed guides.
+
+### Fix summary
+
+- Changed G3 ownership from Editorial to Research Integration. Research Integration now creates evidence-bound factual claim records from passed G2 canonical data and direct evidence.
+- Removed every G3 dependency from G4. Identity/Creatives consumes passed G2 canonical data/selection rationale, the approved design specification, and Task 1 evidence/compliance rules, then produces brand tokens, voice, and assets.
+- Defined G3 and G4 as independent parallel branches after G2; neither consumes the other's artifact.
+- Defined Editorial as a downstream consumer of both passed G3 claim records and completed G4 voice/assets. Editorial owns neither gate.
+- Made G5 explicitly require both G3 and G4 outputs plus the three guides drafted from them.
+- Preserved the direct-evidence rule and tightly bounded subjective fit/preference conclusions.
+
+### Gate verification
+
+Command:
+
+```powershell
+rg -n "G0 Brief|G1 Evidence|G2 Selection|G3 Claims|G4 Creative|G5 Publish|G6 Refresh" docs/business-os/OPERATING_SYSTEM.md
+```
+
+Output (exit `0`):
+
+```text
+7:### G0 Brief
+15:### G1 Evidence
+18:- **Required inputs:** Passed G0 Brief; `research/evidence.csv` field contract; evidence hierarchy; candidate problem clusters; approved market and freshness rules.
+23:### G2 Selection
+26:- **Required inputs:** Passed G1 Evidence; candidate, provider, keyword, and evidence ledgers; the approved 100-point score; compatibility, safety, counterfeit, and model-identity risk notes.
+29:- **Rollback action:** Remove the unsupported selection from canonical data and return it to G1 Evidence; do not substitute a candidate until its full evidence package passes.
+31:After G2 Selection passes, G3 Claims and G4 Creative run as independent parallel branches. Neither gate consumes the other gate's artifact. Both branches must pass before Editorial drafts the three guides, and G5 Publish requires the completed outputs of both branches.
+33:### G3 Claims
+36:- **Required inputs:** Passed G2 Selection; canonical product records; approved evidence IDs and URLs; evidence/compliance rules; and the preliminary plain-language claim templates defined in Task 1.
+39:- **Rollback action:** Remove the unsupported claim, disable affected commercial copy, and reopen G1 Evidence with the responsible research owner when new direct evidence is needed.
+41:### G4 Creative
+49:### G5 Publish
+57:### G6 Refresh
+```
+
+### Affiliate-status verification
+
+Command:
+
+```powershell
+rg -n "DIRECT_LINK — AFFILIATE ID REQUIRED|AFFILIATE_LINK — VERIFIED|LINK DISABLED — REVIEW REQUIRED" docs/business-os/EVIDENCE_AND_COMPLIANCE.md
+```
+
+Output (exit `0`):
+
+```text
+31:DIRECT_LINK — AFFILIATE ID REQUIRED
+32:AFFILIATE_LINK — VERIFIED
+33:LINK DISABLED — REVIEW REQUIRED
+36:- `DIRECT_LINK — AFFILIATE ID REQUIRED` means the destination is a verified direct retailer URL and no tracking identifier has been added. This is the launch default while owner credentials are absent.
+37:- `AFFILIATE_LINK — VERIFIED` may be used only after the owner provides an approved program identifier and the completed deep link has been checked for the correct retailer, exact destination, and tracking behavior.
+38:- `LINK DISABLED — REVIEW REQUIRED` means the URL failed, redirected unsafely, mismatched the exact item, or otherwise requires review. It must not appear in a prominent commercial CTA.
+```
+
+### Parallel ownership and join verification
+
+Command:
+
+```powershell
+rg -n "independent parallel branches|Neither gate consumes the other|Owner:\*\* Research Integration|Passed G2 canonical data and selection rationale|G4 does not require or consume G3 output|Editorial owns neither G3 nor G4|consuming both G3 and G4 outputs|requires the completed outputs of both branches" docs/business-os/OPERATING_SYSTEM.md docs/business-os/EVIDENCE_AND_COMPLIANCE.md docs/business-os/AGENT_BRIEFS.md
+```
+
+Output (exit `0`):
+
+```text
+docs/business-os/OPERATING_SYSTEM.md:9:- **Owner:** Research Integration.
+docs/business-os/OPERATING_SYSTEM.md:25:- **Owner:** Research Integration.
+docs/business-os/OPERATING_SYSTEM.md:31:After G2 Selection passes, G3 Claims and G4 Creative run as independent parallel branches. Neither gate consumes the other gate's artifact. Both branches must pass before Editorial drafts the three guides, and G5 Publish requires the completed outputs of both branches.
+docs/business-os/OPERATING_SYSTEM.md:35:- **Owner:** Research Integration.
+docs/business-os/OPERATING_SYSTEM.md:44:- **Required inputs:** Passed G2 canonical data and selection rationale; approved design specification; and Task 1 evidence/compliance rules, including image rights and accessibility requirements.
+docs/business-os/OPERATING_SYSTEM.md:52:- **Required inputs:** Passed G2 canonical data; passed G3 evidence-bound claim records and claim inventory; completed G4 brand tokens, voice guide, and assets; exactly three guide manuscripts drafted by Editorial after consuming both G3 and G4 outputs; operating/compliance policies; required route list; and the full verification matrix.
+docs/business-os/AGENT_BRIEFS.md:36:- **Required evidence:** Passed G2 canonical data and selection rationale; approved design specification; Task 1 evidence/compliance and image-rights rules; documented asset origin; one allowed image-rights value per asset; source/permission and review date for any non-original asset; accessible title/alt guidance, color contrast results, dimensions, formats, and file-size audit. G4 does not require or consume G3 output.
+docs/business-os/AGENT_BRIEFS.md:43:- **Scope:** After the independent G3 and G4 branches both pass, consume Research Integration's G3 evidence-bound claim records and Identity/Creatives' completed G4 voice guide/assets to write exactly three complete English launch guides from approved keyword assignments, with Arabic-aware terminology where natural; add compatibility gates, skip guidance, disclosures, FAQs, and contextual links to all five products. Editorial owns neither G3 nor G4.
+```
+
+### Strict evidence verification
+
+Command:
+
+```powershell
+rg -n "requires direct evidence|only for explicitly subjective fit or preference conclusions|cannot introduce unsupported facts|without direct supporting evidence" docs/business-os/OPERATING_SYSTEM.md docs/business-os/EVIDENCE_AND_COMPLIANCE.md docs/business-os/AGENT_BRIEFS.md
+```
+
+Output (exit `0`):
+
+```text
+docs/business-os/AGENT_BRIEFS.md:28:- **Prohibited actions:** Filling research gaps by inference; changing staged observations without returning them to the owner; inventing affiliate IDs, volumes, prices, stock, claims, or model matches; presenting any factual, commercial, specification, compatibility, price, trend, or comparative claim without direct supporting evidence; using editorial judgment outside a labeled subjective fit/preference conclusion or to introduce unsupported facts; selecting a candidate with unresolved counterfeit, electrical-safety, or model-identity risk; producing other teams' assets or site code.
+docs/business-os/AGENT_BRIEFS.md:46:- **Prohibited actions:** Adding or changing products, scores, prices, providers, affiliate status, or keywords in canonical sources; editing or claiming ownership of G3 claim records or G4 identity outputs; presenting a factual claim without direct supporting evidence; using editorial judgment for anything except an explicitly subjective fit or preference conclusion; allowing a subjective conclusion to introduce unsupported facts; copied reviews or competitor copy; invented testing; fake scarcity; unsupported superlatives; undated prices; hiding disclosure after a CTA; drafting guides before both G3 and G4 pass; writing more or fewer than three launch guides.
+docs/business-os/EVIDENCE_AND_COMPLIANCE.md:60:- Every factual, commercial, specification, compatibility, price, trend, or comparative claim requires direct evidence that supports the exact claim being made.
+docs/business-os/EVIDENCE_AND_COMPLIANCE.md:61:- Editorial judgment is permitted only for explicitly subjective fit or preference conclusions. It must be labeled as judgment and cannot introduce unsupported facts, specifications, performance implications, comparisons, or market observations.
+docs/business-os/OPERATING_SYSTEM.md:37:- **Pass condition:** Every factual, commercial, specification, compatibility, price, trend, or comparative claim requires direct evidence that supports that exact claim. Editorial judgment is permitted only for explicitly subjective fit or preference conclusions, must be labeled as such, and cannot introduce unsupported facts. Prices are dated snapshots, limitations and skip guidance are present, and planned disclosure precedes the first commercial CTA.
+```
+
+### Structural self-review and diff check
+
+Commands:
+
+```powershell
+$os = Get-Content -LiteralPath 'docs\business-os\OPERATING_SYSTEM.md' -Raw
+$briefs = Get-Content -LiteralPath 'docs\business-os\AGENT_BRIEFS.md' -Raw
+$g3 = [regex]::Match($os, '(?s)### G3 Claims(.*?)### G4 Creative').Groups[1].Value
+$g4 = [regex]::Match($os, '(?s)### G4 Creative(.*?)### G5 Publish').Groups[1].Value
+$g5 = [regex]::Match($os, '(?s)### G5 Publish(.*?)### G6 Refresh').Groups[1].Value
+$integration = [regex]::Match($briefs, '(?s)## Research Integration(.*?)## Identity/Creatives').Groups[1].Value
+$identity = [regex]::Match($briefs, '(?s)## Identity/Creatives(.*?)## Editorial').Groups[1].Value
+$editorial = [regex]::Match($briefs, '(?s)## Editorial(.*?)## Website').Groups[1].Value
+$assertions = @(
+  ($os -match 'G3 Claims and G4 Creative run as independent parallel branches'),
+  ($g3 -match '\*\*Owner:\*\* Research Integration' -and $g3 -notmatch '\*\*Owner:\*\* Editorial'),
+  ($g4 -match 'Required inputs:.*Passed G2 canonical data and selection rationale' -and $g4 -notmatch 'Required inputs:.*G3'),
+  ($g5 -match 'passed G3 evidence-bound claim records.*completed G4 brand tokens'),
+  ($integration -match 'own G3 by creating evidence-bound factual claim records'),
+  ($identity -match 'G4 does not require or consume G3 output'),
+  ($editorial -match 'After the independent G3 and G4 branches both pass' -and $editorial -match 'Editorial owns neither G3 nor G4'),
+  ($g3 -match 'requires direct evidence that supports that exact claim' -and $g3 -match 'cannot introduce unsupported facts')
+)
+if ($assertions -contains $false) { throw 'Parallel gate self-review failed' }
+Write-Output 'SELF_REVIEW_OK: 8/8 assertions passed'
+git diff --check
+```
+
+Output (exit `0`):
+
+```text
+SELF_REVIEW_OK: 8/8 assertions passed
+```
+
+`git diff --check` produced no output and no errors.
+
+### Final sequencing concerns
+
+None. G3 and G4 are independent siblings after G2, Editorial consumes both, and G5 requires the joined outputs.

@@ -73,7 +73,7 @@ These neutral Task 1 templates support G3 claim review before the G4 voice guide
 - **Skip guidance:** `Skip this if [evidence-backed incompatibility or explicitly subjective preference].`
 - **Subjective fit:** `Editorial fit judgment: this may suit [user/use case] because [cited facts]; this is a fit conclusion, not a new product fact.`
 
-G3 may use these templates to approve factual claims and clearly bounded fit conclusions. Editorial applies the completed G4 voice guide only during later guide drafting; G3 does not require or create the G4 voice guide.
+Research Integration may use these templates at G3 to create evidence-bound factual claim records and clearly bounded fit conclusions. G3 and G4 run independently after G2; neither requires the other's output. Editorial later consumes both the passed G3 claim inventory and completed G4 voice guide/assets when drafting guides.
 
 ## Prohibited practices
 
