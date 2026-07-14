@@ -88,7 +88,7 @@ Define image-rights values `ORIGINAL`, `MANUFACTURER_PERMISSION_REVIEWED`, `AFFI
 
 - [ ] **Step 4: Write focused agent briefs**
 
-Create separate briefs for Product/Provider Research, SEO/Trend Research, Identity, Creatives, Editorial, Website, and Final Review. Every brief must state scope, allowed files, required evidence, prohibited actions, expected report path, and completion criteria. Product and SEO researchers may edit only `research/`; identity may edit only `brand/` and `public/brand/`; website may edit only `site/` after canonical data exists.
+Create separate briefs for Product/Provider Research, SEO/Trend Research, Research Integration, Identity/Creatives, Editorial, Website, and Final Review. Every brief must state scope, allowed files, required evidence, prohibited actions, expected report path, and completion criteria. Product and SEO researchers may edit only `research/`; Research Integration may edit `data/`, `scripts/validate_research.mjs`, `tests/research-data.test.mjs`, and `docs/research/`; Identity/Creatives may edit `brand/`, `public/brand/`, and `tests/brand-assets.test.mjs`; Website may edit only `site/` after canonical data exists.
 
 - [ ] **Step 5: Initialize durable progress**
 
