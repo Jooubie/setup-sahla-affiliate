@@ -39,7 +39,7 @@ All retail and manufacturer imagery is `SOURCE_LINK_ONLY`. It may inform researc
 
 | Route | Primary keyword | Intent | Qualitative source | Supporting terms retained |
 |---|---|---|---|---|
-| `/products/usb-c-hub/` | `usb c hub` | Commercial investigation | [Google Autocomplete, EG English](https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=usb%20c%20hub), captured 2026-07-14 | `usb c hub egypt`; `usb c hub for laptop`; `موزع يو اس بي تايب سي`; `هاب type c` |
+| `/products/usb-c-hub/` | `usb c hub` | Commercial investigation | [Google Autocomplete, EG English](https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=usb%20c%20hub), captured 2026-07-14 | `usb c hub with hdmi`; `usb c hub with ethernet`; `usb c hub adapter`; `موزع يو اس بي تايب سي`; `هاب type c` |
 | `/products/laptop-stand/` | `laptop stand` | Commercial investigation | [Google Autocomplete, EG English](https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=laptop%20stand), captured 2026-07-14 | `laptop stand egypt`; `laptop stand for desk`; `حامل لابتوب`; `حامل لابتوب قابل للطي`; `ستاند لابتوب` |
 | `/products/laptop-cooling-pad/` | `laptop cooling pad` | Commercial investigation | [Google Autocomplete, EG English](https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=laptop%20cooling%20pad), captured 2026-07-14 | `laptop cooling pad egypt`; `laptop cooling pad for gaming`; `مبرد لابتوب`; `قاعدة تبريد لابتوب` |
 | `/products/desk-cable-management/` | `cable management desk` | Commercial investigation | [Google Autocomplete, EG English](https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=cable%20management%20desk), captured 2026-07-14 | `cable management desk tray`; `cable management desk box`; `under desk cable management tray`; `cable organizer egypt`; `كيبل مانجمنت` |
@@ -81,9 +81,9 @@ Strength labels remain qualitative. This evidence supports the existence of quer
 
 **Provider comparison.** [Amazon Egypt](https://www.amazon.eg/-/en/dp/B0CP198X1G) showed EGP 1,035, in-stock status, Amazon.eg as seller and shipper, and free returns on 2026-07-15. [Noon Egypt](https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/) showed EGP 1,040, free delivery, noon-express, and a visible 4.5 rating from 13 ratings on 2026-07-15; the seller name was not retained. The rating is a volatile retailer observation, not Setup Sahla's quality evidence.
 
-**Compatibility and safety.** [Havit's HV-F2069 page](https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop) lists four fans, dual USB, speed control, two height settings, 15.6–17.3-inch fit, and a Type-C-to-USB adapter requirement when applicable. It is host-USB-powered, not a laptop repair. Skip and seek service when the laptop has blocked vents, a damaged cable, a failing internal fan, or another internal fault.
+**Compatibility and safety.** [Havit's HV-F2069 page](https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop) lists four fans, dual USB, speed control, two height settings, 15.6–17.3-inch fit, and a Type-C-to-USB adapter requirement when applicable. It is powered through a host USB connection and must not be presented as an internal laptop repair.
 
-**Why it won.** It was the only thermal candidate with exact pages on both Egypt retailers plus official model specifications and a documented power gate. The score is `19 + 16 + 15 + 12 + 8 + 9 + 5 = 84`.
+**Why it won.** Among the 15 researched candidates, it was the only cooling-pad candidate with exact pages on both Egypt retailers plus official model specifications and a documented power gate. The score is `19 + 16 + 15 + 12 + 8 + 9 + 5 = 84`.
 
 **Closest rejection.** DeepCool U PAL had an [official specification page](https://global.deepcool.com/products/Cooling/laptopcoolers/2021/11402.shtml) and a [Noon Egypt listing](https://www.noon.com/egypt-en/u-pal-notebook-laptop-cooler-two-silent-140mm-fans-compatible-with-15-6-inch/Z77938BBCD23D61B47614Z/p/), but no verified Amazon exact-model page and no retained Noon seller identity.
 
@@ -91,15 +91,15 @@ Strength labels remain qualitative. This evidence supports the existence of quer
 
 ## 4. Logitech Signature M650 — 80/100
 
-**Problem and buyer path.** The selected small/medium graphite right-handed variant provides a separate quiet mouse for a raised-laptop workflow. The primary phrase `ergonomic mouse` was returned in the Egypt-localized suggestion response, but the product must not inherit every implication of that broad category.
+**Problem and buyer path.** The selected small/medium graphite right-handed variant provides a separate mouse for a raised-laptop workflow. The primary phrase `ergonomic mouse` was returned in the Egypt-localized suggestion response, but the product must not inherit every implication of that broad category.
 
 **Provider comparison.** [Amazon Egypt](https://www.amazon.eg/-/en/dp/B09QWY7JYK) showed EGP 1,799, four units left, seller Dokkan Tech, and free returns on 2026-07-15. [Noon Egypt](https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/) showed regional part 910-006253 at EGP 1,749, add-to-cart availability, seller Dokkan Tech, and noon-express on 2026-07-14.
 
 **Compatibility and identity.** [Logitech's M650 page](https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html) lists Bluetooth Low Energy, Logi Bolt, 200–4000 DPI, and a right-handed small-to-medium option. Amazon's title did not print the Noon regional part number; its match is by model, size, color, and hand orientation. Buyers must confirm the named variant at checkout.
 
-**Why it won.** It had cross-provider coverage and a stable conventional model while the vertical alternative failed exact-variant identity. The score is `17 + 16 + 15 + 11 + 8 + 9 + 4 = 80`.
+**Why it won.** It had cross-provider coverage and a stable M650 named-variant trail while the Lift alternative failed exact-variant identity. The score is `17 + 16 + 15 + 11 + 8 + 9 + 4 = 80`.
 
-**Critical wording boundary.** M650 is a quiet conventional contoured mouse, not a vertical ergonomic mouse. Setup Sahla will not claim pain relief, carpal-tunnel treatment, medical benefit, or therapeutic performance.
+**Critical wording boundary.** The selected product is M650, not the separately researched Logitech Lift vertical model. Setup Sahla will not claim pain relief, carpal-tunnel treatment, medical benefit, or therapeutic performance.
 
 **Closest rejection.** Logitech Lift 910-006473 had a [manufacturer variant page](https://www.logitech.com/en-ae/products/mice/lift-vertical-ergonomic-mouse.910-006475.html) and a [Noon Egypt listing](https://www.noon.com/egypt-en/lift-vertical-ergonomic-mouse-wireless-bluetooth-or-logi-bolt-usb-receiver-quiet-clicks-4-buttons-compatible-with-windows-macos-ipados-laptop-pc-black/N53341712A/p/), but the captured retailer page co-mingled several part numbers. Exact variant identity was unresolved.
 

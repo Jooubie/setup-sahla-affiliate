@@ -3,20 +3,38 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const [schema, products, evidenceText, productEvidenceText, seoEvidenceText, affiliateEvidenceText] = await Promise.all([
+const [schema, products, evidenceText, productEvidenceText, seoEvidenceText, affiliateEvidenceText, candidatesText] = await Promise.all([
   readJson('data/product.schema.json'),
   readJson('data/products.json'),
   readFile(new URL('../research/evidence.csv', import.meta.url), 'utf8'),
   readFile(new URL('../research/product-evidence.csv', import.meta.url), 'utf8'),
   readFile(new URL('../research/seo-evidence.csv', import.meta.url), 'utf8'),
   readFile(new URL('../research/affiliate-program-evidence.csv', import.meta.url), 'utf8'),
+  readFile(new URL('../research/product-candidates.csv', import.meta.url), 'utf8'),
 ]);
 
 function readJson(relativePath) {
   return readFile(new URL(`../${relativePath}`, import.meta.url), 'utf8').then(JSON.parse);
 }
 
-function parseCsv(text) {
+export function isStrictIsoDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  return Number.isFinite(parsed.valueOf()) && parsed.toISOString().slice(0, 10) === value;
+}
+
+export function isStrictIsoUtcTimestamp(value) {
+  if (typeof value !== 'string') return false;
+  const match = value.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,3}))?Z$/);
+  if (!match || !isStrictIsoDate(match[1])) return false;
+  const [, date, hours, minutes, seconds, fraction = ''] = match;
+  if (Number(hours) > 23 || Number(minutes) > 59 || Number(seconds) > 59) return false;
+  const normalized = `${date}T${hours}:${minutes}:${seconds}.${fraction.padEnd(3, '0')}Z`;
+  const parsed = new Date(normalized);
+  return Number.isFinite(parsed.valueOf()) && parsed.toISOString() === normalized;
+}
+
+export function parseCsv(text) {
   const records = [];
   let row = [];
   let field = '';
@@ -95,10 +113,8 @@ function validateSchema(value, node, path = '$') {
       const url = new URL(value);
       assert.equal(url.protocol, 'https:', `${path} must be an HTTPS URL`);
     }
-    if (node.format === 'date-time') {
-      assert.match(value, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/, `${path} must be an ISO-8601 UTC timestamp`);
-      assert.ok(Number.isFinite(Date.parse(value)), `${path} must be a valid date-time`);
-    }
+    if (node.format === 'date') assert.ok(isStrictIsoDate(value), `${path} must be a real ISO-8601 calendar date`);
+    if (node.format === 'date-time') assert.ok(isStrictIsoUtcTimestamp(value), `${path} must be a real ISO-8601 UTC timestamp`);
   } else if (node.type === 'integer') {
     assert.ok(Number.isInteger(value), `${path} must be an integer`);
   } else if (node.type === 'number') {
@@ -124,8 +140,7 @@ const evidenceById = new Map();
 for (const row of evidenceRows) {
   assert.ok(row.evidence_id.trim(), 'every evidence row needs an evidence_id');
   assert.ok(!evidenceById.has(row.evidence_id), `duplicate evidence ID ${row.evidence_id}`);
-  assert.match(row.captured_at_utc, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/, `${row.evidence_id} capture timestamp`);
-  assert.ok(Number.isFinite(Date.parse(row.captured_at_utc)), `${row.evidence_id} capture timestamp must parse`);
+  assert.ok(isStrictIsoUtcTimestamp(row.captured_at_utc), `${row.evidence_id} must have a real ISO-8601 UTC capture timestamp`);
   assert.equal(row.rights_status, 'SOURCE_LINK_ONLY', `${row.evidence_id} rights status`);
   new URL(row.source_url);
   evidenceById.set(row.evidence_id, row);
@@ -136,6 +151,8 @@ const stagedIds = new Set(stagedRows.map((row) => row.staged_id));
 assert.equal(stagedIds.size, stagedRows.length, 'staging evidence IDs must be unique across research streams');
 assert.equal(evidenceById.size, stagedIds.size, 'canonical ledger must contain every staged row and no untracked rows');
 for (const evidenceId of stagedIds) assert.ok(evidenceById.has(evidenceId), `canonical ledger is missing staged evidence ${evidenceId}`);
+const candidateRows = parseCsv(candidatesText);
+assert.equal(candidateRows.length, 15, 'the researched comparison universe must contain 15 candidates');
 
 const expectedCandidateIds = new Set(['PP-C01', 'PP-C04', 'PP-C09', 'PP-C10', 'PP-C15']);
 assert.deepEqual(new Set(products.map((product) => product.candidateId)), expectedCandidateIds, 'canonical data must contain only the approved five candidates');
@@ -185,6 +202,24 @@ for (const product of products) {
   assert.equal(keywordRow.source_url, product.primaryKeyword.sourceUrl, `${product.slug} keyword URL must match its evidence row`);
   assert.equal(keywordRow.captured_at_utc, product.primaryKeyword.capturedAt, `${product.slug} keyword date must match its evidence row`);
   assert.equal(keywordRow.used_by, product.route, `${product.slug} keyword route must match the canonical route`);
+
+  for (const keyword of product.supportingKeywords) {
+    const rows = evidenceRows.filter((row) => row.query_or_item === keyword);
+    assert.ok(rows.length > 0, `${product.slug} supporting keyword ${keyword} needs evidence`);
+    assert.ok(
+      rows.some(
+        (row) =>
+          row.market === 'EG' &&
+          row.metric_unit === 'qualitative' &&
+          row.used_by === product.route &&
+          row.source_name.trim().length > 0 &&
+          row.source_url.startsWith('https://') &&
+          isStrictIsoUtcTimestamp(row.captured_at_utc) &&
+          !['not_returned', 'rate_limited'].includes(row.metric_value),
+      ),
+      `${product.slug} supporting keyword ${keyword} needs same-route positive EG qualitative source/date evidence`,
+    );
+  }
 }
 
 for (const candidateId of ['PP-C01', 'PP-C15']) {
@@ -193,9 +228,13 @@ for (const candidateId of ['PP-C01', 'PP-C15']) {
 }
 
 const mouse = products.find((product) => product.candidateId === 'PP-C10');
-assert.match(mouse.verdict, /quiet conventional contoured mouse/i, 'M650 must be described as a conventional mouse');
-assert.match(mouse.verdict, /not a vertical ergonomic mouse/i, 'M650 must not be presented as a vertical mouse');
+assert.doesNotMatch(JSON.stringify(mouse), /\bquiet(?:er)?\b|contour(?:ed)?/i, 'M650 cannot carry unsupported quiet or contour claims');
+assert.match(mouse.verdict, /not the separately researched Logitech Lift vertical model/i, 'M650 must remain distinct from the vertical Lift model');
 assert.ok(mouse.risks.some((risk) => /part number|mapping/i.test(risk)), 'M650 part-number mapping caution must remain explicit');
+
+const coolingPad = products.find((product) => product.candidateId === 'PP-C15');
+assert.match(coolingPad.verdict, /among the 15 researched candidates/i, 'Havit comparison must be bounded to the verified candidate universe');
+assert.doesNotMatch(JSON.stringify(coolingPad), /blocked vent|damaged (?:power )?cable|failing internal fan/i, 'Havit cannot carry unsupported service advice');
 
 assert.ok(evidenceById.has('AFF-004'), 'Noon territory limitation evidence must be integrated');
 assert.ok(products.every((product) => product.risks.some((risk) => /Noon Egypt affiliate commission eligibility is unconfirmed/.test(risk))), 'every product must preserve the Noon Egypt commission limitation');

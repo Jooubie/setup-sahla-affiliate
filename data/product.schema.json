@@ -71,7 +71,7 @@
       "minItems": 1,
       "items": { "$ref": "#/$defs/nonEmptyString" }
     },
-    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "date": { "type": "string", "format": "date", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
     "dateTime": { "type": "string", "format": "date-time" },
     "uri": { "type": "string", "format": "uri", "pattern": "^https://" },
     "primaryKeyword": {

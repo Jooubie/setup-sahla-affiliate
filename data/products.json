@@ -37,8 +37,9 @@
       "capturedAt": "2026-07-14T23:52:11Z"
     },
     "supportingKeywords": [
-      "usb c hub egypt",
-      "usb c hub for laptop",
+      "usb c hub with hdmi",
+      "usb c hub with ethernet",
+      "usb c hub adapter",
       "موزع يو اس بي تايب سي",
       "هاب type c"
     ],
@@ -228,14 +229,13 @@
     "route": "/products/laptop-cooling-pad/",
     "name": "Havit F2069 Laptop Cooling Pad",
     "category": "Thermal management",
-    "problem": "A 15.6–17.3-inch laptop needs more space and powered airflow below its base after blocked-vent and internal-fault checks are ruled out.",
-    "verdict": "Selected as the only cooling-pad candidate with exact live pages on both Egypt retailers and an official model specification. It is a USB-powered accessory, not a repair or a promise to reduce temperature by a stated amount.",
+    "problem": "A 15.6–17.3-inch laptop needs more space and USB-powered airflow below its base.",
+    "verdict": "Selected among the 15 researched candidates as the only cooling-pad candidate with exact live pages on both Egypt retailers and an official model specification. It is a USB-powered accessory, not an internal laptop repair or a promise to reduce temperature by a stated amount.",
     "bestFor": [
-      "Editorial fit judgment: 15.6–17.3-inch laptops whose intake layout can use airflow from below",
-      "Editorial fit judgment: buyers who want adjustable height and fan-speed control after basic ventilation checks"
+      "Editorial fit judgment: laptops within the manufacturer-listed 15.6–17.3-inch size range",
+      "Editorial fit judgment: buyers who want the manufacturer-listed adjustable height and fan-speed control"
     ],
     "skipIf": [
-      "The laptop has blocked vents, a damaged power cable, a failing internal fan, or another fault that needs service",
       "Your laptop is outside the listed size range or exposes only USB-C and you will not use the required adapter"
     ],
     "brand": "Havit",
@@ -324,7 +324,7 @@
       },
       {
         "evidenceId": "PP-E035",
-        "claim": "Power and safety gate: host-USB-powered accessory; Type-C may need an adapter; reject damaged cables and do not present it as an internal cooling repair.",
+        "claim": "Power and safety gate: the accessory uses a host USB connection for power; Type-C may need an adapter; do not present the pad as an internal laptop repair.",
         "sourceUrl": "https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop",
         "capturedAt": "2026-07-15T00:25:00Z"
       }
@@ -452,11 +452,11 @@
     "route": "/products/ergonomic-mouse/",
     "name": "Logitech Signature M650 Wireless Mouse (small/medium, graphite)",
     "category": "Input comfort",
-    "problem": "A raised laptop setup needs a separate quiet right-handed mouse sized for small-to-medium hands.",
-    "verdict": "Selected as a quiet conventional contoured mouse with dual wireless connection options; it is not a vertical ergonomic mouse and no medical or therapeutic benefit is claimed. The Amazon match is by model, size, color, and orientation because that page does not print the Noon regional part number.",
+    "problem": "A raised laptop setup needs a separate right-handed mouse sized for small-to-medium hands.",
+    "verdict": "Selected for the manufacturer-listed small-to-medium right-handed variant and its Bluetooth Low Energy or Logi Bolt connection options. It is the M650, not the separately researched Logitech Lift vertical model, and no medical or therapeutic benefit is claimed. The Amazon match is by model, size, color, and orientation because that page does not print the Noon regional part number.",
     "bestFor": [
-      "Editorial fit judgment: small-to-medium right hands that prefer a conventional mouse shape",
-      "Editorial fit judgment: buyers who want Bluetooth Low Energy or Logi Bolt connectivity and quieter clicks"
+      "Editorial fit judgment: small-to-medium right hands that fit the manufacturer-listed size option",
+      "Editorial fit judgment: buyers who want Bluetooth Low Energy or Logi Bolt connectivity"
     ],
     "skipIf": [
       "You specifically need a vertical mouse shape",
@@ -548,7 +548,7 @@
       }
     ],
     "risks": [
-      "The target keyword describes a broad ergonomic category, but the selected M650 is a conventional contoured mouse, not a vertical model.",
+      "The target keyword describes a broad ergonomic category, but the selected product is M650, not the separately researched Logitech Lift vertical model.",
       "Amazon does not expose regional part number 910-006253 in the captured title, so the provider mapping remains a checkout caution.",
       "No pain-relief, carpal-tunnel, medical, or therapeutic claim is supported.",
       "Noon Egypt affiliate commission eligibility is unconfirmed because current public terms name UAE and KSA, not Egypt."

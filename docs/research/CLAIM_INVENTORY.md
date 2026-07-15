@@ -47,7 +47,7 @@ Approved editorial judgment: `This may fit a desk user who already has an extern
 | HAV-04 | Noon Egypt showed EGP 1,040 on 2026-07-15. | [PP-E034](https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/) | Dated snapshot only; seller must be rechecked. |
 | HAV-05 | The official Havit store page marked the product no longer available there at capture. | [PP-E032](https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop) | This is a continuity risk, not proof that Egypt retailers are out of stock. |
 
-Approved skip guidance: `Skip the accessory and investigate the laptop first if vents are blocked, a cable is damaged, or internal cooling appears to be failing.` Do not present F2069 as a repair.
+Approved skip guidance: `Skip this if the laptop is outside the listed 15.6–17.3-inch range, or if the available host port is Type-C and you will not use the required adapter.` Do not present F2069 as an internal laptop repair.
 
 ## JOYROOM JR-ZS368 six-piece variant
 
@@ -66,9 +66,9 @@ Approved skip guidance: `Skip this if your cable is 7.5 mm or wider, or if adhes
 | LOG-01 | Logitech lists Bluetooth Low Energy, Logi Bolt, 200–4000 DPI, and a right-handed small-to-medium option for M650. | [PP-E019](https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html) | Manufacturer specification controls over conflicting retailer DPI wording. |
 | LOG-02 | Amazon Egypt showed the named small/medium graphite M650 at EGP 1,799 on 2026-07-15. | [PP-E031](https://www.amazon.eg/-/en/dp/B09QWY7JYK) | Regional part number was not printed; confirm model, size, color, and orientation. |
 | LOG-03 | Noon Egypt showed regional part 910-006253 at EGP 1,749 on 2026-07-14. | [PP-E020](https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/) | Dated snapshot only; check current price. |
-| LOG-04 | M650 is the selected conventional contoured mouse; it is not the rejected Logitech Lift vertical model. | [PP-E019](https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html) and canonical model identity | Never call M650 vertical or imply that it treats pain or carpal tunnel. |
+| LOG-04 | The selected product is M650, not the separately researched Logitech Lift vertical model. | [PP-E019](https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html) and [PP-E023](https://www.logitech.com/en-ae/products/mice/lift-vertical-ergonomic-mouse.910-006475.html) | Do not transfer the Lift's vertical-model description to M650 or imply that M650 treats pain or carpal tunnel. |
 
-Approved wording: `The M650 is a quiet conventional contoured mouse for small-to-medium right hands, not a vertical ergonomic mouse.`
+Approved wording: `Logitech lists a right-handed small-to-medium M650 option with Bluetooth Low Energy and Logi Bolt connectivity. The selected product is M650, not the separately researched Lift vertical model.`
 
 ## Qualitative demand claims
 
