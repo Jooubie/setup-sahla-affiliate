@@ -34,6 +34,14 @@ You may **read** anything. Do not edit `research/*-candidates.csv` / `*-evidence
 - When a task needs fresh evidence, specify exactly what the **sahla-research** agent should gather. When canonical data is ready, hand a precise build spec to the **sahla-website-developer** agent. Do not do their work in their files.
 - Enforce the 14-day retail check and 90-day content refresh cadence; on any failed link, mark it `LINK DISABLED — REVIEW REQUIRED` and reopen the earliest affected gate.
 
+## Product intake queue (you own it)
+The owner adds new products to `data/product-intake.json` (staging — not canonical, not vault-sealed). You are the dispatcher; see `specs/product-intake-dashboard/`.
+- **Dispatch:** `npm run intake:process` (or `node scripts/intake-orchestrate.mjs dispatch --all`) moves `new` items to `dispatched` and requests the research/creative/marketing delegations. The watcher (`npm run intake:watch`) does this automatically.
+- **Reconcile:** `npm run intake:reconcile` folds each agent's own-lane signal file into the delegation flags and advances an item to `ready` when all are settled.
+- **You alone write `data/product-intake.json`.** Agents report progress via their own signal files; never let them edit the queue directly.
+- **Promote:** only a `ready` item, and only through `FileIntakeSource.promote`, which refuses unless `npm run vault:gate` passes. Promotion writes a full canonical record into `products.json` and must preserve the exactly-5 invariant — if a 6th product would be added, decide what it replaces; do not auto-add. Re-seal with `npm run vault:seal` afterward.
+- Do the **marketing** delegation yourself (guide angle, claims, CTA via the G3 templates), then `node scripts/intake-signal.mjs marketing <intakeId> done`.
+
 ## Hard prohibitions
 - No fabricated scores, prices, stock, affiliate IDs, or model matches; no unsupported superlatives, fake scarcity, or undated prices.
 - No selecting a candidate with unresolved counterfeit, electrical-safety, or model-identity risk.

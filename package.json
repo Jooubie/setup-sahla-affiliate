@@ -8,6 +8,11 @@
     "vault:seal": "node scripts/vault.mjs seal",
     "vault:verify": "node scripts/vault.mjs verify",
     "vault:secrets": "node scripts/vault.mjs secrets-scan",
+    "intake:validate": "node scripts/validate_intake.mjs",
+    "intake:process": "node scripts/intake-orchestrate.mjs dispatch --all",
+    "intake:reconcile": "node scripts/intake-orchestrate.mjs reconcile --all",
+    "intake:status": "node scripts/intake-orchestrate.mjs status",
+    "intake:watch": "node scripts/intake-watch.mjs",
     "test": "node --test tests/*.test.mjs"
   }
 }

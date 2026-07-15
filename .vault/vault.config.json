@@ -1,5 +1,6 @@
 {
   "sealGlobs": ["data/**/*.json", "research/**/*.csv"],
+  "sealExclude": ["data/product-intake.json"],
   "protectedFromAgents": [
     ".vault/integrity.manifest.json",
     ".vault/secrets.local.json",

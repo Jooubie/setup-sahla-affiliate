@@ -5,7 +5,7 @@
   },
   "sahla-product-manager": {
     "prefixes": ["data/", "content/", "docs/research/", "docs/editorial/", "docs/business/"],
-    "files": ["research/evidence.csv", ".superpowers/sdd/progress.md"]
+    "files": ["research/evidence.csv", ".superpowers/sdd/progress.md", ".superpowers/sdd/intake-log.md"]
   },
   "sahla-creative": {
     "prefixes": ["brand/", "assets/generated/"],

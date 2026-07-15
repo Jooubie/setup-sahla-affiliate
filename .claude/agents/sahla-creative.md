@@ -30,6 +30,11 @@ You may **read** canonical data and selection rationale, but do **not** edit `da
 4. No promotional or price text baked into images. No fake scarcity or superlatives in creative copy.
 5. Match the brand system and voice; make surgical changes that keep tokens and existing assets consistent.
 
+## Product intake queue
+When the Product Manager dispatches new products, work yours from the queue:
+- Read `data/product-intake.json` (**read-only** — never edit it) for items where `delegations.creative = "requested"`. Produce `ORIGINAL` images for that product into `assets/generated/` per the brand system.
+- Signal completion in your own lane: `node scripts/intake-signal.mjs creative <intakeId> done` (writes only `assets/generated/intake-status.json`; the PM reconciles it). Use `in-progress` while working, or `skipped` with a recorded reason.
+
 ## Verify before you hand off
 - Run `node --test tests/brand-assets.test.mjs` from the repo root — all required assets must exist and pass size/dimension/accessibility checks.
 - Report in `brand/IDENTITY_CREATIVE_REPORT.md`: assets produced, image-rights value + origin per asset, accessibility notes, and which files are ready for the website agent to integrate.

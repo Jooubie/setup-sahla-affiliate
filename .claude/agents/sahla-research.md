@@ -31,6 +31,11 @@ You may **read** anything, but you must not edit `research/evidence.csv` (the ca
 5. Cover English, Arabic, and transliterated query variants for Egypt/MENA.
 6. State limitations, conflicts, locale mismatches, and exact-model uncertainty in the `notes`/report — do not paper over gaps.
 
+## Product intake queue
+When the Product Manager dispatches new products, work yours from the queue:
+- Read `data/product-intake.json` (**read-only** — never edit it) for items where `delegations.research = "requested"`. Use each item's name/provider/URL as the seed to **focus** your evidence gathering into your normal `research/*.csv` staging.
+- When a product's research is staged, signal completion in your own lane: `node scripts/intake-signal.mjs research <intakeId> done`. That writes only `research/intake-status.json`; the PM reconciles it. Use `in-progress` while working and `skipped` with a note in your report if a product can't be researched.
+
 ## Hard prohibitions
 - No fabricated prices, stock, volumes, affiliate IDs, or model matches.
 - No copied reviews or competitor copy; no invented testing.

@@ -85,9 +85,12 @@ function walk(dir, out = []) {
   return out;
 }
 
-function filesMatching(globs) {
+function filesMatching(globs, exclude = []) {
   const res = globs.map(globToRegExp);
-  return walk(ROOT).filter((f) => res.some((r) => r.test(f))).sort();
+  const ex = exclude.map(globToRegExp);
+  return walk(ROOT)
+    .filter((f) => res.some((r) => r.test(f)) && !ex.some((r) => r.test(f)))
+    .sort();
 }
 
 function sha256(r) {
@@ -96,10 +99,11 @@ function sha256(r) {
 
 // ---- modes ------------------------------------------------------------------
 function seal() {
-  const files = filesMatching(config.sealGlobs);
+  const exclude = config.sealExclude || [];
+  const files = filesMatching(config.sealGlobs, exclude);
   const entries = {};
   for (const f of files) entries[f] = sha256(f);
-  const manifest = { sealedFiles: files.length, globs: config.sealGlobs, checksums: entries };
+  const manifest = { sealedFiles: files.length, globs: config.sealGlobs, exclude, checksums: entries };
   writeFileSync(abs('.vault/integrity.manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
   console.log(`vault: sealed ${files.length} canonical file(s) -> .vault/integrity.manifest.json`);
   return 0;
@@ -111,7 +115,7 @@ function verify() {
     return 1;
   }
   const manifest = readJson('.vault/integrity.manifest.json');
-  const current = filesMatching(manifest.globs || config.sealGlobs);
+  const current = filesMatching(manifest.globs || config.sealGlobs, manifest.exclude || config.sealExclude || []);
   const problems = [];
   for (const [f, expected] of Object.entries(manifest.checksums)) {
     if (!existsSync(abs(f))) problems.push(`MISSING  ${f}`);

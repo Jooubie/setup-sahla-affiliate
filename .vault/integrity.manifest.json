@@ -1,10 +1,14 @@
 {
-  "sealedFiles": 8,
+  "sealedFiles": 9,
   "globs": [
     "data/**/*.json",
     "research/**/*.csv"
   ],
+  "exclude": [
+    "data/product-intake.json"
+  ],
   "checksums": {
+    "data/product-intake.schema.json": "e77b844b88b1f6fa3a55e1d434a4ead9fa5e8db8f6acf8afe2fc3601103f7fba",
     "data/product.schema.json": "bdbf72c6b2e4e0248a9e8e5ac9358ef5ed0a92bbe3516236d341a8a8609e9637",
     "data/products.json": "0bded0c84bea5e5d794f6af4beaf8646adf2d6b77a72c7e885869accf25bebe1",
     "research/affiliate-program-evidence.csv": "2b397e43fa54bf0e0dd6dd04db9850d0d2d25c76678b92fc4cdffcff08dc29a5",

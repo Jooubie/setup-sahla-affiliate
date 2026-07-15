@@ -1,0 +1,101 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { mkdtempSync, writeFileSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { validateIntakeItem, validateIntakeArray } from '../scripts/validate_intake.mjs';
+import { FileIntakeSource } from '../scripts/intake-source.mjs';
+import { SIGNAL_FILES, INTAKE_FILE } from '../scripts/intake-constants.mjs';
+
+const validItem = () => ({
+  intakeId: 'IN-2026-0001',
+  name: 'Test Hub',
+  category: 'Ports and connectivity',
+  problemHypothesis: 'test',
+  providers: [{ retailer: 'Amazon Egypt', productUrl: 'https://www.amazon.eg/dp/X', affiliateKeyRef: 'amazonEgypt.test' }],
+  priority: 'high',
+  status: 'new',
+  createdAt: '2026-07-15',
+});
+
+// ---- A1/A2: validation ------------------------------------------------------
+test('valid item passes', () => {
+  assert.deepEqual(validateIntakeItem(validItem()), []);
+});
+
+test('the shipped empty queue is valid', () => {
+  const items = JSON.parse(readFileSync(new URL('../' + INTAKE_FILE, import.meta.url), 'utf8'));
+  assert.deepEqual(validateIntakeArray(items), []);
+});
+
+test('affiliateKeyRef containing a URL is rejected', () => {
+  const bad = validItem();
+  bad.providers[0].affiliateKeyRef = 'https://amazon.eg/dp/X'; // a URL where a vault key belongs
+  const errors = validateIntakeItem(bad);
+  assert.ok(errors.some((e) => /affiliateKeyRef/.test(e)), 'should flag URL in affiliateKeyRef');
+});
+
+test('bad status and missing name are rejected', () => {
+  const bad = { ...validItem(), status: 'live', name: '' };
+  const errors = validateIntakeItem(bad);
+  assert.ok(errors.some((e) => /status/.test(e)));
+  assert.ok(errors.some((e) => /name/.test(e)));
+});
+
+test('duplicate intakeId is rejected at array level', () => {
+  const errors = validateIntakeArray([validItem(), validItem()]);
+  assert.ok(errors.some((e) => /duplicate/.test(e)));
+});
+
+// ---- A3: FileIntakeSource lifecycle ----------------------------------------
+function tempSource(extra = {}) {
+  const root = mkdtempSync(path.join(tmpdir(), 'intake-'));
+  mkdirSync(path.join(root, 'data'), { recursive: true });
+  writeFileSync(path.join(root, INTAKE_FILE), JSON.stringify([validItem()], null, 2));
+  mkdirSync(path.join(root, '.superpowers', 'sdd'), { recursive: true });
+  return { root, src: new FileIntakeSource({ root, ...extra }) };
+}
+
+test('dispatch moves new -> dispatched and requests all delegations', async () => {
+  const { root, src } = tempSource();
+  const it = await src.dispatch('IN-2026-0001');
+  assert.equal(it.status, 'dispatched');
+  assert.deepEqual(it.delegations, { research: 'requested', creative: 'requested', marketing: 'requested' });
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('reconcile folds agent signals and advances to ready when all settled', async () => {
+  const { root, src } = tempSource();
+  await src.dispatch('IN-2026-0001');
+  // each agent signals in its own-lane file
+  for (const [agent, rel] of Object.entries(SIGNAL_FILES)) {
+    const p = path.join(root, rel);
+    mkdirSync(path.dirname(p), { recursive: true });
+    writeFileSync(p, JSON.stringify({ 'IN-2026-0001': 'done' }));
+  }
+  const [it] = await src.reconcile('IN-2026-0001');
+  assert.equal(it.status, 'ready');
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('promote refuses when the gate fails and writes nothing', async () => {
+  const writes = [];
+  const { root, src } = tempSource({ gateRunner: () => false, writeCanonical: (r) => writes.push(r) });
+  await src.dispatch('IN-2026-0001');
+  await assert.rejects(() => src.promote('IN-2026-0001', { slug: 'test' }), /gate failed/);
+  assert.equal(writes.length, 0, 'canonical must not be written when the gate fails');
+  const it = await src.get('IN-2026-0001');
+  assert.notEqual(it.status, 'promoted');
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('promote succeeds when the gate passes', async () => {
+  const writes = [];
+  const { root, src } = tempSource({ gateRunner: () => true, writeCanonical: (r) => writes.push(r) });
+  await src.dispatch('IN-2026-0001');
+  const it = await src.promote('IN-2026-0001', { slug: 'test-hub' });
+  assert.equal(it.status, 'promoted');
+  assert.equal(it.promotedProductId, 'test-hub');
+  assert.equal(writes.length, 1);
+  rmSync(root, { recursive: true, force: true });
+});

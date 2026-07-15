@@ -12,3 +12,10 @@ Thumbs.db
 /.vault/secrets.local.json
 .env
 .env.local
+
+# Product intake — runtime coordination state (the queue itself IS committed)
+/data/product-intake.json.tmp
+/research/intake-status.json
+/assets/generated/intake-status.json
+/docs/editorial/intake-status.json
+/.superpowers/sdd/intake-log.md
