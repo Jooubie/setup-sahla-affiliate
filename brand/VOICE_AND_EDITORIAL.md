@@ -121,13 +121,15 @@ The disclosure must appear before the first commercial CTA, not only in the foot
 
 Use while link status is `DIRECT_LINK — AFFILIATE ID REQUIRED`:
 
-> **Link disclosure:** Buying links on this page currently go directly to the retailer. Setup Sahla does not yet earn from these links; affiliate tracking will be added only after program approval and link verification.
+> **Link disclosure:** Buying links on this page currently go directly to the retailer. Setup Sahla does not yet earn from these links. Affiliate tracking may be added only when the specific program and territory are confirmed as eligible and the finished tracking link is verified.
 
 This wording must not imply an active commission.
 
+**Noon Egypt safeguard:** Noon Egypt affiliate eligibility is currently unconfirmed. Keep every Noon Egypt destination at `DIRECT_LINK — AFFILIATE ID REQUIRED` and use the direct-link disclosure unless owner evidence confirms an Egypt-territory program and the finished link passes verification. Affiliate availability for a different territory is not permission to monetize an Egypt link.
+
 ### Verified affiliate state
 
-Use only when link status is `AFFILIATE_LINK — VERIFIED`:
+Use only when the specific program and territory have been confirmed and link status is `AFFILIATE_LINK — VERIFIED`:
 
 > **Affiliate disclosure:** Setup Sahla may earn a commission from eligible purchases made through the marked links, at no extra cost to you. This helps fund our evidence checks.
 

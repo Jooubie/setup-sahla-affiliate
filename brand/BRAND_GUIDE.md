@@ -44,7 +44,12 @@ On ink backgrounds, use the same geometry with the wordmark, underline, and tagl
 
 ### Monochrome
 
-For one-color print, stamps, invoices, and low-fidelity export, set every visible logo shape to either ink on a light background or cream on a dark background. Preserve the stroke widths and connector form. Do not simulate grayscale by lowering opacity.
+For one-color print, stamps, invoices, and low-fidelity export, use one of these two deterministic constructions. Never flatten every source shape to one solid color; that would hide the cable inside the tile.
+
+1. **Substrate knockout:** print the rounded tile in the single ink, then knock the complete S cable, circular routing node, connector body, and pins out to the unprinted substrate. Outside the tile, print the wordmark, underline, and tagline in the same ink. The knockout openings keep the source stroke widths; do not add gray or a second tint.
+2. **Tile-free one-ink:** remove the rounded tile and circular node. Draw the S cable, joined connector body and pins, wordmark, underline, and tagline in one ink on a plain contrasting substrate. Preserve the source geometry and stroke widths. This is the default for stamps smaller than 32mm wide.
+
+For a dark substrate, use one opaque light spot color with the tile-free construction. Do not simulate monochrome by lowering opacity, converting the primary palette to grayscale, or placing same-color cable geometry inside a same-color tile.
 
 ### Small-size
 

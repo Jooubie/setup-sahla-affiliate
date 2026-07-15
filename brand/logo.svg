@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 128" role="img" aria-labelledby="logo-title logo-desc">
   <title id="logo-title">Setup Sahla</title>
-  <desc id="logo-desc">The Setup Sahla wordmark beside an original continuous cable line shaped like an S and a connector.</desc>
+  <desc id="logo-desc">The Setup Sahla wordmark beside an original lime cable line shaped like an S and joined to a cyan connector.</desc>
   <g transform="translate(8 16)">
     <rect width="96" height="96" rx="22" fill="#101411"/>
-    <path d="M20 76h9c25 0 43-10 43-26 0-13-11-18-27-18-14 0-22 3-22 10 0 8 10 10 25 10" fill="none" stroke="#C9FF4A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M16 68v16M10 71v10" fill="none" stroke="#66D9E8" stroke-width="4" stroke-linecap="round"/>
+    <path id="cable-line" d="M18 76h11c25 0 43-10 43-26 0-13-11-18-27-18-14 0-22 3-22 10 0 8 10 10 25 10" fill="none" stroke="#C9FF4A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="connector-body" d="M22 68h-9a8 8 0 0 0-8 8 8 8 0 0 0 8 8h9V68Z" fill="#66D9E8"/>
+    <path id="connector-pins" d="M5 72H1M5 80H1" fill="none" stroke="#66D9E8" stroke-width="3" stroke-linecap="round"/>
     <circle cx="48" cy="52" r="4" fill="#FFFDF7"/>
   </g>
   <text x="128" y="61" fill="#101411" font-family="Arial Narrow, Roboto Condensed, Bahnschrift Condensed, Arial, sans-serif" font-size="48" font-weight="800" letter-spacing="-1.5">SETUP SAHLA</text>

@@ -37,6 +37,21 @@ function fail(message) {
   errors.push(message);
 }
 
+function relativeLuminance(hex) {
+  const channels = hex.match(/[0-9a-f]{2}/gi)?.map((value) => Number.parseInt(value, 16) / 255);
+  if (!channels || channels.length !== 3) return Number.NaN;
+  const linear = channels.map((value) =>
+    value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4,
+  );
+  return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+}
+
+function contrastRatio(foreground, background) {
+  const first = relativeLuminance(foreground);
+  const second = relativeLuminance(background);
+  return (Math.max(first, second) + 0.05) / (Math.min(first, second) + 0.05);
+}
+
 for (const file of required) {
   if (!existsSync(resolve(root, file))) fail(`Missing required file: ${file}`);
 }
@@ -61,8 +76,23 @@ if (errors.length === 0) {
       fail('Arabic font stack must include Noto Sans Arabic');
     }
     if ((tokens?.layout?.tapTarget?.value ?? '') !== '44px') fail('Minimum tap-target token must be 44px');
-    for (const pair of Object.values(tokens?.color?.contrastPairs ?? {})) {
-      if (typeof pair.ratio !== 'number' || pair.ratio < 4.5) fail('Every documented contrast pair must meet 4.5:1');
+    const computedPairs = {
+      inkOnCream: ['ink', 'cream'],
+      inkOnPaper: ['ink', 'paper'],
+      inkOnLime: ['ink', 'lime'],
+      cyanOnInk: ['cyan', 'ink'],
+    };
+    for (const [pairName, [foregroundName, backgroundName]] of Object.entries(computedPairs)) {
+      const foreground = tokens?.color?.brand?.[foregroundName]?.value;
+      const background = tokens?.color?.brand?.[backgroundName]?.value;
+      const computed = contrastRatio(foreground, background);
+      const declared = tokens?.color?.contrastPairs?.[pairName]?.ratio;
+      if (!Number.isFinite(computed) || computed < 4.5) {
+        fail(`${pairName} computes below 4.5:1 from its brand-token colors`);
+      }
+      if (typeof declared !== 'number' || Math.abs(computed - declared) > 0.02) {
+        fail(`${pairName} declared ratio does not match its computed brand-token contrast`);
+      }
     }
   }
 
@@ -71,7 +101,19 @@ if (errors.length === 0) {
     if (!/<svg\b[^>]*\bviewBox="[^"]+"/i.test(svg)) fail(`${file} lacks viewBox`);
     if (!/<title\b[^>]*>/i.test(svg) || !/<desc\b[^>]*>/i.test(svg)) fail(`${file} lacks title/description`);
     if (!/role="img"/i.test(svg) || !/aria-labelledby="[^"]+"/i.test(svg)) fail(`${file} lacks accessible image semantics`);
-    if (/<(?:script|image)\b/i.test(svg)) fail(`${file} contains a prohibited script/image element`);
+    const labelledBy = svg.match(/aria-labelledby="([^"]+)"/i)?.[1].trim().split(/\s+/) ?? [];
+    const allIds = [...svg.matchAll(/\bid="([^"]+)"/gi)].map((match) => match[1]);
+    const titleId = svg.match(/<title\b[^>]*\bid="([^"]+)"/i)?.[1];
+    const descId = svg.match(/<desc\b[^>]*\bid="([^"]+)"/i)?.[1];
+    if (new Set(allIds).size !== allIds.length) fail(`${file} contains duplicate IDs`);
+    if (JSON.stringify(labelledBy) !== JSON.stringify([titleId, descId])) {
+      fail(`${file} aria-labelledby must resolve its unique title then description IDs`);
+    }
+    if (!/id="cable-line"/i.test(svg) || !/id="connector-body"/i.test(svg)) {
+      fail(`${file} lacks the identified joined cable/connector geometry`);
+    }
+    if (/<(?:script|image|foreignObject)\b/i.test(svg)) fail(`${file} contains a prohibited script/image/foreignObject element`);
+    if (/\son[a-z][a-z0-9:_-]*\s*=/i.test(svg)) fail(`${file} contains a prohibited event-handler attribute`);
     if (/\b(?:href|xlink:href)\s*=/i.test(svg)) fail(`${file} contains an external reference`);
     if (/data:image/i.test(svg)) fail(`${file} contains embedded raster data`);
     if (/amazon|noon|logitech|anker|ugreen|havit|joyroom/i.test(svg)) fail(`${file} contains a third-party mark/name`);
@@ -79,7 +121,7 @@ if (errors.length === 0) {
 
   const guide = await readFile(resolve(root, 'brand/BRAND_GUIDE.md'), 'utf8');
   if (!guide.includes('Fix the friction. Keep the gear.')) fail('Brand guide is missing the exact tagline');
-  for (const term of ['Primary', 'Reverse', 'Monochrome', 'Small-size', 'Clear space', '24px']) {
+  for (const term of ['Primary', 'Reverse', 'Monochrome', 'Substrate knockout', 'Tile-free one-ink', 'Small-size', 'Clear space', '24px']) {
     if (!guide.toLowerCase().includes(term.toLowerCase())) fail(`Brand guide is missing required rule: ${term}`);
   }
 
@@ -89,6 +131,8 @@ if (errors.length === 0) {
     /DIRECT_LINK — AFFILIATE ID REQUIRED/,
     /AFFILIATE_LINK — VERIFIED/,
     /LINK DISABLED — REVIEW REQUIRED/,
+    /specific program and territory/i,
+    /Noon Egypt[^\n]*(?:uncertain|unconfirmed)/i,
     /Check current price on \[retailer\]/i,
     /compatibility warning/i,
     /words to avoid/i,
