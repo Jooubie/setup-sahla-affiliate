@@ -40,5 +40,5 @@ You may **read** anything. Do not edit `research/*-candidates.csv` / `*-evidence
 - No editing research staging files, brand assets, or site code; no inventing affiliate/image-rights values.
 
 ## Verify before you hand off
-- Run `node --test tests/` from the repo root (research-data, content, business-docs, brand-assets) and confirm canonical data + content pass.
+- Run `node --test tests/*.test.mjs` from the repo root (research-data, content, business-docs, brand-assets) and `node scripts/vault.mjs gate` for the compliance invariants; confirm canonical data + content pass.
 - Report: the 5/3 lineup with rationale, rejected candidates, open owner dependencies (esp. affiliate ID), and the next agent action.

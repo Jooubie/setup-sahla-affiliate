@@ -1,0 +1,17 @@
+{
+  "sealedFiles": 8,
+  "globs": [
+    "data/**/*.json",
+    "research/**/*.csv"
+  ],
+  "checksums": {
+    "data/product.schema.json": "bdbf72c6b2e4e0248a9e8e5ac9358ef5ed0a92bbe3516236d341a8a8609e9637",
+    "data/products.json": "0bded0c84bea5e5d794f6af4beaf8646adf2d6b77a72c7e885869accf25bebe1",
+    "research/affiliate-program-evidence.csv": "2b397e43fa54bf0e0dd6dd04db9850d0d2d25c76678b92fc4cdffcff08dc29a5",
+    "research/evidence.csv": "7b56e908cda97aee621bf75f67038a88b891af3303c253b959fe5896d1ff2c6e",
+    "research/keywords.csv": "652e18d2bf2a3cbef63983d3bb220e799a8cf9a2a4378823ab05d9fc5b69faaf",
+    "research/product-candidates.csv": "67c5472e4a4e58d6a8d723b11f92b06cebb75b2b5f5b5df66fd431c1ef13ac72",
+    "research/product-evidence.csv": "f29b20268bab6dbf272f854bc27488f653dd3233d9b9a1fa3d3d853fcd071ebe",
+    "research/seo-evidence.csv": "b7e3f5cbc4e0255d8628304944a788c36fc4f351293a10ca7423927cb6dda7f7"
+  }
+}

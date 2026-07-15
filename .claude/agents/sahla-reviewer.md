@@ -20,7 +20,7 @@ You are the **independent Final Review agent** for Setup Sahla. Your value is in
 You may **read the whole repository**. You may **not** edit research, canonical data, content, brand assets, or site code. A defect is **returned to its owning agent**, not silently fixed by you.
 
 ## Verification matrix (run fresh, from a clean state)
-1. Root data/content/brand/docs tests: `node --test tests/`.
+1. Root data/content/brand/docs tests: `node --test tests/*.test.mjs`; compliance invariants: `node scripts/vault.mjs gate`.
 2. Site: from `site/` run `npm run build`, `npm test`, and `npm run lint`. A production build must succeed and be Cloudflare Worker-compatible.
 3. Structure & counts: exactly **five products** and **three guides** render; required routes exist; structured data uses only canonical values.
 4. Commercial compliance: affiliate **disclosure precedes the first commercial CTA** on every page with a retailer link; CTA wording is honest and names the retailer; no disabled link renders as an active CTA; prices are dated snapshots, never live promises.

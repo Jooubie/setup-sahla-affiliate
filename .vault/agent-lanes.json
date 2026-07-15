@@ -1,0 +1,21 @@
+{
+  "sahla-research": {
+    "prefixes": ["research/"],
+    "deny": ["research/evidence.csv"]
+  },
+  "sahla-product-manager": {
+    "prefixes": ["data/", "content/", "docs/research/", "docs/editorial/", "docs/business/"],
+    "files": ["research/evidence.csv", ".superpowers/sdd/progress.md"]
+  },
+  "sahla-creative": {
+    "prefixes": ["brand/", "assets/generated/"],
+    "files": ["tests/brand-assets.test.mjs"]
+  },
+  "sahla-website-developer": {
+    "prefixes": ["site/"]
+  },
+  "sahla-reviewer": {
+    "prefixes": ["docs/launch/"],
+    "files": [".superpowers/sdd/progress.md"]
+  }
+}

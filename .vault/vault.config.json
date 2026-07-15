@@ -1,0 +1,16 @@
+{
+  "sealGlobs": ["data/**/*.json", "research/**/*.csv"],
+  "protectedFromAgents": [
+    ".vault/integrity.manifest.json",
+    ".vault/secrets.local.json",
+    ".vault/vault.config.json",
+    ".vault/agent-lanes.json"
+  ],
+  "secretFilesNeverTracked": [".vault/secrets.local.json", ".env", ".env.local"],
+  "secretScanExempt": [
+    "scripts/vault.mjs",
+    "docs/business-os/VAULT_PROTOCOL.md",
+    ".vault/secrets.example.json",
+    ".vault/README.md"
+  ]
+}

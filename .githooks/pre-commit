@@ -1,0 +1,25 @@
+#!/bin/sh
+# Setup Sahla Vault Protocol — pre-commit gate.
+# Install once:  git config core.hooksPath .githooks
+# Bypass for an emergency commit:  git commit --no-verify
+
+echo "vault: pre-commit checks..."
+
+node scripts/vault.mjs secrets-scan --staged || {
+  echo "vault: blocked commit — secret leak. Move the value into .vault/secrets.local.json (gitignored)."
+  exit 1
+}
+
+node scripts/vault.mjs verify || {
+  echo "vault: blocked commit — canonical data changed without re-sealing."
+  echo "       If the change is verified, run: node scripts/vault.mjs seal   then re-stage the manifest."
+  exit 1
+}
+
+node scripts/vault.mjs gate || {
+  echo "vault: blocked commit — compliance gate failed (see above)."
+  exit 1
+}
+
+echo "vault: pre-commit OK"
+exit 0

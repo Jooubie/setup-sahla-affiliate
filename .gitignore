@@ -7,3 +7,8 @@
 *.log
 .DS_Store
 Thumbs.db
+
+# Vault Protocol — secrets never enter the repo
+/.vault/secrets.local.json
+.env
+.env.local
