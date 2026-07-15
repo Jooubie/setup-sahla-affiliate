@@ -1,0 +1,29 @@
+{
+  "Setup-Sahla-Product-Research-Report.pdf": {
+    "bytes": 776667,
+    "pages": 9,
+    "text_chars": 17405,
+    "has_setup_sahla": true,
+    "has_direct_state": true,
+    "has_noon_state": true,
+    "empty_pages": []
+  },
+  "Setup-Sahla-Brand-Guide.pdf": {
+    "bytes": 825022,
+    "pages": 9,
+    "text_chars": 7775,
+    "has_setup_sahla": true,
+    "has_direct_state": true,
+    "has_noon_state": true,
+    "empty_pages": []
+  },
+  "Setup-Sahla-Business-Launch-Plan.pdf": {
+    "bytes": 198936,
+    "pages": 10,
+    "text_chars": 13198,
+    "has_setup_sahla": true,
+    "has_direct_state": true,
+    "has_noon_state": true,
+    "empty_pages": []
+  }
+}

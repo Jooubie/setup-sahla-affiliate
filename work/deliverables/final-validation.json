@@ -1,0 +1,78 @@
+{
+  "workbook": {
+    "zip_integrity": true,
+    "sheet_names": [
+      "Launch Dashboard",
+      "Products",
+      "Providers",
+      "Keywords",
+      "Evidence",
+      "Content Map",
+      "Owner Actions"
+    ],
+    "expected_sheet_names": true,
+    "formula_count": 51,
+    "hyperlink_formula_count": 20,
+    "embedded_media_count": 5,
+    "drawing_xml_count": 2,
+    "table_xml_count": 6,
+    "formula_error_tokens": [],
+    "direct_state_present": true,
+    "noon_state_present": true,
+    "ok": true
+  },
+  "pdfs": {
+    "Setup-Sahla-Product-Research-Report.pdf": {
+      "pages": 9,
+      "expected_pages": 9,
+      "empty_pages": [],
+      "text_chars": 17396,
+      "external_link_annotations": 14,
+      "minimum_external_links": 1,
+      "direct_state_present": true,
+      "noon_state_present": true,
+      "ok": true
+    },
+    "Setup-Sahla-Brand-Guide.pdf": {
+      "pages": 9,
+      "expected_pages": 9,
+      "empty_pages": [],
+      "text_chars": 7766,
+      "external_link_annotations": 0,
+      "minimum_external_links": 0,
+      "direct_state_present": true,
+      "noon_state_present": true,
+      "ok": true
+    },
+    "Setup-Sahla-Business-Launch-Plan.pdf": {
+      "pages": 10,
+      "expected_pages": 10,
+      "empty_pages": [],
+      "text_chars": 13188,
+      "external_link_annotations": 4,
+      "minimum_external_links": 1,
+      "direct_state_present": true,
+      "noon_state_present": true,
+      "ok": true
+    }
+  },
+  "files": {
+    "Setup-Sahla-Brand-Guide.pdf": {
+      "bytes": 825022,
+      "sha256": "2ec410ec7fd16a07a461c3788fafb06c22f2a72c48796cbe4e788a97d3052df8"
+    },
+    "Setup-Sahla-Business-Launch-Plan.pdf": {
+      "bytes": 198936,
+      "sha256": "8899d1f4bd797cbca875d6938b30cbdfe91f7c0847e0091891b48176bf1dca28"
+    },
+    "Setup-Sahla-Launch-Workbook.xlsx": {
+      "bytes": 994700,
+      "sha256": "fac93ba4d3729ef2018f939eb17cc90593c17927d42faac546e91e9dacffd583"
+    },
+    "Setup-Sahla-Product-Research-Report.pdf": {
+      "bytes": 776667,
+      "sha256": "cb169dc62037ed00a793cf280ec56ff7d37b5333ed4810293ca5d1ca27fc9569"
+    }
+  },
+  "ok": true
+}
