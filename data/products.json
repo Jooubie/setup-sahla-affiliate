@@ -1,0 +1,558 @@
+[
+  {
+    "candidateId": "PP-C01",
+    "slug": "anker-332-usb-c-hub",
+    "route": "/products/usb-c-hub/",
+    "name": "Anker 332 USB-C Hub (5-in-1)",
+    "category": "Ports and connectivity",
+    "problem": "A USB-C laptop has too few data ports and needs a verified path to HDMI plus pass-through charging.",
+    "verdict": "Selected for a compatibility-first hub page because the A8355 family has a manufacturer specification and exact Amazon Egypt and Noon Egypt product pages. It is useful only after the buyer verifies USB-C video support and supplies a compliant charger and cable.",
+    "bestFor": [
+      "Editorial fit judgment: USB-C laptop owners who need one HDMI output and three 5Gbps data ports at a fixed desk",
+      "Editorial fit judgment: buyers who will check their host port and charging requirements before ordering"
+    ],
+    "skipIf": [
+      "Your laptop USB-C port does not support the required video output",
+      "You need a charger in the box or more than 4K at 30Hz from this hub"
+    ],
+    "brand": "Anker",
+    "model": "A8355 / A8355H11",
+    "compatibility": [
+      "Compatible USB-C host with video output is required for HDMI",
+      "HDMI output is listed up to 4K at 30Hz",
+      "USB-C PD input is listed up to 100W, with up to 85W passed to the laptop",
+      "A charger is not included"
+    ],
+    "snapshotPriceEgp": 1539,
+    "priceCapturedAt": "2026-07-15",
+    "primaryKeyword": {
+      "evidenceId": "SEO-KW-001",
+      "keyword": "usb c hub",
+      "intent": "commercial investigation",
+      "market": "EG",
+      "metricName": "google_autocomplete_presence",
+      "metricValue": "returned",
+      "metricUnit": "qualitative",
+      "sourceUrl": "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=usb%20c%20hub",
+      "capturedAt": "2026-07-14T23:52:11Z"
+    },
+    "supportingKeywords": [
+      "usb c hub egypt",
+      "usb c hub for laptop",
+      "موزع يو اس بي تايب سي",
+      "هاب type c"
+    ],
+    "score": {
+      "components": {
+        "problemUrgency": 23,
+        "searchIntent": 18,
+        "availability": 15,
+        "value": 12,
+        "compatibility": 9,
+        "editorialFit": 9,
+        "visual": 4
+      },
+      "total": 90
+    },
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "directUrl": "https://www.amazon.eg/-/en/dp/B0BQLLB61B",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "Anker 332 USB-C Hub (5-in-1)",
+        "sellerNotes": "Observed in stock at EGP 1,539; Amazon.eg was seller and shipper, with free returns and 15-day returnability. Recheck all offer details before promotion.",
+        "priceEgp": 1539,
+        "capturedAt": "2026-07-15",
+        "imageSourceUrl": "https://www.amazon.eg/-/en/dp/B0BQLLB61B",
+        "imageRights": "SOURCE_LINK_ONLY"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "directUrl": "https://www.noon.com/egypt-en/anker-332-usb-c-hub-5-in-1-usb-c-connector-with-4k-hdmi-100w-power-charger-black-a8355h11/N70086896V/p/",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "Anker 332 USB-C Hub A8355H11",
+        "sellerNotes": "Observed at EGP 1,999 with five units left, sold by Dokkan Tech and fulfilled with noon-express. Recheck all offer details before promotion.",
+        "priceEgp": 1999,
+        "capturedAt": "2026-07-14",
+        "imageSourceUrl": "https://www.noon.com/egypt-en/anker-332-usb-c-hub-5-in-1-usb-c-connector-with-4k-hdmi-100w-power-charger-black-a8355h11/N70086896V/p/",
+        "imageRights": "SOURCE_LINK_ONLY"
+      }
+    ],
+    "evidence": [
+      {
+        "evidenceId": "PP-E001",
+        "claim": "Manufacturer specification: model A8355 lists HDMI up to 4K at 30Hz, three 5Gbps data ports, 100W PD input, and up to 85W laptop output.",
+        "sourceUrl": "https://www.anker.com/products/a8355",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      },
+      {
+        "evidenceId": "PP-E027",
+        "claim": "Amazon Egypt price, stock, seller, fulfillment, returns, and exact-family listing snapshot.",
+        "sourceUrl": "https://www.amazon.eg/-/en/dp/B0BQLLB61B",
+        "capturedAt": "2026-07-15T00:20:00Z"
+      },
+      {
+        "evidenceId": "PP-E002",
+        "claim": "Noon Egypt price, stock, seller, fulfillment, and exact A8355H11 listing snapshot.",
+        "sourceUrl": "https://www.noon.com/egypt-en/anker-332-usb-c-hub-5-in-1-usb-c-connector-with-4k-hdmi-100w-power-charger-black-a8355h11/N70086896V/p/",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      },
+      {
+        "evidenceId": "PP-E028",
+        "claim": "Power and safety gate: charger is not included; use a compliant PD charger and cable and verify host video support.",
+        "sourceUrl": "https://www.anker.com/products/a8355",
+        "capturedAt": "2026-07-15T00:20:00Z"
+      }
+    ],
+    "risks": [
+      "A USB-C connector alone does not prove that the host supports the required video output.",
+      "Retail prices, stock, seller, fulfillment, and returns are dated snapshots and require a launch-day recheck.",
+      "Noon Egypt affiliate commission eligibility is unconfirmed because current public terms name UAE and KSA, not Egypt."
+    ],
+    "closestRejectedAlternative": "Baseus UltraJoy BS-OH150 lost because no verified Amazon Egypt exact-model product page was found, leaving single-retailer dependence."
+  },
+  {
+    "candidateId": "PP-C04",
+    "slug": "ugreen-40289-laptop-stand",
+    "route": "/products/laptop-stand/",
+    "name": "UGREEN Foldable Laptop Stand 40289",
+    "category": "Posture and desk positioning",
+    "problem": "A laptop screen sits too low for a desk workflow and needs adjustable elevation without hiding the base ventilation area.",
+    "verdict": "Selected as a simple elevation tool with an exact model trail across the manufacturer, Amazon Egypt, and Noon Egypt. Raising the laptop does not by itself create an ergonomic workstation; an external keyboard and mouse are the practical fit gate.",
+    "bestFor": [
+      "Editorial fit judgment: desk users who already have or plan to use an external keyboard and mouse",
+      "Editorial fit judgment: users who want a foldable stand with five listed height settings"
+    ],
+    "skipIf": [
+      "You must keep using the laptop keyboard while the screen is raised",
+      "Your device is outside the listed 8–17.3-inch range or exceeds the listed 5 kg load"
+    ],
+    "brand": "UGREEN",
+    "model": "LP451 / 40289",
+    "compatibility": [
+      "Manufacturer lists 8–17.3-inch laptop compatibility",
+      "Manufacturer lists five height settings and up to 5 kg load",
+      "The open center is described as a ventilation area",
+      "Use an external keyboard and mouse when the raised keyboard is not comfortable to reach"
+    ],
+    "snapshotPriceEgp": 666,
+    "priceCapturedAt": "2026-07-15",
+    "primaryKeyword": {
+      "evidenceId": "SEO-KW-007",
+      "keyword": "laptop stand",
+      "intent": "commercial investigation",
+      "market": "EG",
+      "metricName": "google_autocomplete_presence",
+      "metricValue": "returned",
+      "metricUnit": "qualitative",
+      "sourceUrl": "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=laptop%20stand",
+      "capturedAt": "2026-07-14T23:52:11Z"
+    },
+    "supportingKeywords": [
+      "laptop stand egypt",
+      "laptop stand for desk",
+      "حامل لابتوب",
+      "حامل لابتوب قابل للطي",
+      "ستاند لابتوب"
+    ],
+    "score": {
+      "components": {
+        "problemUrgency": 18,
+        "searchIntent": 18,
+        "availability": 15,
+        "value": 14,
+        "compatibility": 10,
+        "editorialFit": 9,
+        "visual": 5
+      },
+      "total": 89
+    },
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "directUrl": "https://www.amazon.eg/-/en/dp/B08TLVKBMJ",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "UGREEN Foldable Laptop Stand",
+        "sellerNotes": "Observed in stock at EGP 666; Amazon.eg was seller and shipper, with free returns. Recheck before promotion.",
+        "priceEgp": 666,
+        "capturedAt": "2026-07-15",
+        "imageSourceUrl": "https://www.amazon.eg/-/en/dp/B08TLVKBMJ",
+        "imageRights": "SOURCE_LINK_ONLY"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "directUrl": "https://www.noon.com/egypt-en/laptop-stand-aluminum-alloy-adjustable-eye-level-ergonomic-height-laptop-riser-holder-compatible-for-macbook-pro-2021-air-chromebook-and-more-storage-bag-included/N53340883A/p/",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "UGREEN Laptop Stand 40289",
+        "sellerNotes": "Observed at EGP 945.60 with add-to-cart availability, sold by wusool and fulfilled with noon-express. No numeric stock count was exposed; recheck before promotion.",
+        "priceEgp": 945.6,
+        "capturedAt": "2026-07-14",
+        "imageSourceUrl": "https://www.noon.com/egypt-en/laptop-stand-aluminum-alloy-adjustable-eye-level-ergonomic-height-laptop-riser-holder-compatible-for-macbook-pro-2021-air-chromebook-and-more-storage-bag-included/N53340883A/p/",
+        "imageRights": "SOURCE_LINK_ONLY"
+      }
+    ],
+    "evidence": [
+      {
+        "evidenceId": "PP-E007",
+        "claim": "Manufacturer specification: model 40289 lists 8–17.3-inch fit, five height settings, up to 5 kg load, foldability, and an open ventilation area.",
+        "sourceUrl": "https://www.ugreen.com/tr-tr/products/tr-40289",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      },
+      {
+        "evidenceId": "PP-E029",
+        "claim": "Amazon Egypt exact-product price, stock, seller, fulfillment, and returns snapshot.",
+        "sourceUrl": "https://www.amazon.eg/-/en/dp/B08TLVKBMJ",
+        "capturedAt": "2026-07-15T00:22:00Z"
+      },
+      {
+        "evidenceId": "PP-E008",
+        "claim": "Noon Egypt exact-model price, availability, seller, and fulfillment snapshot.",
+        "sourceUrl": "https://www.noon.com/egypt-en/laptop-stand-aluminum-alloy-adjustable-eye-level-ergonomic-height-laptop-riser-holder-compatible-for-macbook-pro-2021-air-chromebook-and-more-storage-bag-included/N53340883A/p/",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      }
+    ],
+    "risks": [
+      "Do not present screen elevation as a medical or posture outcome.",
+      "Retail prices, stock, seller, fulfillment, and returns are dated snapshots and require a launch-day recheck.",
+      "Noon Egypt affiliate commission eligibility is unconfirmed because current public terms name UAE and KSA, not Egypt."
+    ],
+    "closestRejectedAlternative": "UGREEN LP230 / 80348 lost because its specification source was a regional distributor, no Amazon Egypt exact page was verified, and the Noon seller was not retained."
+  },
+  {
+    "candidateId": "PP-C15",
+    "slug": "havit-f2069-laptop-cooling-pad",
+    "route": "/products/laptop-cooling-pad/",
+    "name": "Havit F2069 Laptop Cooling Pad",
+    "category": "Thermal management",
+    "problem": "A 15.6–17.3-inch laptop needs more space and powered airflow below its base after blocked-vent and internal-fault checks are ruled out.",
+    "verdict": "Selected as the only cooling-pad candidate with exact live pages on both Egypt retailers and an official model specification. It is a USB-powered accessory, not a repair or a promise to reduce temperature by a stated amount.",
+    "bestFor": [
+      "Editorial fit judgment: 15.6–17.3-inch laptops whose intake layout can use airflow from below",
+      "Editorial fit judgment: buyers who want adjustable height and fan-speed control after basic ventilation checks"
+    ],
+    "skipIf": [
+      "The laptop has blocked vents, a damaged power cable, a failing internal fan, or another fault that needs service",
+      "Your laptop is outside the listed size range or exposes only USB-C and you will not use the required adapter"
+    ],
+    "brand": "Havit",
+    "model": "HV-F2069 / F2069",
+    "compatibility": [
+      "Manufacturer lists 15.6–17.3-inch laptop compatibility",
+      "Manufacturer lists four fans, fan-speed control, dual USB, and two height settings",
+      "Type-C hosts need a Type-C-to-USB adapter when no matching USB-A port is available",
+      "The accessory is powered from a host USB connection"
+    ],
+    "snapshotPriceEgp": 1035,
+    "priceCapturedAt": "2026-07-15",
+    "primaryKeyword": {
+      "evidenceId": "SEO-KW-013",
+      "keyword": "laptop cooling pad",
+      "intent": "commercial investigation",
+      "market": "EG",
+      "metricName": "google_autocomplete_presence",
+      "metricValue": "returned",
+      "metricUnit": "qualitative",
+      "sourceUrl": "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=laptop%20cooling%20pad",
+      "capturedAt": "2026-07-14T23:52:11Z"
+    },
+    "supportingKeywords": [
+      "laptop cooling pad egypt",
+      "laptop cooling pad for gaming",
+      "مبرد لابتوب",
+      "قاعدة تبريد لابتوب"
+    ],
+    "score": {
+      "components": {
+        "problemUrgency": 19,
+        "searchIntent": 16,
+        "availability": 15,
+        "value": 12,
+        "compatibility": 8,
+        "editorialFit": 9,
+        "visual": 5
+      },
+      "total": 84
+    },
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "directUrl": "https://www.amazon.eg/-/en/dp/B0CP198X1G",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "Havit F2069 Gaming Laptop Cooling Pad",
+        "sellerNotes": "Observed in stock at EGP 1,035; Amazon.eg was seller and shipper, with free returns. Recheck before promotion.",
+        "priceEgp": 1035,
+        "capturedAt": "2026-07-15",
+        "imageSourceUrl": "https://www.amazon.eg/-/en/dp/B0CP198X1G",
+        "imageRights": "SOURCE_LINK_ONLY"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "directUrl": "https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "Havit F2069 RGB Cooling Pad",
+        "sellerNotes": "Observed at EGP 1,040 with noon-express fulfillment; the seller name was not retained and must be checked before promotion.",
+        "priceEgp": 1040,
+        "capturedAt": "2026-07-15",
+        "imageSourceUrl": "https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/",
+        "imageRights": "SOURCE_LINK_ONLY"
+      }
+    ],
+    "evidence": [
+      {
+        "evidenceId": "PP-E032",
+        "claim": "Manufacturer specification: HV-F2069 lists four fans, dual USB, speed control, two height settings, 15.6–17.3-inch fit, and an adapter requirement for Type-C hosts.",
+        "sourceUrl": "https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop",
+        "capturedAt": "2026-07-15T00:25:00Z"
+      },
+      {
+        "evidenceId": "PP-E033",
+        "claim": "Amazon Egypt exact-model price, stock, seller, fulfillment, and returns snapshot.",
+        "sourceUrl": "https://www.amazon.eg/-/en/dp/B0CP198X1G",
+        "capturedAt": "2026-07-15T00:25:00Z"
+      },
+      {
+        "evidenceId": "PP-E034",
+        "claim": "Noon Egypt exact-model price, visible rating, delivery, and fulfillment snapshot; seller was not retained.",
+        "sourceUrl": "https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/",
+        "capturedAt": "2026-07-15T00:25:00Z"
+      },
+      {
+        "evidenceId": "PP-E035",
+        "claim": "Power and safety gate: host-USB-powered accessory; Type-C may need an adapter; reject damaged cables and do not present it as an internal cooling repair.",
+        "sourceUrl": "https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop",
+        "capturedAt": "2026-07-15T00:25:00Z"
+      }
+    ],
+    "risks": [
+      "The manufacturer store marks the model no longer available there, so retailer continuity needs a tighter refresh cadence.",
+      "No temperature reduction, performance gain, repair, or noise claim is supported for Setup Sahla publication.",
+      "The Noon seller name was not retained and must be checked before promotion.",
+      "Noon Egypt affiliate commission eligibility is unconfirmed because current public terms name UAE and KSA, not Egypt."
+    ],
+    "closestRejectedAlternative": "DeepCool U PAL lost because no verified Amazon Egypt exact-model page was found and the Noon seller identity was not retained."
+  },
+  {
+    "candidateId": "PP-C09",
+    "slug": "joyroom-jr-zs368-cable-organizer",
+    "route": "/products/desk-cable-management/",
+    "name": "JOYROOM JR-ZS368 Magnetic Cable Organizer (6 pcs)",
+    "category": "Cable control",
+    "problem": "Charging and peripheral cables slide away from the desk edge and need small fixed anchor points.",
+    "verdict": "Selected because the six-piece JR-ZS368 variant has a manufacturer identity and exact Amazon Egypt and Noon Egypt pages. It solves cable reach, not full under-desk power-strip management, and its dated provider prices were far apart.",
+    "bestFor": [
+      "Editorial fit judgment: keeping frequently used charging and peripheral cables at the desk edge",
+      "Editorial fit judgment: buyers whose cables are under the manufacturer's listed 7.5 mm diameter limit"
+    ],
+    "skipIf": [
+      "Your cable diameter is 7.5 mm or greater",
+      "You need a removable solution or cannot accept possible adhesive residue on the desk surface"
+    ],
+    "brand": "JOYROOM",
+    "model": "JR-ZS368 (6-piece variant)",
+    "compatibility": [
+      "Manufacturer variant content includes a six-piece set",
+      "Manufacturer states applicability to cables below 7.5 mm diameter",
+      "Surface adhesion and finish compatibility must be checked before placement"
+    ],
+    "snapshotPriceEgp": 279,
+    "priceCapturedAt": "2026-07-15",
+    "primaryKeyword": {
+      "evidenceId": "SEO-KW-019",
+      "keyword": "cable management desk",
+      "intent": "commercial investigation",
+      "market": "EG",
+      "metricName": "google_autocomplete_presence",
+      "metricValue": "returned",
+      "metricUnit": "qualitative",
+      "sourceUrl": "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=cable%20management%20desk",
+      "capturedAt": "2026-07-14T23:52:11Z"
+    },
+    "supportingKeywords": [
+      "cable management desk tray",
+      "cable management desk box",
+      "under desk cable management tray",
+      "cable organizer egypt",
+      "كيبل مانجمنت"
+    ],
+    "score": {
+      "components": {
+        "problemUrgency": 14,
+        "searchIntent": 14,
+        "availability": 13,
+        "value": 12,
+        "compatibility": 9,
+        "editorialFit": 10,
+        "visual": 5
+      },
+      "total": 77
+    },
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "directUrl": "https://www.amazon.eg/-/en/dp/B0DJH1W2N4",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "JOYROOM JR-ZS368 Magnetic Cable Organizer, Black, 6 pcs",
+        "sellerNotes": "Observed at EGP 279 with one unit left, sold by Basics EG and showing free returns; shipping party was unclear. Recheck before promotion.",
+        "priceEgp": 279,
+        "capturedAt": "2026-07-15",
+        "imageSourceUrl": "https://www.amazon.eg/-/en/dp/B0DJH1W2N4",
+        "imageRights": "SOURCE_LINK_ONLY"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "directUrl": "https://www.noon.com/egypt-en/joyroom-cable-organiser-jr-zs368-magnetic-black-6-pcs/ZDB64AB2F8DE78C016649Z/p/?o=zdb64ab2f8de78c016649z-1",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "JOYROOM JR-ZS368 Magnetic Cable Organiser, Black, 6 pcs",
+        "sellerNotes": "Observed at EGP 950.81 with two units left, sold by attention store and fulfilled with noon-express. The large price spread needs a launch-day recheck.",
+        "priceEgp": 950.81,
+        "capturedAt": "2026-07-14",
+        "imageSourceUrl": "https://www.noon.com/egypt-en/joyroom-cable-organiser-jr-zs368-magnetic-black-6-pcs/ZDB64AB2F8DE78C016649Z/p/?o=zdb64ab2f8de78c016649z-1",
+        "imageRights": "SOURCE_LINK_ONLY"
+      }
+    ],
+    "evidence": [
+      {
+        "evidenceId": "PP-E017",
+        "claim": "Manufacturer identity and fit: JR-ZS368 includes a six-piece variant and is listed for cables below 7.5 mm diameter.",
+        "sourceUrl": "https://www.joyroom.com/products/joyroom-jr-zs368-magnetic-cable-organizer-9pcs-b2c",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      },
+      {
+        "evidenceId": "PP-E030",
+        "claim": "Amazon Egypt exact six-piece price, low-stock, seller, and returns snapshot; fulfillment was unclear.",
+        "sourceUrl": "https://www.amazon.eg/-/en/dp/B0DJH1W2N4",
+        "capturedAt": "2026-07-15T00:27:00Z"
+      },
+      {
+        "evidenceId": "PP-E018",
+        "claim": "Noon Egypt exact six-piece price, low-stock, seller, and fulfillment snapshot.",
+        "sourceUrl": "https://www.noon.com/egypt-en/joyroom-cable-organiser-jr-zs368-magnetic-black-6-pcs/ZDB64AB2F8DE78C016649Z/p/?o=zdb64ab2f8de78c016649z-1",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      }
+    ],
+    "risks": [
+      "The observed Noon price was more than three times the observed Amazon price; neither snapshot is a live-price promise.",
+      "Both retailer captures showed low stock, and Amazon fulfillment was unclear.",
+      "Adhesive fit and residue depend on the desk surface and are not established by the captured sources.",
+      "Noon Egypt affiliate commission eligibility is unconfirmed because current public terms name UAE and KSA, not Egypt."
+    ],
+    "closestRejectedAlternative": "The retailer-stated UGREEN CB-54259 clips lost because no manufacturer model match was found, leaving unresolved product identity."
+  },
+  {
+    "candidateId": "PP-C10",
+    "slug": "logitech-signature-m650-mouse",
+    "route": "/products/ergonomic-mouse/",
+    "name": "Logitech Signature M650 Wireless Mouse (small/medium, graphite)",
+    "category": "Input comfort",
+    "problem": "A raised laptop setup needs a separate quiet right-handed mouse sized for small-to-medium hands.",
+    "verdict": "Selected as a quiet conventional contoured mouse with dual wireless connection options; it is not a vertical ergonomic mouse and no medical or therapeutic benefit is claimed. The Amazon match is by model, size, color, and orientation because that page does not print the Noon regional part number.",
+    "bestFor": [
+      "Editorial fit judgment: small-to-medium right hands that prefer a conventional mouse shape",
+      "Editorial fit judgment: buyers who want Bluetooth Low Energy or Logi Bolt connectivity and quieter clicks"
+    ],
+    "skipIf": [
+      "You specifically need a vertical mouse shape",
+      "You cannot confirm the small/medium graphite right-handed variant before checkout"
+    ],
+    "brand": "Logitech",
+    "model": "M650 small/medium graphite / 910-006253",
+    "compatibility": [
+      "Manufacturer lists Bluetooth Low Energy and Logi Bolt connectivity",
+      "Manufacturer lists a 200–4000 DPI sensor range",
+      "The selected variant is right-handed and sized for small-to-medium hands",
+      "Amazon variant match uses model, size, color, and orientation rather than a printed regional part number"
+    ],
+    "snapshotPriceEgp": 1749,
+    "priceCapturedAt": "2026-07-14",
+    "primaryKeyword": {
+      "evidenceId": "SEO-KW-025",
+      "keyword": "ergonomic mouse",
+      "intent": "commercial investigation",
+      "market": "EG",
+      "metricName": "google_autocomplete_presence",
+      "metricValue": "returned",
+      "metricUnit": "qualitative",
+      "sourceUrl": "https://suggestqueries.google.com/complete/search?client=firefox&hl=en&gl=eg&q=ergonomic%20mouse",
+      "capturedAt": "2026-07-14T23:52:11Z"
+    },
+    "supportingKeywords": [
+      "ergonomic mouse egypt",
+      "ergonomic mouse wireless",
+      "ماوس مريح لليد",
+      "ماوس ergonomic"
+    ],
+    "score": {
+      "components": {
+        "problemUrgency": 17,
+        "searchIntent": 16,
+        "availability": 15,
+        "value": 11,
+        "compatibility": 8,
+        "editorialFit": 9,
+        "visual": 4
+      },
+      "total": 80
+    },
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "directUrl": "https://www.amazon.eg/-/en/dp/B09QWY7JYK",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "Logitech Signature M650, small-to-medium, graphite",
+        "sellerNotes": "Observed at EGP 1,799 with four units left, sold by Dokkan Tech and showing free returns. The regional part number was not printed; confirm named variant at checkout.",
+        "priceEgp": 1799,
+        "capturedAt": "2026-07-15",
+        "imageSourceUrl": "https://www.amazon.eg/-/en/dp/B09QWY7JYK",
+        "imageRights": "SOURCE_LINK_ONLY"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "directUrl": "https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/",
+        "affiliateUrl": null,
+        "affiliateStatus": "DIRECT_LINK — AFFILIATE ID REQUIRED",
+        "listingTitle": "Logitech Signature M650 910-006253, small-to-medium, graphite",
+        "sellerNotes": "Observed at EGP 1,749 with add-to-cart availability, sold by Dokkan Tech and fulfilled with noon-express. Recheck before promotion.",
+        "priceEgp": 1749,
+        "capturedAt": "2026-07-14",
+        "imageSourceUrl": "https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/",
+        "imageRights": "SOURCE_LINK_ONLY"
+      }
+    ],
+    "evidence": [
+      {
+        "evidenceId": "PP-E019",
+        "claim": "Manufacturer specification: M650 lists Bluetooth Low Energy, Logi Bolt, 200–4000 DPI, and a right-handed small-to-medium option.",
+        "sourceUrl": "https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      },
+      {
+        "evidenceId": "PP-E031",
+        "claim": "Amazon Egypt named-variant price, low-stock, seller, and returns snapshot; regional part number was not printed.",
+        "sourceUrl": "https://www.amazon.eg/-/en/dp/B09QWY7JYK",
+        "capturedAt": "2026-07-15T00:30:00Z"
+      },
+      {
+        "evidenceId": "PP-E020",
+        "claim": "Noon Egypt regional-part price, availability, seller, and fulfillment snapshot.",
+        "sourceUrl": "https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/",
+        "capturedAt": "2026-07-14T23:54:02Z"
+      }
+    ],
+    "risks": [
+      "The target keyword describes a broad ergonomic category, but the selected M650 is a conventional contoured mouse, not a vertical model.",
+      "Amazon does not expose regional part number 910-006253 in the captured title, so the provider mapping remains a checkout caution.",
+      "No pain-relief, carpal-tunnel, medical, or therapeutic claim is supported.",
+      "Noon Egypt affiliate commission eligibility is unconfirmed because current public terms name UAE and KSA, not Egypt."
+    ],
+    "closestRejectedAlternative": "Logitech Lift 910-006473 lost because the captured Noon page co-mingled several part numbers, leaving the exact retailer variant unresolved."
+  }
+]
