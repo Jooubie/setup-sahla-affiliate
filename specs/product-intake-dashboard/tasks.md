@@ -30,9 +30,9 @@ Ordered, independently-verifiable tasks derived from [plan.md](plan.md). Phase A
 - Update `sahla-research` and `sahla-creative` briefs to read their delegation flags and flip them to `done` after staging their outputs.
 - **Verify:** end-to-end on one test product: research writes `research/*.csv`, creative writes `assets/generated/`, both flags `done`, item reaches `ready`.
 
-### A7 — Admin UI (dev-only)
-- Add `/admin` route (React+Vite+Tailwind) behind `ADMIN_ENABLED`; table + add/edit form; dev-only write endpoint with atomic write.
-- **Verify:** `npm run dev` → add a product via the form → item appears + validates; the production build excludes `/admin`.
+### A7 — Admin UI (dev-only) — DONE
+- Built as a **standalone Node server** (`scripts/intake-admin-server.mjs`, `npm run intake:admin`), not an in-site route: the Cloudflare Worker runtime has no filesystem, so an in-site API route cannot write the queue in dev or prod. The standalone tool binds to 127.0.0.1 only and is never part of the site build, so production excludes it by construction. Brand-styled; reuses `validateIntakeItem` + `FileIntakeSource` (`add`/`list`/`remove`).
+- **Verified:** live HTTP run — GET / serves the dashboard; POST valid → 201 + generated intakeId; POST url-in-key → 400; dispatch endpoint sets `dispatched`; DELETE removes. Unit tests cover `add`/`remove`/`nextIntakeId`.
 
 ### A8 — Affiliate injection + promotion polish
 - Build-time resolver maps `affiliateKeyRef` → real URL from the vault; missing key → public URL + `DIRECT_LINK — AFFILIATE ID REQUIRED`.

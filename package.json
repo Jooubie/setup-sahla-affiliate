@@ -13,6 +13,7 @@
     "intake:reconcile": "node scripts/intake-orchestrate.mjs reconcile --all",
     "intake:status": "node scripts/intake-orchestrate.mjs status",
     "intake:watch": "node scripts/intake-watch.mjs",
+    "intake:admin": "node scripts/intake-admin-server.mjs",
     "test": "node --test tests/*.test.mjs"
   }
 }

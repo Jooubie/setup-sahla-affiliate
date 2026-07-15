@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { validateIntakeItem, validateIntakeArray } from '../scripts/validate_intake.mjs';
 import { FileIntakeSource } from '../scripts/intake-source.mjs';
+import { nextIntakeId } from '../scripts/intake-admin-server.mjs';
 import { SIGNAL_FILES, INTAKE_FILE } from '../scripts/intake-constants.mjs';
 
 const validItem = () => ({
@@ -98,4 +99,29 @@ test('promote succeeds when the gate passes', async () => {
   assert.equal(it.promotedProductId, 'test-hub');
   assert.equal(writes.length, 1);
   rmSync(root, { recursive: true, force: true });
+});
+
+// ---- A7: admin add/list/remove + id generation ------------------------------
+test('add() appends a valid item and rejects invalid + duplicate', async () => {
+  const { root, src } = tempSource();
+  const item2 = { ...validItem(), intakeId: 'IN-2026-0002', name: 'Second' };
+  await src.add(item2);
+  assert.equal((await src.list()).length, 2);
+  await assert.rejects(() => src.add({ intakeId: 'IN-2026-0003' }), /invalid intake item/);
+  await assert.rejects(() => src.add(validItem()), /duplicate/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('remove() deletes an item', async () => {
+  const { root, src } = tempSource();
+  await src.remove('IN-2026-0001');
+  assert.equal((await src.list()).length, 0);
+  await assert.rejects(() => src.remove('IN-2026-9999'), /no item/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('nextIntakeId increments the highest suffix', () => {
+  const id = nextIntakeId([{ intakeId: 'IN-2026-0007' }, { intakeId: 'IN-2025-0003' }]);
+  assert.match(id, /^IN-\d{4}-0008$/);
+  assert.match(nextIntakeId([]), /^IN-\d{4}-0001$/);
 });

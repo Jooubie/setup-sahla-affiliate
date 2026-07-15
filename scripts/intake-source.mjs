@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { STATUS, DELEGATION_KEYS, DELEGATION_STATE, INTAKE_FILE, INTAKE_LOG, SIGNAL_FILES } from './intake-constants.mjs';
+import { validateIntakeItem } from './validate_intake.mjs';
 
 const DEFAULT_ROOT = fileURLToPath(new URL('../', import.meta.url));
 
@@ -75,6 +76,30 @@ export class FileIntakeSource {
 
   async get(id) {
     return this._all().find((i) => i.intakeId === id) || null;
+  }
+
+  async list() {
+    return this._all();
+  }
+
+  // Validate + append a new intake item (used by the admin dashboard).
+  async add(item) {
+    const errors = validateIntakeItem(item);
+    if (errors.length) throw new Error('invalid intake item:\n  ' + errors.join('\n  '));
+    const items = this._all();
+    if (items.some((i) => i.intakeId === item.intakeId)) throw new Error(`intake: duplicate ${item.intakeId}`);
+    items.push(item);
+    this._save(items);
+    this._log(`added ${item.intakeId} (${item.name})`);
+    return item;
+  }
+
+  async remove(id) {
+    const items = this._all();
+    const next = items.filter((i) => i.intakeId !== id);
+    if (next.length === items.length) throw new Error(`intake: no item ${id}`);
+    this._save(next);
+    this._log(`removed ${id}`);
   }
 
   async setStatus(id, status) {
