@@ -1,0 +1,149 @@
+{
+  "version": "1.0",
+  "market": "EG",
+  "language": "en",
+  "publishedAt": "2026-07-15",
+  "articles": [
+    {
+      "sourceFile": "content/blogs/desk-setup-diagnostic.md",
+      "targetRoute": "/guides/fix-laptop-desk-setup-egypt/",
+      "funnelRole": "Top-of-funnel five-cluster diagnostic",
+      "primaryKeyword": "laptop desk setup",
+      "primaryCta": {
+        "label": "Check the five product fit pages",
+        "href": "/products/"
+      },
+      "internalLinks": [
+        "/guides/choose-usb-c-hub-egypt/",
+        "/products/laptop-stand/",
+        "/products/laptop-cooling-pad/",
+        "/products/desk-cable-management/",
+        "/products/ergonomic-mouse/",
+        "/products/"
+      ],
+      "faq": [
+        {
+          "question": "Do I need a monitor for a useful laptop desk setup?",
+          "answer": "No. Start with screen visibility, keyboard reach, port jobs, airflow space, cable routes, and pointer fit. A laptop-only setup can remain the right choice when those checks work for your desk and tasks."
+        },
+        {
+          "question": "Should I buy all five laptop desk setup accessories together?",
+          "answer": "No. Solve the clearest repeated friction first, then reassess. A hub, stand, cooling pad, organizer, and mouse address different gates; buying them as a bundle can add cost and new compatibility problems."
+        },
+        {
+          "question": "Is the Logitech M650 a vertical ergonomic mouse?",
+          "answer": "No. The selected M650 is the right-handed small-to-medium conventional model in this launch set. It is not the Logitech Lift vertical model, and Setup Sahla does not claim a medical or therapeutic outcome."
+        },
+        {
+          "question": "Can a cooling pad fix a laptop that is running hot?",
+          "answer": "Do not assume that. Check the exact laptop guidance and the conditions around the symptom first. The Havit page supports model size, controls, ports, and power requirements; it does not support a Setup Sahla temperature or repair result."
+        }
+      ],
+      "evidenceIds": [
+        "SEO-KW-031",
+        "SEO-KW-032",
+        "SEO-KW-033",
+        "SEO-KW-034",
+        "PP-E001",
+        "PP-E007",
+        "PP-E032",
+        "PP-E035",
+        "PP-E017",
+        "PP-E019"
+      ]
+    },
+    {
+      "sourceFile": "content/blogs/usb-c-hub-buying-guide.md",
+      "targetRoute": "/guides/choose-usb-c-hub-egypt/",
+      "funnelRole": "Mid-funnel USB-C hub selection guide",
+      "primaryKeyword": "how to choose usb c hub",
+      "primaryCta": {
+        "label": "Check the Anker 332 evidence page",
+        "href": "/products/usb-c-hub/"
+      },
+      "internalLinks": [
+        "/products/usb-c-hub/",
+        "/guides/fix-laptop-desk-setup-egypt/",
+        "/guides/laptop-heat-posture-cable-fixes/"
+      ],
+      "faq": [
+        {
+          "question": "Does every USB-C laptop support HDMI through a hub?",
+          "answer": "No. The connector shape alone does not establish video support. Check the documentation for the exact laptop model and the exact USB-C port before choosing a hub with HDMI."
+        },
+        {
+          "question": "Does a 100W PD input mean the laptop receives 100W?",
+          "answer": "No. For Anker 332 A8355, the manufacturer lists up to 100W PD input and up to 85W output to the laptop. The charger is not included, and the charger, cable, hub, and laptop requirements all matter."
+        },
+        {
+          "question": "Is Anker 332 the right hub if I need Ethernet?",
+          "answer": "No. The sourced A8355 configuration does not list an Ethernet port. Choose a configuration that explicitly includes the wired-network job after checking its exact model and host requirements."
+        },
+        {
+          "question": "Why are Baseus UltraJoy and UGREEN Revodok not selected?",
+          "answer": "Each had a manufacturer specification and a Noon Egypt exact-model listing, but the research did not verify a matching Amazon Egypt exact-model page. They were held out for single-retailer dependence, not rejected for a performance result."
+        }
+      ],
+      "evidenceIds": [
+        "SEO-KW-037",
+        "SEO-KW-038",
+        "SEO-KW-040",
+        "SEO-KW-041",
+        "PP-E001",
+        "PP-E028",
+        "PP-E003",
+        "PP-E005",
+        "PP-E027",
+        "PP-E002"
+      ]
+    },
+    {
+      "sourceFile": "content/blogs/thermal-posture-cable-workflow.md",
+      "targetRoute": "/guides/laptop-heat-posture-cable-fixes/",
+      "funnelRole": "Mid-funnel screen-height, airflow-space, and cable-routing workflow",
+      "primaryKeyword": "laptop running hot",
+      "primaryCta": {
+        "label": "Check the Havit F2069 compatibility page",
+        "href": "/products/laptop-cooling-pad/"
+      },
+      "internalLinks": [
+        "/products/laptop-stand/",
+        "/products/laptop-cooling-pad/",
+        "/products/desk-cable-management/",
+        "/guides/fix-laptop-desk-setup-egypt/",
+        "/guides/choose-usb-c-hub-egypt/"
+      ],
+      "faq": [
+        {
+          "question": "Will a laptop cooling pad fix a laptop running hot?",
+          "answer": "This evidence does not support that promise. The Havit F2069 source establishes its listed size, fans, controls, ports, height settings, and USB-power path. Check the exact laptop guidance and the symptom first."
+        },
+        {
+          "question": "Can I use a laptop stand without an external keyboard and mouse?",
+          "answer": "You can test the position, but skip the stand if the raised built-in keyboard and trackpad are not comfortable to reach. The stand specification does not turn that input trade-off into a universal answer."
+        },
+        {
+          "question": "Does the JOYROOM organizer work on every desk surface?",
+          "answer": "The captured source does not establish that. It lists a six-piece variant and cables below 7.5 mm. Inspect the surface, test the route before fixing it, and skip the product when adhesive uncertainty is unacceptable."
+        },
+        {
+          "question": "Should I route cables before choosing a stand or cooling pad?",
+          "answer": "No. Set the laptop position and any support footprint first, connect devices by job, test the normal movement range, and route the repeated problem cable last."
+        }
+      ],
+      "evidenceIds": [
+        "SEO-KW-043",
+        "SEO-KW-044",
+        "SEO-KW-045",
+        "SEO-KW-046",
+        "PP-E007",
+        "PP-E032",
+        "PP-E035",
+        "PP-E017",
+        "PP-E030",
+        "PP-E018",
+        "AFF-004"
+      ]
+    }
+  ]
+}

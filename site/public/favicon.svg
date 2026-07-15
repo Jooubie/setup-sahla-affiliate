@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="mark-title mark-desc">
+  <title id="mark-title">Setup Sahla cable S mark</title>
+  <desc id="mark-desc">An original lime cable line curves into the letter S and joins a compact cyan connector.</desc>
+  <rect width="96" height="96" rx="22" fill="#101411"/>
+  <path id="cable-line" d="M18 76h11c25 0 43-10 43-26 0-13-11-18-27-18-14 0-22 3-22 10 0 8 10 10 25 10" fill="none" stroke="#C9FF4A" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path id="connector-body" d="M22 68h-9a8 8 0 0 0-8 8 8 8 0 0 0 8 8h9V68Z" fill="#66D9E8"/>
+  <path id="connector-pins" d="M5 72H1M5 80H1" fill="none" stroke="#66D9E8" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="48" cy="52" r="4" fill="#FFFDF7"/>
+</svg>
