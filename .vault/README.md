@@ -15,10 +15,10 @@ Enforcement layer for the [Vault Protocol](../docs/business-os/VAULT_PROTOCOL.md
 ## Commands (run from repo root)
 
 ```bash
-node scripts/vault.mjs seal            # re-checksum canonical files after a verified change
-node scripts/vault.mjs verify          # tamper check against the sealed manifest
-node scripts/vault.mjs secrets-scan    # fail if a secret file is tracked or a key leaks
-node scripts/vault.mjs gate            # compliance invariants + integrity (pre-publish)
+npm run vault:gate     # compliance invariants + integrity (pre-publish)   [node scripts/vault.mjs gate]
+npm run vault:verify   # tamper check against the sealed manifest          [node scripts/vault.mjs verify]
+npm run vault:seal     # re-checksum canonical files after a verified change [node scripts/vault.mjs seal]
+npm run vault:secrets  # fail if a secret file is tracked or a key leaks    [node scripts/vault.mjs secrets-scan]
 ```
 
 ## Secrets: how to set them up

@@ -1,0 +1,13 @@
+{
+  "name": "setup-sahla",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Setup Sahla — Egypt-first affiliate business operating repo.",
+  "scripts": {
+    "vault:gate": "node scripts/vault.mjs gate",
+    "vault:seal": "node scripts/vault.mjs seal",
+    "vault:verify": "node scripts/vault.mjs verify",
+    "vault:secrets": "node scripts/vault.mjs secrets-scan",
+    "test": "node --test tests/*.test.mjs"
+  }
+}

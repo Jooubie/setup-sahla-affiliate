@@ -74,9 +74,9 @@ The Claude Code guard hook (`.claude/settings.json`) activates automatically at 
 
 | Situation | Command |
 |-----------|---------|
-| Changed canonical data on purpose | `node scripts/vault.mjs seal`, then commit the manifest |
-| Check nothing was tampered | `node scripts/vault.mjs verify` |
-| Before a publish/refresh | `node scripts/vault.mjs gate` |
+| Changed canonical data on purpose | `npm run vault:seal`, then commit the manifest |
+| Check nothing was tampered | `npm run vault:verify` |
+| Before a publish/refresh | `npm run vault:gate` |
 | Run an agent under lane lock | `SAHLA_AGENT=<agent-name> claude` |
 | Deliberately edit a sealed file | prefix the action with `VAULT_UNLOCK=1` |
 | Emergency commit, skip the gate | `git commit --no-verify` (records the bypass in your own discipline) |
