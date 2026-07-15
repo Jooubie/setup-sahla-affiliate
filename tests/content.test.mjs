@@ -82,8 +82,22 @@ test('unsupported claim mutation families are rejected', async () => {
   const base = articles[0];
   const families = {
     hype: ['guaranteed results', 'best overall'],
-    quietClicks: ['The M650 delivers silent clicks.', 'The mouse clicks silently.'],
-    thermalOutcome: ['The pad lowers laptop temperature.', 'The cooling pad improves thermal performance.', 'It keeps the laptop cooler.'],
+    quietClicks: [
+      'The M650 delivers silent clicks.',
+      'The mouse clicks silently.',
+      'The clicks are quiet.',
+      'The mouse clicks are silent.',
+      'Its buttons remain quiet.',
+    ],
+    thermalOutcome: [
+      'The pad lowers laptop temperature.',
+      'The cooling pad improves thermal performance.',
+      'It keeps the laptop cooler.',
+      'The pad drops temperatures.',
+      'The pad delivers a temperature reduction.',
+      'Laptop temperatures drop with the pad.',
+      'The pad produces lower temperatures.',
+    ],
     adhesion: ['The organizer is residue-free.', 'The clips leave no residue.', 'The clips stick permanently.'],
     noonMonetization: ['Setup Sahla earns money from Noon Egypt links.', 'Noon Egypt links are monetized.'],
     ergonomicTherapeutic: ['The M650 relieves wrist strain.', 'The mouse provides wrist pain relief.', 'This ergonomic mouse protects your wrist.', 'It delivers therapeutic benefits.'],
@@ -112,6 +126,16 @@ test('every body evidence ID must be declared for the future source renderer', a
   assert.throws(
     () => validateContent({ articles: altered, editorialMap }),
     /body evidence PP-E035 must be declared for source rendering/i,
+  );
+});
+
+test('the Arabic heat query carries explicit language and direction semantics', async () => {
+  const { articles } = await loadLaunchContent();
+  const workflow = articles.find((article) => article.file.endsWith('thermal-posture-cable-workflow.md'));
+  assert.match(
+    workflow.body,
+    /<span lang="ar" dir="rtl">سبب سخونة اللابتوب<\/span>/,
+    'Arabic query must render with Arabic language and right-to-left direction',
   );
 });
 

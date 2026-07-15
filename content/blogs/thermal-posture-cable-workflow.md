@@ -39,7 +39,7 @@ Write down what “hot” means in your actual session. Note the task, how long 
 
 Check the manual or support material for the exact laptop model. Identify the openings and placement guidance the manufacturer describes. Use a stable surface and keep the documented airflow path clear. Do not open the laptop, change internal parts, or diagnose a fault from this article.
 
-The Egypt-localized research also returned the Arabic cause query **سبب سخونة اللابتوب**. That is useful query language for this diagnosis, not evidence of one cause, one fix, or equal demand across MENA. [Evidence: SEO-KW-046]
+The Egypt-localized research also returned the Arabic cause query <span lang="ar" dir="rtl">سبب سخونة اللابتوب</span>. That is useful query language for this diagnosis, not evidence of one cause, one fix, or equal demand across MENA. [Evidence: SEO-KW-046]
 
 Now ask a strict question: is the desk arrangement creating a visible placement problem you can fix, or are you expecting an accessory to repair an unexplained laptop problem? Continue only with the first case. If the symptom remains unclear, stop the accessory workflow and seek product-specific support.
 
