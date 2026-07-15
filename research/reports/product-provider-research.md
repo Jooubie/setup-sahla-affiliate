@@ -64,7 +64,7 @@ The stand should be paired with an external keyboard and mouse when raised; Setu
 - Noon showed EGP 1,040, 4.5 from 13 visible ratings, free delivery, and noon-express on the [exact F2069 page](https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/); the seller was not retained and must be rechecked.
 - Havit identifies four fans, 15.6–17.3-inch fit, dual USB, speed control, two height settings, and the need for a Type-C-to-USB adapter when applicable on the [HV-F2069 page](https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop).
 
-The manufacturer store marks the model no longer available there, so this candidate needs a tighter refresh cadence. It is USB-powered rather than mains-powered, but it is not a repair for blocked vents, dried thermal compound, or a failing internal fan.
+The manufacturer store marks the model no longer available there, so this candidate needs a tighter refresh cadence. It is powered through a host USB connection and must not be presented as an internal laptop repair.
 
 ### PP-C09 — JOYROOM JR-ZS368 organizer
 
@@ -80,12 +80,12 @@ The large price spread and low stock require a launch-day recheck. Adhesion and 
 - Noon showed regional part 910-006253 at EGP 1,749, add-to-cart availability, Dokkan Tech, and noon-express on the [exact Noon page](https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/).
 - Logitech documents Bluetooth Low Energy, Logi Bolt, a 200–4000 DPI range, and small/medium right-hand sizing on the [M650 page](https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html).
 
-Amazon's title does not expose regional part 910-006253, so the provider match is by model, size, color, and orientation. The page must say this is a quiet conventional mouse, not a vertical ergonomic or medical device.
+Amazon's title does not expose regional part 910-006253, so the provider match is by model, size, color, and orientation. The page must distinguish M650 from the separately researched Logitech Lift vertical model and avoid medical or therapeutic claims.
 
 ## Safety, counterfeit, and identity disposition
 
 - Powered hubs: promote only the verified Anker model/configuration; require compatible USB-C video, note that the charger is not included, and use the [manufacturer power limits](https://www.anker.com/products/a8355). No generic or model-ambiguous hub enters the launch set.
-- Cooling pads: the selected Havit unit is powered through USB according to the [brand specification](https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop); content must reject damaged cables and avoid repair/temperature promises.
+- Cooling pads: the selected Havit unit is powered through a host USB connection according to the [brand specification](https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop); content must avoid internal-repair and temperature promises.
 - Counterfeit risk: no candidate is declared “authentic” from listing copy alone. The build records exact model identity and seller/fulfillment; buyers are told to verify the received model and return eligibility.
 - Model identity: Logitech Lift, CB-54259 clips, and the generic cable kit are rejected because exact variant/manufacturer identity is unresolved; see their direct [Lift](https://www.noon.com/egypt-en/lift-vertical-ergonomic-mouse-wireless-bluetooth-or-logi-bolt-usb-receiver-quiet-clicks-4-buttons-compatible-with-windows-macos-ipados-laptop-pc-black/N53341712A/p/), [clips](https://www.noon.com/egypt-en/2-pack-cable-clips-holder-desktop-cable-management-system-cable-organizer-for-power-cords/N52353977A/p/), and [generic kit](https://www.noon.com/egypt-en/3m-cable-tidy-kit-with-clips-for-cord-and-wire-organization-at-home-or-office-wrap-and-hide-cables-easily-without-tools/ZE9778DCE447C3AAE27DAZ/p/) records.
 

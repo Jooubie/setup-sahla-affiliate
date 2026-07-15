@@ -1,9 +1,44 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import products from '../data/products.json' with { type: 'json' };
-import { isStrictIsoDate, isStrictIsoUtcTimestamp, parseCsv } from '../scripts/validate_research.mjs';
+import {
+  assertCanonicalEvidenceMatchesStaging,
+  canonicalEvidenceFields,
+  isStrictIsoDate,
+  isStrictIsoUtcTimestamp,
+  parseCsv,
+} from '../scripts/validate_research.mjs';
 
-const evidenceRows = parseCsv(await readFile(new URL('../research/evidence.csv', import.meta.url), 'utf8'));
+const [evidenceText, productEvidenceText, seoEvidenceText, affiliateEvidenceText] = await Promise.all([
+  readFile(new URL('../research/evidence.csv', import.meta.url), 'utf8'),
+  readFile(new URL('../research/product-evidence.csv', import.meta.url), 'utf8'),
+  readFile(new URL('../research/seo-evidence.csv', import.meta.url), 'utf8'),
+  readFile(new URL('../research/affiliate-program-evidence.csv', import.meta.url), 'utf8'),
+]);
+const evidenceRows = parseCsv(evidenceText);
+const stagedRows = [productEvidenceText, seoEvidenceText, affiliateEvidenceText].flatMap(parseCsv);
+const stagedById = new Map(stagedRows.map((row) => [row.staged_id, row]));
+
+assert.doesNotThrow(() => assertCanonicalEvidenceMatchesStaging(evidenceRows, stagedRows));
+const driftedEvidenceRows = evidenceRows.map((row) =>
+  row.evidence_id === 'PP-E035' ? { ...row, notes: `${row.notes} unsupported drift` } : row,
+);
+assert.throws(
+  () => assertCanonicalEvidenceMatchesStaging(driftedEvidenceRows, stagedRows),
+  /PP-E035\.notes must match staging exactly/,
+  'same-ID field drift must fail validation',
+);
+
+assert.equal(stagedById.size, stagedRows.length, 'staging evidence IDs must be unique');
+assert.equal(evidenceRows.length, stagedRows.length, 'canonical and staged evidence counts must match');
+for (const canonicalRow of evidenceRows) {
+  const stagedRow = stagedById.get(canonicalRow.evidence_id);
+  assert.ok(stagedRow, `${canonicalRow.evidence_id} needs a staging row`);
+  assert.equal(canonicalRow.evidence_id, stagedRow.staged_id);
+  for (const field of canonicalEvidenceFields) {
+    assert.equal(canonicalRow[field], stagedRow[field], `${canonicalRow.evidence_id}.${field} drifted from staging`);
+  }
+}
 
 const expectedSlugs = new Set([
   'anker-332-usb-c-hub',

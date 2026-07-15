@@ -77,6 +77,39 @@ export function parseCsv(text) {
   });
 }
 
+export const canonicalEvidenceFields = [
+  'evidence_type',
+  'market',
+  'query_or_item',
+  'metric_name',
+  'metric_value',
+  'metric_unit',
+  'observation',
+  'source_name',
+  'source_url',
+  'captured_at_utc',
+  'rights_status',
+  'used_by',
+  'notes',
+];
+
+export function assertCanonicalEvidenceMatchesStaging(canonicalRows, stagingRows) {
+  const stagedById = new Map(stagingRows.map((row) => [row.staged_id, row]));
+  assert.equal(stagedById.size, stagingRows.length, 'staging evidence IDs must be unique across research streams');
+  assert.equal(canonicalRows.length, stagingRows.length, 'canonical ledger must contain every staged row and no untracked rows');
+  for (const canonicalRow of canonicalRows) {
+    const evidenceId = canonicalRow.evidence_id;
+    const stagedRow = stagedById.get(evidenceId);
+    assert.ok(stagedRow, `canonical evidence ${evidenceId} has no staging source`);
+    assert.deepEqual(Object.keys(canonicalRow), ['evidence_id', ...canonicalEvidenceFields], `${evidenceId} canonical field contract`);
+    assert.deepEqual(Object.keys(stagedRow), ['staged_id', ...canonicalEvidenceFields], `${evidenceId} staging field contract`);
+    assert.equal(evidenceId, stagedRow.staged_id, `${evidenceId} stable ID must match staging`);
+    for (const field of canonicalEvidenceFields) {
+      assert.equal(canonicalRow[field], stagedRow[field], `${evidenceId}.${field} must match staging exactly`);
+    }
+  }
+}
+
 function resolveRef(reference) {
   assert.ok(reference.startsWith('#/'), `unsupported schema reference ${reference}`);
   return reference
@@ -149,8 +182,7 @@ for (const row of evidenceRows) {
 const stagedRows = [productEvidenceText, seoEvidenceText, affiliateEvidenceText].flatMap(parseCsv);
 const stagedIds = new Set(stagedRows.map((row) => row.staged_id));
 assert.equal(stagedIds.size, stagedRows.length, 'staging evidence IDs must be unique across research streams');
-assert.equal(evidenceById.size, stagedIds.size, 'canonical ledger must contain every staged row and no untracked rows');
-for (const evidenceId of stagedIds) assert.ok(evidenceById.has(evidenceId), `canonical ledger is missing staged evidence ${evidenceId}`);
+assertCanonicalEvidenceMatchesStaging(evidenceRows, stagedRows);
 const candidateRows = parseCsv(candidatesText);
 assert.equal(candidateRows.length, 15, 'the researched comparison universe must contain 15 candidates');
 
