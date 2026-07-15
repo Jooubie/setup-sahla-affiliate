@@ -13,6 +13,6 @@ Generated with OpenAI imagegen and reviewed on 2026-07-15. All ten retained PNG 
 | `blog-desk-setup-diagnostic` | `setup-sahla-blog-desk-setup-diagnostic.png` · 1672×941 · 1,961,461 | `blog-desk-setup-diagnostic.webp` · 1600×900 · 52,920 | `ORIGINAL` | Five generic checkpoints connected by one route. |
 | `blog-usb-c-hub-guide` | `setup-sahla-blog-usb-c-hub-guide.png` · 1672×941 · 2,109,296 | `blog-usb-c-hub-guide.webp` · 1600×900 · 56,282 | `ORIGINAL` | Region-neutral connectivity checks, not guaranteed capabilities. |
 | `blog-thermal-posture-cable-workflow` | `setup-sahla-blog-thermal-posture-cable-workflow.png` · 1672×941 · 1,887,261 | `blog-thermal-posture-cable-workflow.webp` · 1600×900 · 62,182 | `ORIGINAL` | Three separate fixes; no single-product outcome is implied. |
-| `og-social-1200x630` | `setup-sahla-og-social-1200x630.png` · 1730×909 · 2,001,063 | `og.png` · 1200×630 · 183,492 | `ORIGINAL` | Text-free social card with safe margins, the cable-line S, and five generic categories. |
+| `og-social-1200x630` | `setup-sahla-og-social-1200x630.png` · 1729×910 · 2,152,800 | `og.png` · 1200×630 · 187,263 | `ORIGINAL` | Text-free social card with safe margins, the cable-line S ending in a plain cyan dot, and five generic categories. |
 
 Retain these PNG masters and the production derivatives, use the alt-text directions from the creative system, and keep all product/model facts in accessible live text linked to the evidence ledger.
