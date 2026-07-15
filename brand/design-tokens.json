@@ -1,0 +1,144 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "name": "Setup Sahla",
+    "version": "1.0.0",
+    "market": "Egypt",
+    "directionSupport": ["ltr", "rtl"],
+    "source": "Original Setup Sahla identity system"
+  },
+  "color": {
+    "brand": {
+      "ink": { "value": "#101411", "type": "color" },
+      "paper": { "value": "#E9DFCA", "type": "color" },
+      "lime": { "value": "#C9FF4A", "type": "color" },
+      "cyan": { "value": "#66D9E8", "type": "color" },
+      "cream": { "value": "#FFFDF7", "type": "color" }
+    },
+    "semantic": {
+      "textPrimary": { "value": "{color.brand.ink}", "type": "color" },
+      "textMuted": { "value": "#3B443E", "type": "color" },
+      "surfaceCanvas": { "value": "{color.brand.cream}", "type": "color" },
+      "surfaceWarm": { "value": "{color.brand.paper}", "type": "color" },
+      "surfaceInverse": { "value": "{color.brand.ink}", "type": "color" },
+      "signalPrimary": { "value": "{color.brand.lime}", "type": "color" },
+      "signalData": { "value": "{color.brand.cyan}", "type": "color" },
+      "border": { "value": "#A49D8D", "type": "color" },
+      "focus": { "value": "#1565C0", "type": "color" },
+      "success": { "value": "#176B45", "type": "color" },
+      "warning": { "value": "#7A4A00", "type": "color" },
+      "danger": { "value": "#A22822", "type": "color" }
+    },
+    "contrastPairs": {
+      "inkOnCream": { "foreground": "#101411", "background": "#FFFDF7", "ratio": 18.27, "use": "all text" },
+      "inkOnPaper": { "foreground": "#101411", "background": "#E9DFCA", "ratio": 14.04, "use": "all text" },
+      "inkOnLime": { "foreground": "#101411", "background": "#C9FF4A", "ratio": 15.83, "use": "buttons and labels" },
+      "cyanOnInk": { "foreground": "#66D9E8", "background": "#101411", "ratio": 11.2, "use": "data accents and focus-adjacent detail" }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": { "value": "Arial Narrow, Roboto Condensed, Bahnschrift Condensed, Arial, sans-serif", "type": "fontFamily" },
+      "body": { "value": "Inter, Segoe UI, Arial, sans-serif", "type": "fontFamily" },
+      "arabic": { "value": "Noto Sans Arabic, Tahoma, Arial, sans-serif", "type": "fontFamily" },
+      "mono": { "value": "Cascadia Mono, Consolas, monospace", "type": "fontFamily" }
+    },
+    "fontWeight": {
+      "regular": { "value": 400, "type": "fontWeight" },
+      "medium": { "value": 550, "type": "fontWeight" },
+      "bold": { "value": 750, "type": "fontWeight" },
+      "black": { "value": 850, "type": "fontWeight" }
+    },
+    "fontSize": {
+      "xs": { "value": "0.75rem", "type": "dimension" },
+      "sm": { "value": "0.875rem", "type": "dimension" },
+      "body": { "value": "1rem", "type": "dimension" },
+      "lead": { "value": "1.25rem", "type": "dimension" },
+      "h4": { "value": "1.5rem", "type": "dimension" },
+      "h3": { "value": "2rem", "type": "dimension" },
+      "h2": { "value": "clamp(2.25rem, 5vw, 4rem)", "type": "dimension" },
+      "h1": { "value": "clamp(3rem, 8vw, 6.5rem)", "type": "dimension" }
+    },
+    "lineHeight": {
+      "tight": { "value": 0.92, "type": "number" },
+      "heading": { "value": 1.05, "type": "number" },
+      "body": { "value": 1.58, "type": "number" },
+      "arabic": { "value": 1.75, "type": "number" }
+    },
+    "letterSpacing": {
+      "display": { "value": "-0.035em", "type": "dimension" },
+      "label": { "value": "0.08em", "type": "dimension" },
+      "body": { "value": "0em", "type": "dimension" }
+    }
+  },
+  "spacing": {
+    "0": { "value": "0", "type": "dimension" },
+    "1": { "value": "0.25rem", "type": "dimension" },
+    "2": { "value": "0.5rem", "type": "dimension" },
+    "3": { "value": "0.75rem", "type": "dimension" },
+    "4": { "value": "1rem", "type": "dimension" },
+    "6": { "value": "1.5rem", "type": "dimension" },
+    "8": { "value": "2rem", "type": "dimension" },
+    "12": { "value": "3rem", "type": "dimension" },
+    "16": { "value": "4rem", "type": "dimension" },
+    "24": { "value": "6rem", "type": "dimension" },
+    "section": { "value": "clamp(4rem, 10vw, 8rem)", "type": "dimension" }
+  },
+  "radius": {
+    "label": { "value": "0.25rem", "type": "dimension" },
+    "card": { "value": "1rem", "type": "dimension" },
+    "panel": { "value": "1.5rem", "type": "dimension" },
+    "pill": { "value": "999px", "type": "dimension" }
+  },
+  "border": {
+    "hairline": { "value": "1px", "type": "dimension" },
+    "utility": { "value": "2px", "type": "dimension" },
+    "cable": { "value": "8px", "type": "dimension" }
+  },
+  "shadow": {
+    "resting": { "value": "0 8px 0 rgba(16, 20, 17, 0.10)", "type": "shadow" },
+    "raised": { "value": "0 16px 40px rgba(16, 20, 17, 0.16)", "type": "shadow" },
+    "focus": { "value": "0 0 0 4px rgba(21, 101, 192, 0.35)", "type": "shadow" }
+  },
+  "motion": {
+    "duration": {
+      "fast": { "value": "120ms", "type": "duration" },
+      "base": { "value": "220ms", "type": "duration" },
+      "route": { "value": "420ms", "type": "duration" }
+    },
+    "easing": {
+      "standard": { "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "type": "cubicBezier" },
+      "enter": { "value": "cubic-bezier(0.16, 1, 0.3, 1)", "type": "cubicBezier" }
+    },
+    "reducedMotion": {
+      "duration": { "value": "1ms", "type": "duration" },
+      "distance": { "value": "0px", "type": "dimension" }
+    }
+  },
+  "layout": {
+    "contentMax": { "value": "76rem", "type": "dimension" },
+    "readingMax": { "value": "44rem", "type": "dimension" },
+    "gutter": { "value": "clamp(1rem, 4vw, 2.5rem)", "type": "dimension" },
+    "tapTarget": { "value": "44px", "type": "dimension" }
+  },
+  "chart": {
+    "series": {
+      "primary": { "value": "#101411", "type": "color" },
+      "secondary": { "value": "#247A88", "type": "color" },
+      "signal": { "value": "#557A00", "type": "color" },
+      "warm": { "value": "#9B4A22", "type": "color" },
+      "neutral": { "value": "#6C6558", "type": "color" }
+    },
+    "grid": { "value": "#C8C1B1", "type": "color" },
+    "label": { "value": "#101411", "type": "color" },
+    "missingData": { "value": "#8C877B", "type": "color" },
+    "rule": { "value": "Use direct labels plus line or marker shapes; never rely on color alone.", "type": "string" }
+  },
+  "report": {
+    "pageBackground": { "value": "#FFFDF7", "type": "color" },
+    "sectionBand": { "value": "#E9DFCA", "type": "color" },
+    "callout": { "value": "#C9FF4A", "type": "color" },
+    "dataAccent": { "value": "#66D9E8", "type": "color" },
+    "ruleWidth": { "value": "2px", "type": "dimension" }
+  }
+}
