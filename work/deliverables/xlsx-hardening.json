@@ -1,0 +1,177 @@
+{
+  "workbook": "C:\\Users\\youse\\Documents\\Codex\\2026-07-15\\g\\.worktrees\\setup-sahla-launch\\deliverables\\Setup-Sahla-Launch-Workbook.xlsx",
+  "bytes": 996799,
+  "freezePanes": {
+    "Launch Dashboard": {
+      "ySplit": "3",
+      "topLeftCell": "A4",
+      "activePane": "bottomLeft",
+      "state": "frozen"
+    },
+    "Products": {
+      "xSplit": "3",
+      "ySplit": "5",
+      "topLeftCell": "D6",
+      "activePane": "bottomRight",
+      "state": "frozen"
+    },
+    "Providers": {
+      "xSplit": "3",
+      "ySplit": "5",
+      "topLeftCell": "D6",
+      "activePane": "bottomRight",
+      "state": "frozen"
+    },
+    "Keywords": {
+      "xSplit": "2",
+      "ySplit": "5",
+      "topLeftCell": "C6",
+      "activePane": "bottomRight",
+      "state": "frozen"
+    },
+    "Evidence": {
+      "xSplit": "2",
+      "ySplit": "5",
+      "topLeftCell": "C6",
+      "activePane": "bottomRight",
+      "state": "frozen"
+    },
+    "Content Map": {
+      "xSplit": "2",
+      "ySplit": "5",
+      "topLeftCell": "C6",
+      "activePane": "bottomRight",
+      "state": "frozen"
+    },
+    "Owner Actions": {
+      "xSplit": "2",
+      "ySplit": "5",
+      "topLeftCell": "C6",
+      "activePane": "bottomRight",
+      "state": "frozen"
+    }
+  },
+  "providerHyperlinks": [
+    {
+      "cell": "I6",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.amazon.eg/-/en/dp/B0BQLLB61B",
+      "relationshipId": "rId1"
+    },
+    {
+      "cell": "K6",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.anker.com/products/a8355",
+      "relationshipId": "rId2"
+    },
+    {
+      "cell": "I7",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.noon.com/egypt-en/anker-332-usb-c-hub-5-in-1-usb-c-connector-with-4k-hdmi-100w-power-charger-black-a8355h11/N70086896V/p/",
+      "relationshipId": "rId3"
+    },
+    {
+      "cell": "K7",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.anker.com/products/a8355",
+      "relationshipId": "rId4"
+    },
+    {
+      "cell": "I8",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.amazon.eg/-/en/dp/B08TLVKBMJ",
+      "relationshipId": "rId5"
+    },
+    {
+      "cell": "K8",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.ugreen.com/tr-tr/products/tr-40289",
+      "relationshipId": "rId6"
+    },
+    {
+      "cell": "I9",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.noon.com/egypt-en/laptop-stand-aluminum-alloy-adjustable-eye-level-ergonomic-height-laptop-riser-holder-compatible-for-macbook-pro-2021-air-chromebook-and-more-storage-bag-included/N53340883A/p/",
+      "relationshipId": "rId7"
+    },
+    {
+      "cell": "K9",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.ugreen.com/tr-tr/products/tr-40289",
+      "relationshipId": "rId8"
+    },
+    {
+      "cell": "I10",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.amazon.eg/-/en/dp/B0CP198X1G",
+      "relationshipId": "rId9"
+    },
+    {
+      "cell": "K10",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop",
+      "relationshipId": "rId10"
+    },
+    {
+      "cell": "I11",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.noon.com/egypt-en/f2069-rgb-light-10-clock-mode-cooling-pad-cool-for-laptop-low-noise-fan-cooler-with-cell-phone-holder/N70023962V/p/",
+      "relationshipId": "rId11"
+    },
+    {
+      "cell": "K11",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.prohavit.com/zh-hans-jp/products/hv-f2069-laptop-cooling-pad-for-up-to-17-inch-laptop",
+      "relationshipId": "rId12"
+    },
+    {
+      "cell": "I12",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.amazon.eg/-/en/dp/B0DJH1W2N4",
+      "relationshipId": "rId13"
+    },
+    {
+      "cell": "K12",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.joyroom.com/products/joyroom-jr-zs368-magnetic-cable-organizer-9pcs-b2c",
+      "relationshipId": "rId14"
+    },
+    {
+      "cell": "I13",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.noon.com/egypt-en/joyroom-cable-organiser-jr-zs368-magnetic-black-6-pcs/ZDB64AB2F8DE78C016649Z/p/?o=zdb64ab2f8de78c016649z-1",
+      "relationshipId": "rId15"
+    },
+    {
+      "cell": "K13",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.joyroom.com/products/joyroom-jr-zs368-magnetic-cable-organizer-9pcs-b2c",
+      "relationshipId": "rId16"
+    },
+    {
+      "cell": "I14",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.amazon.eg/-/en/dp/B09QWY7JYK",
+      "relationshipId": "rId17"
+    },
+    {
+      "cell": "K14",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html",
+      "relationshipId": "rId18"
+    },
+    {
+      "cell": "I15",
+      "display": "OPEN EXACT LISTING",
+      "target": "https://www.noon.com/egypt-en/signature-m650-wireless-mouse-for-small-to-medium-sized-hands-silent-clicks-5-buttons-bluetooth-multi-device-compatibility-400-dpi-nominal-value-10m-range-black/N53285882A/p/",
+      "relationshipId": "rId19"
+    },
+    {
+      "cell": "K15",
+      "display": "OPEN MANUFACTURER SOURCE",
+      "target": "https://www.logitech.com/en-us/products/mice/m650-signature-wireless-mouse.html",
+      "relationshipId": "rId20"
+    }
+  ],
+  "placeholderPhrasePresent": false
+}

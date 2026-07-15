@@ -45,10 +45,20 @@ CREAM = colors.HexColor("#FFFDF7")
 MUTED = colors.HexColor("#59645D")
 RULE = colors.HexColor("#C8C1B3")
 RED = colors.HexColor("#D34F4F")
+WARNING = colors.HexColor("#F3C666")
 WHITE = colors.white
 
 DIRECT_STATE = "DIRECT_LINK — AFFILIATE ID REQUIRED"
 NOON_STATE = "Unverified — public terms do not establish Egypt eligibility"
+SCORE_MAXIMA = {
+    "problemUrgency": 25,
+    "searchIntent": 20,
+    "availability": 15,
+    "value": 15,
+    "compatibility": 10,
+    "editorialFit": 10,
+    "visual": 5,
+}
 
 
 def register_fonts() -> None:
@@ -156,6 +166,14 @@ STYLES = {
         leading=10,
         textColor=INK,
         spaceAfter=2,
+    ),
+    "route": ParagraphStyle(
+        "Route",
+        fontName="SahlaMono",
+        fontSize=5.6,
+        leading=7,
+        textColor=INK,
+        splitLongWords=False,
     ),
     "callout": ParagraphStyle(
         "Callout",
@@ -432,9 +450,11 @@ def product_page(product: dict, image_path: Path, index: int) -> list:
     story += [para("Compatibility gate", "h2")]
     story += bullets(product["compatibility"], "small")
     components = product["score"]["components"]
-    score_items = [(re.sub(r"([A-Z])", r" \1", k).title(), v) for k, v in components.items()]
-    component_line = "  /  ".join(f"{name}: {value}" for name, value in score_items)
+    score_items = [(re.sub(r"([A-Z])", r" \1", k).title(), v, SCORE_MAXIMA[k]) for k, v in components.items()]
+    component_line = "  /  ".join(f"{name}: {value}/{maximum}" for name, value, maximum in score_items)
     story += [para(f"Score components - {component_line}", "mono")]
+    if product["candidateId"] == "PP-C15":
+        story += [Spacer(1, 2 * mm), callout("Manufacturer-store warning", "Havit's manufacturer store marks F2069 no longer available; its specification page remains accessible. Recheck retailer continuity before launch.", WARNING)]
     story += [para("Provider snapshot", "h2")]
     provider_rows = [[para("RETAILER", "table_bold"), para("PRICE / DATE", "table_bold"), para("STATUS", "table_bold"), para("OBSERVATION + LINK", "table_bold")]]
     for provider in product["providers"]:
@@ -455,26 +475,28 @@ def build_research_pdf(products: list[dict], assets: dict[str, Path]) -> None:
     path = DELIVERABLES / "Setup-Sahla-Product-Research-Report.pdf"
     story = cover_story(
         "PRODUCT RESEARCH / LAUNCH SET",
-        "Five problem-solving setup products for Egypt",
+        "Five evidence-qualified launch products for Egypt",
         "A traceable selection report covering methodology, qualitative search signals, exact-provider snapshots, compatibility gates, alternatives, and affiliate limitations.",
         assets["setup-sahla-home-hero.png"],
     )
     story += [para("Executive decision", "h1")]
-    story += [callout("Launch set", "Five exact products, five distinct friction clusters, ten live Egypt retailer destinations at research capture, and original category visuals.")]
+    story += [callout("Launch set", "Five evidence-qualified launch products, five distinct friction clusters, ten live Egypt retailer destinations at research capture, and original category visuals. These are not trend-validated winners.")]
     story += [Spacer(1, 4 * mm), para("Why these five", "h2")]
     story += bullets([
         "Each selected item solves a different recurring setup problem: ports, screen position, airflow space, cable reach, or pointer fit.",
         "Every product has a manufacturer or official model trail plus exact Amazon Egypt and Noon Egypt product pages in the research record.",
         "Keyword evidence is qualitative. Google Autocomplete presence supports language and intent routing; it is not search volume, difficulty, or a growth forecast.",
+        "No volume/trend-direction/growth dataset was available, so these are not trend-validated winners.",
         "Scores are an editorial ranking inside the evaluated candidate set. They are not laboratory performance scores or market-share evidence.",
     ])
+    story += [para("Scoring rubric maxima (100): Problem urgency 25 / Search intent 20 / Availability 15 / Value 15 / Compatibility 10 / Editorial fit 10 / Visual 5.", "mono")]
     story += [para("Methodology and evidence boundary", "h2")]
     methodology = [
         [para("STAGE", "table_bold"), para("CONTROL", "table_bold"), para("OUTPUT", "table_bold")],
         [para("Candidate screening", "table"), para("15 candidates across five problem clusters", "table"), para("Exact model and provider trail or rejection", "table")],
         [para("Demand language", "table"), para("Egypt-locale autocomplete plus source/date", "table"), para("Qualitative route and intent labels only", "table")],
         [para("Claim control", "table"), para("Manufacturer/official specs plus retailer snapshots", "table"), para("Compatibility, dated price, seller/stock cautions", "table")],
-        [para("Selection", "table"), para("Seven-component score totals to 100", "table"), para("Five launch products and one closest rejected alternative each", "table")],
+        [para("Selection", "table"), para("Seven-component score totals to 100", "table"), para("Five evidence-qualified launch products and one closest rejected alternative each", "table")],
         [para("Commercial status", "table"), para("Direct links until approved IDs and link checks exist", "table"), para(DIRECT_STATE, "table")],
     ]
     story += [standard_table(methodology, [35 * mm, 65 * mm, 70 * mm], header=True)]
@@ -497,7 +519,8 @@ def build_research_pdf(products: list[dict], assets: dict[str, Path]) -> None:
     story += [para("Cross-cutting limitations", "h2")]
     story += bullets([
         "Retailer price, stock, seller, fulfillment, returns, and listing identity can change after the capture date.",
-        "No volume, trend-rate, conversion, commission, or revenue claim is supported by the qualitative keyword evidence.",
+        "No volume/trend-direction/growth dataset was available, so the five evidence-qualified launch products are not trend-validated winners.",
+        "Havit's manufacturer store marks F2069 no longer available while its specification page remains accessible; retailer continuity requires launch-day revalidation.",
         "MENA-aware is a design and expansion posture. The demand and retailer evidence in this report is Egypt-specific.",
         "Public product imagery is original. Retailer and manufacturer pages remain source links only unless a current permission record says otherwise.",
         "Fit language for comfort and preference remains editorial judgment, not medical, ergonomic, thermal, or performance proof.",
@@ -705,7 +728,7 @@ def build_business_pdf(products: list[dict], editorial: dict, assets: dict[str, 
         assets["setup-sahla-blog-desk-setup-diagnostic.png"],
     )
     story += [para("Launch decision", "h1")]
-    story += [callout("Go-to-market", "Publish as an Egypt-first, problem-led setup guide with five product pages and three launch guides. Keep all retailer destinations direct until affiliate verification is complete.")]
+    story += [callout("Go-to-market", "Publish as an Egypt-first, problem-led setup guide with five evidence-qualified product pages and three launch guides. The five are not trend-validated winners. Keep all retailer destinations direct until affiliate verification is complete.")]
     story += [Spacer(1, 4 * mm), para("Business model", "h2")]
     story += bullets([
         "Acquire through problem-led search guides, useful community answers, and original social excerpts.",
@@ -758,12 +781,22 @@ def build_business_pdf(products: list[dict], editorial: dict, assets: dict[str, 
     story += [PageBreak(), para("Content launch map", "h1")]
     product_rows = [[para("PRODUCT ROUTE", "table_bold"), para("FRICTION", "table_bold"), para("PRIMARY KEYWORD", "table_bold"), para("SCORE", "table_bold")]]
     for p in products:
-        product_rows.append([para(p["route"], "mono"), para(p["problem"], "table"), para(p["primaryKeyword"]["keyword"], "table"), para(p["score"]["total"], "table_bold")])
-    story += [standard_table(product_rows, [42 * mm, 75 * mm, 35 * mm, 18 * mm], header=True)]
+        product_rows.append([para(p["route"], "route"), para(p["problem"], "table"), para(p["primaryKeyword"]["keyword"], "table"), para(p["score"]["total"], "table_bold")])
+    story += [standard_table(product_rows, [52 * mm, 65 * mm, 35 * mm, 18 * mm], header=True)]
     story += [para("Three launch guides", "h2")]
     guide_rows = [[para("ROUTE", "table_bold"), para("FUNNEL ROLE", "table_bold"), para("PRIMARY CTA", "table_bold")]]
     for article in editorial["articles"]:
-        guide_rows.append([para(article["targetRoute"], "mono"), para(article["funnelRole"], "table"), para(f"{article['primaryCta']['label']} -> {article['primaryCta']['href']}", "table")])
+        cta_block = Table(
+            [[para(article["primaryCta"]["label"], "table")], [para(article["primaryCta"]["href"], "route")]],
+            colWidths=[52 * mm],
+            style=TableStyle([
+                ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                ("TOPPADDING", (0, 0), (-1, -1), 0),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 1),
+            ]),
+        )
+        guide_rows.append([para(article["targetRoute"], "route"), para(article["funnelRole"], "table"), cta_block])
     story += [standard_table(guide_rows, [58 * mm, 60 * mm, 52 * mm], header=True)]
     story += [Spacer(1, 4 * mm), callout("Launch inventory target", "Exactly five approved product pages and three complete launch guides at release. This is a publication control, not a traffic or revenue forecast.", LIME)]
     story += [PageBreak(), para("Days 1-30: publish, instrument, establish baselines", "h1")]

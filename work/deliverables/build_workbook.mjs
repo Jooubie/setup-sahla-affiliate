@@ -141,10 +141,6 @@ function toDate(value) {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function formulaString(value) {
-  return String(value).replace(/"/g, '""');
-}
-
 async function dataUrl(filePath, mime = "image/jpeg") {
   const bytes = await fs.readFile(filePath);
   return `data:${mime};base64,${bytes.toString("base64")}`;
@@ -175,7 +171,7 @@ const contentSheet = workbook.worksheets.add("Content Map");
 const ownerSheet = workbook.worksheets.add("Owner Actions");
 
 // Products
-styleTitle(productsSheet, "T", "SETUP SAHLA / SELECTED PRODUCTS", "Five launch products. Total score is formula-driven from seven visible components. Prices are dated EGP snapshots, not current-price claims.");
+styleTitle(productsSheet, "T", "SETUP SAHLA / EVIDENCE-QUALIFIED PRODUCTS", "Five evidence-qualified launch products, not trend-validated winners. Total score is formula-driven from seven visible components. Prices are dated EGP snapshots, not current-price claims.");
 const productHeaders = ["Candidate ID", "Original visual", "Product", "Category", "Model", "Problem", "Verdict", "Price snapshot (EGP)", "Captured", "Primary keyword", "Total score", "Problem urgency", "Search intent", "Availability", "Value", "Compatibility", "Editorial fit", "Visual", "Route", "Closest rejected alternative"];
 productsSheet.getRange("A5:T5").values = [productHeaders];
 styleHeader(productsSheet.getRange("A5:T5"));
@@ -228,7 +224,6 @@ const providerHeaders = ["Product ID", "Product", "Retailer", "Price (EGP)", "Ca
 providersSheet.getRange("A5:L5").values = [providerHeaders];
 styleHeader(providersSheet.getRange("A5:L5"));
 const providerRows = [];
-const providerFormulas = [];
 for (const product of products) {
   const manufacturerEvidence = product.evidence.find((e) => e.sourceUrl && !e.sourceUrl.includes("amazon.eg") && !e.sourceUrl.includes("noon.com")) ?? product.evidence[0];
   for (const provider of product.providers) {
@@ -241,24 +236,15 @@ for (const product of products) {
       provider.sellerNotes,
       provider.affiliateStatus,
       provider.retailer === "Noon Egypt" ? NOON_STATE : "Not applicable",
-      null,
+      "OPEN EXACT LISTING",
       provider.directUrl,
-      null,
+      "OPEN MANUFACTURER SOURCE",
       manufacturerEvidence.sourceUrl,
-    ]);
-    providerFormulas.push([
-      `=HYPERLINK("${formulaString(provider.directUrl)}","OPEN EXACT LISTING")`,
-      `=HYPERLINK("${formulaString(manufacturerEvidence.sourceUrl)}","OPEN MANUFACTURER SOURCE")`,
     ]);
   }
 }
 const providerEnd = 5 + providerRows.length;
 providersSheet.getRange(`A6:L${providerEnd}`).values = providerRows;
-providerFormulas.forEach((formulas, index) => {
-  const row = 6 + index;
-  providersSheet.getRange(`I${row}`).formulas = [[formulas[0]]];
-  providersSheet.getRange(`K${row}`).formulas = [[formulas[1]]];
-});
 styleBody(providersSheet.getRange(`A6:L${providerEnd}`));
 providersSheet.getRange(`A6:L${providerEnd}`).format.rowHeight = 68;
 providersSheet.getRange(`I6:I${providerEnd}`).format.wrapText = false;
@@ -275,7 +261,7 @@ providersSheet.freezePanes.freezeColumns(3);
 setColumns(providersSheet, [13, 31, 15, 15, 13, 55, 31, 45, 24, 54, 28, 54]);
 
 // Keywords
-styleTitle(keywordsSheet, "N", "SETUP SAHLA / KEYWORD MAP", "Egypt-locale qualitative search-language evidence. Autocomplete presence is not search volume, difficulty, market share, or a trend-rate claim.");
+styleTitle(keywordsSheet, "N", "SETUP SAHLA / KEYWORD MAP", "Egypt-locale qualitative search-language evidence. No volume/trend-direction/growth dataset was available, so the five products are not trend-validated winners.");
 const keywordHeaders = ["Keyword", "Locale", "Language", "Intent", "Problem cluster", "Metric", "Value", "Unit", "Trend direction", "Source", "Captured", "Assigned route", "Source URL", "Notes"];
 keywordsSheet.getRange("A5:N5").values = [keywordHeaders];
 styleHeader(keywordsSheet.getRange("A5:N5"));
@@ -424,7 +410,7 @@ ownerSheet.freezePanes.freezeColumns(2);
 setColumns(ownerSheet, [13, 38, 24, 27, 55, 48, 40, 55]);
 
 // Dashboard (formula-backed summary after all source sheets exist)
-styleTitle(dashboard, "P", "SETUP SAHLA / LAUNCH CONTROL CENTER", "Fix the friction. Keep the gear. Egypt-first launch package with five product routes, three guides, dated provider evidence, original visuals, and direct links pending owner affiliate activation.");
+styleTitle(dashboard, "P", "SETUP SAHLA / LAUNCH CONTROL CENTER", "Fix the friction. Keep the gear. Egypt-first launch package with five evidence-qualified product routes, three guides, dated provider evidence, original visuals, and direct links pending owner affiliate activation.");
 dashboard.getRange("A4:C4").merge();
 dashboard.getRange("A4:C4").values = [["SELECTED PRODUCTS"]];
 dashboard.getRange("A5:C7").merge();
@@ -462,7 +448,7 @@ dashboard.getRange("A14:I14").merge();
 dashboard.getRange("A14:I14").values = [["LAUNCH CONTROL / DO NOT CLAIM"]];
 dashboard.getRange("A15:I22").values = [
   ["1", "Prices, stock, sellers, fulfillment, returns, and listing identity are dated snapshots.", null, null, null, null, null, null, null],
-  ["2", "Autocomplete presence is qualitative search-language evidence, not search volume or trend strength.", null, null, null, null, null, null, null],
+  ["2", "No volume/trend-direction/growth dataset was available. These are evidence-qualified launch products, not trend-validated winners.", null, null, null, null, null, null, null],
   ["3", "Retailer outbound clicks are navigation, not purchases, orders, commission, or revenue.", null, null, null, null, null, null, null],
   ["4", "The MENA posture is design readiness; launch demand and provider evidence is Egypt-specific.", null, null, null, null, null, null, null],
   ["5", "Public visuals are original. Retailer/manufacturer imagery is source-link-only unless permission is current.", null, null, null, null, null, null, null],
@@ -484,7 +470,7 @@ dashboard.getRange(`J10:K${9 + products.length}`).formulas = products.map((_, id
 styleHeader(dashboard.getRange("J9:K9"));
 styleBody(dashboard.getRange(`J10:K${9 + products.length}`));
 const chart = dashboard.charts.add("bar", dashboard.getRange(`J9:K${9 + products.length}`));
-chart.title = "Launch selection score / 100";
+chart.title = "Evidence-qualified launch selection score / 100";
 chart.hasLegend = false;
 chart.xAxis = { axisType: "textAxis", textStyle: { fontSize: 8 } };
 chart.yAxis = { numberFormatCode: "0", min: 0, max: 100 };
@@ -517,7 +503,7 @@ setColumns(dashboard, [11, 15, 15, 11, 15, 15, 11, 15, 15, 26, 12, 12, 12, 12, 1
 
 // Add source comments to key dashboard controls.
 workbook.comments.addThread({ cell: dashboard.getRange("A10") }, "Source: docs/business/AFFILIATE_ACTIVATION.md and research/affiliate-program-evidence.csv. Affiliate IDs and Noon Egypt territory permission are owner-controlled inputs and are not present in this launch package.");
-workbook.comments.addThread({ cell: dashboard.getRange("J5") }, "Formula-backed average of the five visible product totals. Each product total is the sum of seven visible selection components; the score is an editorial rank inside the evaluated launch set, not a performance claim.");
+workbook.comments.addThread({ cell: dashboard.getRange("J5") }, "Formula-backed average of the five visible product totals. Each product total is the sum of seven visible selection components; the score ranks evidence-qualified launch products inside the evaluated candidate set. It is not a performance score or trend validation.");
 
 // Compact verification before export.
 const dashboardCheck = await workbook.inspect({ kind: "table", range: "Launch Dashboard!A1:P31", include: "values,formulas", tableMaxRows: 31, tableMaxCols: 16, maxChars: 12000 });

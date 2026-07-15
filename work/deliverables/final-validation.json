@@ -1,4 +1,5 @@
 {
+  "build_order_document_exists": true,
   "workbook": {
     "zip_integrity": true,
     "sheet_names": [
@@ -11,8 +12,65 @@
       "Owner Actions"
     ],
     "expected_sheet_names": true,
-    "formula_count": 51,
-    "hyperlink_formula_count": 20,
+    "formula_count": 31,
+    "hyperlink_formula_count": 0,
+    "placeholder_phrase_present": false,
+    "provider_hyperlink_nodes": 20,
+    "provider_hyperlink_relationships": 20,
+    "visible_provider_url_count": 20,
+    "friendly_listing_label_count": 20,
+    "friendly_manufacturer_label_count": 20,
+    "freeze_panes": {
+      "Launch Dashboard": {
+        "ySplit": "3",
+        "topLeftCell": "A4",
+        "activePane": "bottomLeft",
+        "state": "frozen"
+      },
+      "Products": {
+        "xSplit": "3",
+        "ySplit": "5",
+        "topLeftCell": "D6",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      "Providers": {
+        "xSplit": "3",
+        "ySplit": "5",
+        "topLeftCell": "D6",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      "Keywords": {
+        "xSplit": "2",
+        "ySplit": "5",
+        "topLeftCell": "C6",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      "Evidence": {
+        "xSplit": "2",
+        "ySplit": "5",
+        "topLeftCell": "C6",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      "Content Map": {
+        "xSplit": "2",
+        "ySplit": "5",
+        "topLeftCell": "C6",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      },
+      "Owner Actions": {
+        "xSplit": "2",
+        "ySplit": "5",
+        "topLeftCell": "C6",
+        "activePane": "bottomRight",
+        "state": "frozen"
+      }
+    },
+    "freeze_panes_match": true,
     "embedded_media_count": 5,
     "drawing_xml_count": 2,
     "table_xml_count": 6,
@@ -26,11 +84,16 @@
       "pages": 9,
       "expected_pages": 9,
       "empty_pages": [],
-      "text_chars": 17396,
+      "text_chars": 18183,
       "external_link_annotations": 14,
       "minimum_external_links": 1,
       "direct_state_present": true,
       "noon_state_present": true,
+      "evidence_qualified_framing": true,
+      "trend_validation_limit": true,
+      "not_trend_validated_winners": true,
+      "scoring_rubric_maxima": true,
+      "havit_discontinuation_beside_and_limits": true,
       "ok": true
     },
     "Setup-Sahla-Brand-Guide.pdf": {
@@ -48,30 +111,33 @@
       "pages": 10,
       "expected_pages": 10,
       "empty_pages": [],
-      "text_chars": 13188,
+      "text_chars": 13237,
       "external_link_annotations": 4,
       "minimum_external_links": 1,
       "direct_state_present": true,
       "noon_state_present": true,
+      "unbroken_page_5_routes": true,
+      "evidence_qualified_framing": true,
+      "not_trend_validated_winners": true,
       "ok": true
     }
   },
   "files": {
     "Setup-Sahla-Brand-Guide.pdf": {
-      "bytes": 825022,
-      "sha256": "2ec410ec7fd16a07a461c3788fafb06c22f2a72c48796cbe4e788a97d3052df8"
+      "bytes": 836891,
+      "sha256": "5f3c9f36afb2a103fd02c209ee5d83a73e67cd21292b3e3dc4ce9cc57aca79d8"
     },
     "Setup-Sahla-Business-Launch-Plan.pdf": {
-      "bytes": 198936,
-      "sha256": "8899d1f4bd797cbca875d6938b30cbdfe91f7c0847e0091891b48176bf1dca28"
+      "bytes": 199020,
+      "sha256": "cb4ef910e41a09aa495b305b44654e72ab53ca2623229eeda72ea592207d3c36"
     },
     "Setup-Sahla-Launch-Workbook.xlsx": {
-      "bytes": 994700,
-      "sha256": "fac93ba4d3729ef2018f939eb17cc90593c17927d42faac546e91e9dacffd583"
+      "bytes": 996799,
+      "sha256": "f49250778bd1496ef1f717d76e0db3b6bdeb424d82a5668aeceee550c4e485ca"
     },
     "Setup-Sahla-Product-Research-Report.pdf": {
-      "bytes": 776667,
-      "sha256": "cb169dc62037ed00a793cf280ec56ff7d37b5333ed4810293ca5d1ca27fc9569"
+      "bytes": 777289,
+      "sha256": "dbc383ef79eab9b698acdbf8d80a748f59c23ca0b16f7572ba4ec3ab1e9126ea"
     }
   },
   "ok": true
