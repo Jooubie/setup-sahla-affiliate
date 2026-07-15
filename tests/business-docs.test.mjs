@@ -41,6 +41,13 @@ test('launch plan defines the Egypt-first campaign and commercial guardrails', (
   }
 
   assert.doesNotMatch(body, /guaranteed|best overall|live price/i);
+  assert.doesNotMatch(body, /direct\/non-monetized|Not eligible\/unverified/i);
+  assert.match(body, /Publication gate:[^\n]*public[^\n]*domain/i);
+  assert.match(body, /Measurement gate:[^\n]*analytics[^\n]*Search Console/i);
+  assert.match(body, /analytics and Search Console are not publication blockers/i);
+  assert.match(body, /failed link[^\n]*immediately/i);
+  assert.match(body, /one business day[^\n]*(documentation|follow-up)/i);
+  assert.match(body, /Unverified — public terms do not establish Egypt eligibility/);
 });
 
 test('affiliate runbook keeps unverified links direct and records owner inputs', () => {
@@ -52,7 +59,7 @@ test('affiliate runbook keeps unverified links direct and records owner inputs',
     'LINK DISABLED — REVIEW REQUIRED',
     'Amazon Egypt Associates',
     'UAE and Saudi Arabia',
-    'does not establish Egypt commission eligibility',
+    'Unverified — public terms do not establish Egypt eligibility',
     'Owner input',
     'affiliate ID',
     'legal and tax',
@@ -61,6 +68,31 @@ test('affiliate runbook keeps unverified links direct and records owner inputs',
   }
 
   assert.doesNotMatch(body, /Noon Egypt[^\n]*(earns commission|commission-ready|(?<!non-)monetized)/i);
+  assert.match(body, /As an Amazon Associate I earn from qualifying purchases\./);
+  assert.match(body, /Required Amazon Associate identification/);
+  assert.match(body, /Contextual commission disclosure/);
+  assert.match(body, /Direct-link wording before activation/);
+
+  const preApplication = body.indexOf('### Phase A — pre-application');
+  const enrollment = body.indexOf('### Phase B — enrollment');
+  const postEnrollment = body.indexOf('### Phase C — post-enrollment tag setup');
+  assert.ok(preApplication >= 0 && enrollment > preApplication && postEnrollment > enrollment);
+  assert.doesNotMatch(body.slice(preApplication, enrollment), /Amazon Associates ID\/tag/);
+  assert.match(body.slice(postEnrollment), /\[OWNER INPUT REQUIRED — Amazon Associates ID\/tag\]/);
+
+  assert.match(body, /Unverified — public terms do not establish Egypt eligibility/);
+  assert.match(body, /rel="sponsored nofollow noopener noreferrer"/);
+  assert.match(body, /target="_blank"/);
+  assert.match(body, /HTTPS[^\n]*allowlist[^\n]*exact-model destination/i);
+  assert.match(body, /Policy sources reviewed: 2026-07-14 UTC/);
+  for (const url of [
+    'https://affiliate-program.amazon.eg/welcome',
+    'https://affiliate-program.amazon.eg/help/operating/agreement',
+    'https://affiliate-program.amazon.eg/help/operating/policies/',
+    'https://affiliates.noon.com/en/terms',
+  ]) {
+    assert.ok(body.includes(url), `Missing official policy URL: ${url}`);
+  }
 });
 
 test('operating plan covers a practical 30/60/90 calendar and refresh cadence', () => {
@@ -77,6 +109,13 @@ test('operating plan covers a practical 30/60/90 calendar and refresh cadence', 
   ]) {
     assert.match(body, new RegExp(phrase, 'i'), `Missing operating-plan phrase: ${phrase}`);
   }
+
+  assert.match(body, /Publication gate:[^\n]*public[^\n]*domain/i);
+  assert.match(body, /Measurement gate:[^\n]*after publication[^\n]*analytics[^\n]*Search Console/i);
+  assert.match(body, /Search Console is not a publication blocker/i);
+  assert.match(body, /contain[^\n]*failed link[^\n]*immediately/i);
+  assert.match(body, /one business day[^\n]*(documentation|follow-up)/i);
+  assert.match(body, /Unverified — public terms do not establish Egypt eligibility/);
 });
 
 test('metrics scorecard separates targets from observations and avoids invented benchmarks', () => {
@@ -94,4 +133,7 @@ test('metrics scorecard separates targets from observations and avoids invented 
   }
 
   assert.doesNotMatch(body, /industry average|expected commission|projected revenue/i);
+  assert.match(body, /\| Failed-link CTA containment \|[^\n]*\| TARGET: immediately/i);
+  assert.match(body, /\| Failed-link incident documentation \|[^\n]*\| TARGET: within one business day/i);
+  assert.match(body, /Unverified — public terms do not establish Egypt eligibility/);
 });

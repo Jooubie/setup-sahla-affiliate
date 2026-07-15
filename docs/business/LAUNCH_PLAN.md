@@ -8,7 +8,7 @@ Campaign promise: **Fix the friction. Keep the gear.**
 
 Setup Sahla launches as an independent, editorial affiliate publisher for people who already own a usable laptop or PC. It diagnoses a concrete setup problem, explains the compatibility gate, and presents locally available buying options without pretending that a small accessory replaces a repair or a core device. The first release promotes five evidence-reviewed opportunities across ports, posture, thermal management, cable control, and input comfort, supported by three search-led guides.
 
-Publishing readiness and monetization readiness are separate. The site can publish with verified direct Amazon Egypt and Noon Egypt destinations. Amazon links remain `DIRECT_LINK — AFFILIATE ID REQUIRED` until owner approval and tagged-link verification. Noon Egypt links remain direct and non-monetized because the current public Noon affiliate terms name the UAE and Saudi Arabia; that public wording does not establish Egypt commission eligibility.
+Publishing readiness and monetization readiness are separate. The site can publish with verified direct Amazon Egypt and Noon Egypt destinations. Amazon links remain `DIRECT_LINK — AFFILIATE ID REQUIRED` until owner approval and tagged-link verification. Noon Egypt links remain direct with tracking inactive, and their eligibility record must read `Unverified — public terms do not establish Egypt eligibility` until the owner retains written confirmation.
 
 Primary campaign objective — **TARGET:** launch the complete evidence-led site and make every public recommendation useful, traceable, disclosed, and refreshable. No traffic, conversion, commission, or revenue result is forecast.
 
@@ -17,6 +17,14 @@ Secondary campaign objectives:
 - **TARGET:** establish a clean measurement baseline after analytics and Search Console are owner-configured.
 - **TARGET:** learn which problem paths produce qualified retailer clicks without treating clicks as purchases.
 - **TARGET:** complete the Amazon Egypt Associates application after the public site and owner details are ready.
+
+### Publication and measurement gates
+
+Publication gate: the verified build is available on the public owner-controlled domain, with required trust pages, disclosure, safe direct links, and launch-day checks complete.
+
+Measurement gate: after publication, configure the privacy-approved analytics platform and verify Search Console before beginning a baseline or submitting the sitemap.
+
+Analytics and Search Console are not publication blockers. They are post-publication measurement and submission gates; no performance baseline begins before they pass.
 
 ## Value proposition
 
@@ -106,21 +114,21 @@ Useful guide → voluntary signup → periodic fix/refresh digest → return to 
 - [ ] Verify all links remain `DIRECT_LINK — AFFILIATE ID REQUIRED` unless a tagged destination has independently passed activation review.
 - [ ] Confirm retailer/manufacturer images are not copied, scraped, or hot-linked; use original launch visuals.
 - [ ] Complete responsive, accessibility, metadata, structured-data, sitemap, and internal-link checks.
-- [ ] Provide [OWNER INPUT REQUIRED — domain], [OWNER INPUT REQUIRED — analytics platform], and Search Console ownership.
+- [ ] Provide [OWNER INPUT REQUIRED — domain] and confirm the verified build can resolve publicly there.
 - [ ] Complete [OWNER INPUT REQUIRED — legal and tax review] for disclosures, privacy, affiliate income, and local obligations.
 
 ### Launch day
 
 - [ ] Publish the verified build and record release commit, deployment destination, and rollback point.
-- [ ] Submit the sitemap after domain verification.
 - [ ] Run a complete route and outbound-link smoke check.
 - [ ] Distribute the three launch guides using original channel-specific excerpts.
-- [ ] Start the scorecard with observed values only; do not backfill invented baselines.
 - [ ] Apply to Amazon Egypt Associates only after the public site is complete enough for review.
 
 ### First two weeks
 
-- [ ] Review query/indexing signals and fix technical access issues.
+- [ ] After the public domain resolves, verify Search Console and submit the sitemap; this does not block publication.
+- [ ] Configure [OWNER INPUT REQUIRED — analytics platform] only after privacy approval, then start the scorecard with observed values; do not backfill invented baselines.
+- [ ] Review query/indexing signals and fix technical access issues after Search Console begins reporting.
 - [ ] Check every retail destination again within the every 14 days operating cadence.
 - [ ] Record reader questions as content hypotheses, not facts.
 - [ ] Establish analytics baselines only after the measurement setup is verified.
@@ -131,20 +139,21 @@ Useful guide → voluntary signup → periodic fix/refresh digest → return to 
 |---|---|---|---|---|
 | Retail price, stock, seller, or listing identity changes | Scheduled check or reader report differs from the record | Incorrect commercial presentation | Recheck exact page, qualify the observation, update the snapshot, or disable the CTA | Research/Final Review |
 | Failed or redirected retailer link | Link check fails, model changes, or destination becomes unsafe | Reader harm and lost trust | Remove prominent CTA immediately and set `LINK DISABLED — REVIEW REQUIRED` until reverified | Website/Final Review |
-| Noon Egypt commission assumption | Account dashboard or public copy is ambiguous | Misleading monetization claim | Keep links direct/non-monetized until written eligibility confirmation is retained | Owner |
+| Noon Egypt commission assumption | Account dashboard or public copy is ambiguous | Misleading monetization claim | Keep links direct with tracking inactive and record `Unverified — public terms do not establish Egypt eligibility` until written confirmation is retained | Owner |
 | Amazon application is delayed or declined | Program response or missing owner information | No tracked Amazon commission | Keep useful direct links, resolve the named deficiency, and never borrow a tag | Owner |
 | Claim or product identity drifts | Retailer variant changes or evidence expires | Unsupported recommendation | Roll back to the earliest failed gate and republish only after review | Research Integration |
 | Thin initial traffic | Measurement baseline remains small | Weak optimization signal | Continue problem-led owned content and technical SEO; do not infer conversion from a few visits | Business operator |
 | Image-rights violation | Unapproved product photo appears in an asset | Legal/program risk | Withdraw it and use the original fallback; review the asset pipeline | Identity/Creatives |
 | Analytics or consent is unconfigured | No approved platform or privacy path | Incomplete measurement | Use server/deployment logs if lawfully available; keep email/optional tracking disabled | Owner/Website |
 
+A failed link is contained immediately when detected: remove its prominent CTA and set `LINK DISABLED — REVIEW REQUIRED` before further distribution. Complete incident documentation, owner assignment, and follow-up within one business day; that documentation SLA never delays containment.
+
 ## Decision owners and launch inputs
 
-- Business owner: account applications, [OWNER INPUT REQUIRED — Amazon Associates ID/tag], [OWNER INPUT REQUIRED — Noon Egypt eligibility confirmation], payment/tax details, legal approval, domain, and paid-spend decisions.
+- Business owner: account applications, [OWNER INPUT REQUIRED — Amazon Associates ID/tag] after enrollment supplies it, [OWNER INPUT REQUIRED — Noon Egypt eligibility confirmation], payment/tax details, legal approval, domain, and paid-spend decisions.
 - Final Review: launch gate, link safety, documented checks, and rollback decision.
 - Research Integration: evidence, claims, selected models, providers, and compatibility boundaries.
 - Editorial: useful intent coverage and claim-safe copy.
 - Website: truthful rendering, disclosure placement, technical quality, and safe links.
 
 Budget is intentionally unset. The plan is channel-agnostic and organic-first until the owner supplies an approved budget and reliable baseline.
-

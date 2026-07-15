@@ -11,6 +11,14 @@ This calendar starts on the verified publication date. It converts the launch pa
 - Use original visual assets. Retailer pages remain evidence sources unless current permission says otherwise.
 - Label operating goals `TARGET`; record actual results separately as observations.
 
+## Publication and measurement gates
+
+Publication gate: publish the verified build on the public owner-controlled domain with required trust pages, disclosures, safe direct links, and launch-day checks complete.
+
+Measurement gate: after publication, configure the privacy-approved analytics platform and verify Search Console before beginning the baseline; submit the sitemap only after the public domain resolves and Search Console ownership passes.
+
+Search Console is not a publication blocker. Analytics is also not required to publish; both are separate post-publication measurement/submission controls.
+
 ## Days 1–30 — publish, instrument, and establish baselines
 
 **Phase outcome — TARGET:** a stable, indexable, disclosed launch with complete link records and the first clean measurement baseline.
@@ -19,8 +27,9 @@ This calendar starts on the verified publication date. It converts the launch pa
 |---|---|---|---|
 | Launch day | Run final route, internal-link, disclosure, metadata, accessibility, and outbound-link checks | Release record and rollback point | Passed site build |
 | Launch day | Recheck all exact Amazon Egypt and Noon Egypt destinations | UTC-stamped provider audit | Canonical provider records |
-| Launch day | Publish the five product pages and three guides; submit sitemap after verification | Public Egypt-first content cluster | [OWNER INPUT REQUIRED — domain] |
-| Week 1 | Configure privacy-approved measurement and Search Console | Verified collection and annotation of launch date | [OWNER INPUT REQUIRED — analytics platform] |
+| Launch day | Publish the five product pages and three guides on the verified domain | Public Egypt-first content cluster | [OWNER INPUT REQUIRED — domain] |
+| Week 1 | After the site resolves publicly, verify Search Console and submit the sitemap | Verified property and submission record | [OWNER INPUT REQUIRED — Search Console owner account] |
+| Week 1 | Configure privacy-approved measurement, then annotate the measurement start | Verified collection; baseline starts no earlier | [OWNER INPUT REQUIRED — analytics platform] |
 | Week 1 | Distribute each guide through an original pain-led post and an answer-first community contribution | Distribution log with destination and question addressed | Approved creative/copy |
 | Week 2 | Review crawl/indexing, broken links, query appearance, and outbound-event collection | Issue list with owner and due date | Measurement access |
 | Week 2 | Complete the every 14 days retailer audit | Changed records or a documented no-change review | Provider checklist |
@@ -38,8 +47,8 @@ Do not change product selection because of a few clicks. Early data is diagnosti
 |---|---|---|---|
 | Weeks 5–6 | Compare guide entrances, internal product clicks, and retailer outbound clicks by problem cluster | Prioritized two-page improvement queue | Baseline scorecard |
 | Weeks 5–6 | Refresh all providers and urgent-risk records, including Havit discontinuation risk and JOYROOM price/stock spread | Updated evidence or disabled CTA | Every 14 days audit |
-| Week 6 | If Amazon approval exists, convert and test one exact product link at a time | Link registry entry per verified destination | [OWNER INPUT REQUIRED — Amazon Associates ID/tag] |
-| Week 6 | Ask Noon for written Egypt eligibility and retain the response | Territory decision record | [OWNER INPUT REQUIRED — Noon Egypt eligibility confirmation] |
+| Week 6 | If Amazon enrollment has supplied account access, obtain the owner tag, then convert and test one exact product link at a time | Link registry entry per verified destination | [OWNER INPUT REQUIRED — Amazon Associates ID/tag] |
+| Week 6 | Ask Noon for written Egypt eligibility and retain the response; until then record `Unverified — public terms do not establish Egypt eligibility` | Territory decision record | [OWNER INPUT REQUIRED — Noon Egypt eligibility confirmation] |
 | Weeks 7–8 | Update one guide section or product decision aid based on observed questions and query wording | Change note linking observation to edit | Editorial/evidence review |
 | Week 8 | Run the next provider audit and a commercial-page disclosure sweep | Freshness and compliance result | Link registry |
 | Day 60 | Compare the second complete period to baseline without calling correlation a purchase outcome | Decision memo: keep, improve, or investigate | Comparable measurement windows |
@@ -91,11 +100,14 @@ MENA expansion is not an automatic next step. A market moves into research only 
 
 ### Immediate failed link/correction response
 
+Contain a failed link immediately when it is detected; documentation follows containment.
+
 1. Remove the failed link from prominent CTAs.
-2. Set `LINK DISABLED — REVIEW REQUIRED` and record the observed failure.
-3. Restore the last known-safe direct destination only after exact model/market verification.
-4. Reopen the earliest affected evidence or claim gate.
-5. Rebuild, retest, and record the correction before republishing.
+2. Set `LINK DISABLED — REVIEW REQUIRED` immediately and stop distribution of the affected destination.
+3. Within one business day, complete incident documentation, assign follow-up, and record the next review; documentation never delays containment.
+4. Restore the last known-safe direct destination only after exact model/market verification.
+5. Reopen the earliest affected evidence or claim gate.
+6. Rebuild, retest, and record the correction before republishing.
 
 ## Decision calendar and owners
 
@@ -113,11 +125,10 @@ MENA expansion is not an automatic next step. A market moves into research only 
 - [OWNER INPUT REQUIRED — domain]
 - [OWNER INPUT REQUIRED — analytics platform]
 - [OWNER INPUT REQUIRED — email platform]
-- [OWNER INPUT REQUIRED — Amazon Associates ID/tag]
+- [OWNER INPUT REQUIRED — Amazon Associates ID/tag] after enrollment supplies it
 - [OWNER INPUT REQUIRED — Noon Egypt eligibility confirmation]
 - [OWNER INPUT REQUIRED — legal and tax review]
 - [OWNER INPUT REQUIRED — Search Console owner account]
 - [OWNER INPUT REQUIRED — operating owner names and weekly review slot]
 
 The operating team records missing inputs as blockers without fabricating substitutes. Direct links, original content, and aggregate non-personal measurement are the truthful fallback where permitted.
-

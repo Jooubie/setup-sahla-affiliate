@@ -6,9 +6,9 @@ This scorecard measures whether Setup Sahla is discoverable, useful, commerciall
 
 1. Label a value **Observed** only when it comes from the named source and a complete, verified collection window.
 2. Label each operating goal **TARGET**. Targets are internal control points, not claims about market behavior.
-3. Use `Not configured`, `Not eligible`, `Incomplete window`, or `Not enough data` instead of zero when measurement is unavailable.
+3. Use `Not configured`, `Unverified`, `Incomplete window`, or `Not enough data` instead of zero when measurement is unavailable. Noon Egypt uses the more precise required eligibility label below.
 4. Treat retailer outbound clicks as qualified commercial navigation, not purchases or commission.
-5. Report Amazon commission only after an approved tagged link exists and the program reports the result. Keep Noon Egypt commission as `Not eligible/unverified` until written Egypt eligibility is retained.
+5. Report Amazon commission only after an approved tagged link exists and the program reports the result. Record Noon Egypt as `Unverified — public terms do not establish Egypt eligibility` until written Egypt eligibility is retained.
 6. Do not compare periods with materially different tracking uptime without stating the limitation.
 
 Baseline window: first complete measurement period after [OWNER INPUT REQUIRED — analytics platform] and Search Console are verified. No market benchmark is substituted for the missing baseline.
@@ -20,10 +20,11 @@ Baseline window: first complete measurement period after [OWNER INPUT REQUIRED �
 | Published launch inventory | Count of approved public product pages and complete launch guides | Release record | TARGET: five product pages and three launch guides at release | Route/build manifest | Release | Block launch if counts differ |
 | Commercial disclosure compliance | Pages with disclosure before first retailer CTA ÷ pages with retailer CTAs | Prelaunch audit | TARGET: 100% | Page audit / automated content check | Release and weekly | Roll back non-compliant page |
 | Retail-link freshness | Enabled retailer destinations checked within the last 14 days ÷ enabled retailer destinations | Launch-day audit | TARGET: 100% | Provider/link registry | Every 14 days | Recheck or disable stale links |
-| Failed-link containment time | Time from observed failure to prominent CTA removal | Not enough data | TARGET: within one business day | Incident/correction log | Per incident | Escalate unresolved failure |
+| Failed-link CTA containment | Time from observed failure to prominent CTA removal and disabled state | Not enough data | TARGET: immediately upon detection, before further distribution | Incident/correction log | Per incident | Contain first; do not wait for documentation |
+| Failed-link incident documentation | Time from immediate containment to completed incident note, owner, and follow-up | Not enough data | TARGET: within one business day | Incident/correction log | Per incident | Escalate missing follow-up without re-enabling CTA |
 | Affiliate link status coverage | Count by direct, verified-affiliate, and disabled state | Launch registry | TARGET: 100% of retailer links have one valid recorded state | Provider/link registry | Every 14 days | Prevent unknown tracking state |
 | Amazon activation readiness | Required owner inputs and application/site checks completed | Owner inputs pending | TARGET: application-ready after public launch; no approval-time forecast | Owner activation checklist | Weekly until resolved | Submit or resolve blocker |
-| Noon Egypt eligibility | Written program confirmation applicable to Egypt retained | Public terms do not establish eligibility | TARGET: written owner verification before any Noon Egypt monetization claim | Owner program record | Monthly until resolved | Keep direct/non-monetized or activate verified link |
+| Noon Egypt eligibility | Written program confirmation applicable to Egypt retained | Unverified — public terms do not establish Egypt eligibility | TARGET: written owner verification before any Noon Egypt commission claim | Owner program record | Monthly until resolved | Keep tracking inactive or activate only after verification |
 | Organic search entrances | Search-origin sessions landing on a guide or product page | Not configured | TARGET: establish a complete observed baseline before setting a growth target | Search Console + approved analytics | Weekly / monthly close | Prioritize intent and indexing fixes |
 | Search query coverage | Distinct relevant queries with valid impressions/clicks, reported without invented volume | Not configured | TARGET: establish a complete observed baseline; owner sets next-period target after review | Search Console | Weekly / monthly close | Find missing or mismatched intent |
 | Guide-to-product click rate | Unique internal product clicks from guides ÷ eligible guide sessions | Not configured | TARGET: owner-set only after the first complete baseline | Approved analytics events | Monthly | Improve section relevance and CTA context |
@@ -50,7 +51,7 @@ Track product-to-retailer outbound actions by product, provider, link state, and
 
 ### Monetization
 
-Use only retailer-program reporting from verified affiliate links. Direct Amazon or Noon clicks have no claimed commission attribution. Noon Egypt remains direct/non-monetized until written eligibility confirmation.
+Use only retailer-program reporting from verified affiliate links. Direct Amazon or Noon clicks have no claimed commission attribution. Noon Egypt remains `Unverified — public terms do not establish Egypt eligibility` with tracking inactive until written eligibility confirmation.
 
 ### Trust and operations
 
@@ -83,9 +84,8 @@ Do not fill empty cells with estimates. “Not configured” and “Not enough d
 - [OWNER INPUT REQUIRED — domain]
 - [OWNER INPUT REQUIRED — analytics platform]
 - [OWNER INPUT REQUIRED — email platform]
-- [OWNER INPUT REQUIRED — Amazon Associates ID/tag]
+- [OWNER INPUT REQUIRED — Amazon Associates ID/tag] after enrollment supplies it
 - [OWNER INPUT REQUIRED — Noon Egypt eligibility confirmation]
 - [OWNER INPUT REQUIRED — legal and tax review]
 - [OWNER INPUT REQUIRED — Search Console owner account]
 - [OWNER INPUT REQUIRED — reporting owner and monthly close date]
-
