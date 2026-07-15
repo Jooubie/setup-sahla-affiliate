@@ -20,6 +20,7 @@ evidenceIds:
   - "PP-E001"
   - "PP-E007"
   - "PP-E032"
+  - "PP-E035"
   - "PP-E017"
   - "PP-E019"
 disclosureMode: "DIRECT_LINK — AFFILIATE ID REQUIRED"
@@ -106,7 +107,7 @@ Review the five rows and mark each one **adjust**, **research**, or **leave alon
 
 Only one row should become today’s action. That keeps **laptop desk setup accessories** tied to a visible problem. The rest can wait until the first change has been used long enough to reveal whether it removed the friction or moved it elsewhere.
 
-The primary next step is to [check the five product fit pages](/products/) against your notes. Product pages contain the compatibility gate, skip guidance, dated provider context, and disclosure before any retailer destination.
+Primary next step: [Check the five product fit pages](/products/) against your notes. Product pages contain the compatibility gate, skip guidance, dated provider context, and disclosure before any retailer destination.
 
 ## FAQ
 
@@ -128,6 +129,6 @@ Do not assume that. Check the exact laptop guidance and the conditions around th
 
 ## Evidence notes
 
-Keyword evidence `SEO-KW-031` through `SEO-KW-035` records qualitative Egypt-localized query language captured on 2026-07-14. It is not search volume, ranking difficulty, or a trend direction. Product statements use manufacturer evidence `PP-E001`, `PP-E007`, `PP-E032`, `PP-E035`, `PP-E017`, and `PP-E019`, last checked 2026-07-14 or 2026-07-15. No product was hands-on tested by Setup Sahla. Retail price, stock, seller, returns, and affiliate status are intentionally left to the internal product pages and their dated checks.
+Keyword evidence `SEO-KW-031` through `SEO-KW-034` records qualitative Egypt-localized query language captured on 2026-07-14. It is not search volume, ranking difficulty, or a trend direction. Product statements use manufacturer evidence `PP-E001`, `PP-E007`, `PP-E032`, `PP-E035`, `PP-E017`, and `PP-E019`, last checked 2026-07-14 or 2026-07-15. No product was hands-on tested by Setup Sahla. Retail price, stock, seller, returns, and affiliate status are intentionally left to the internal product pages and their dated checks.
 
 Fix the friction you can name. Keep the gear that already passes the test.

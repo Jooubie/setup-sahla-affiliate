@@ -47,6 +47,7 @@
         "PP-E001",
         "PP-E007",
         "PP-E032",
+        "PP-E035",
         "PP-E017",
         "PP-E019"
       ]
@@ -102,7 +103,7 @@
       "funnelRole": "Mid-funnel screen-height, airflow-space, and cable-routing workflow",
       "primaryKeyword": "laptop running hot",
       "primaryCta": {
-        "label": "Run the three product fit checks",
+        "label": "Check the Havit F2069 compatibility page",
         "href": "/products/laptop-cooling-pad/"
       },
       "internalLinks": [

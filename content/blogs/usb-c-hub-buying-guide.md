@@ -11,7 +11,7 @@ publishedAt: "2026-07-15"
 reviewedAt: "2026-07-15"
 author: "Setup Sahla Editorial"
 image: "/assets/generated/setup-sahla-blog-usb-c-hub-guide.png"
-imageAlt: "A generic USB-C hub diagram connecting a host laptop to display, power, storage, keyboard, and mouse jobs"
+imageAlt: "A generic USB-C hub diagram showing display, storage, and power checkpoints between a host laptop and connected devices"
 evidenceIds:
   - "SEO-KW-037"
   - "SEO-KW-038"
@@ -97,7 +97,7 @@ Setup Sahla selected Anker 332 for the launch set because it combines a stable m
 - Charger not included.
 - Exact Amazon Egypt and Noon Egypt product pages captured for provider comparison. [Evidence: PP-E001, PP-E027, PP-E002, PP-E028]
 
-Choose the internal [Anker 332 evidence page](/products/usb-c-hub/) only if that map matches your host, display, data, and power checks.
+Primary next step: [Check the Anker 332 evidence page](/products/usb-c-hub/) only if that map matches your host, display, data, and power checks.
 
 ### Baseus UltraJoy BS-OH150
 
