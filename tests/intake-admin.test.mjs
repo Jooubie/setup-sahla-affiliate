@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
@@ -41,7 +41,7 @@ async function withServer(run) {
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   const { port } = server.address();
   try {
-    await run(`http://127.0.0.1:${port}`);
+    await run(`http://127.0.0.1:${port}`, root);
   } finally {
     await new Promise((resolve) => server.close(resolve));
     rmSync(root, { recursive: true, force: true });
@@ -52,6 +52,7 @@ test('catalog endpoint combines published products and future intake items', asy
   await withServer(async (origin) => {
     const response = await fetch(`${origin}/api/catalog`);
     assert.equal(response.status, 200);
+    assert.equal(response.headers.get('cache-control'), 'no-store');
     const body = await response.json();
     assert.equal(body.summary.published, 1);
     assert.equal(body.summary.pipeline, 1);
@@ -105,6 +106,8 @@ test('dashboard renders safe catalog controls without innerHTML injection', asyn
     assert.match(html, /All products/i);
     assert.match(html, /Affiliate link/i);
     assert.match(html, /Edit product/i);
+    assert.match(html, /button\('Reject'/);
+    assert.doesNotMatch(html, /id="productStatus"/);
     assert.doesNotMatch(html, /rows\.innerHTML/);
   });
 });
@@ -157,6 +160,23 @@ test('admin API stores a per-product affiliate link privately with pending verif
   });
 });
 
+test('admin API rejects an affiliate retailer that is not configured for the product', async () => {
+  await withServer(async (origin) => {
+    const response = await fetch(`${origin}/api/affiliate-link`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        productKey: 'PP-C01',
+        retailer: 'Noon Egypt',
+        url: 'https://www.noon.com/egypt-en/not-configured/N1/p/',
+        status: 'pending',
+      }),
+    });
+    assert.equal(response.status, 400);
+    assert.match((await response.json()).error, /not configured/);
+  });
+});
+
 test('admin API removes a saved affiliate link without removing the product', async () => {
   await withServer(async (origin) => {
     await fetch(`${origin}/api/affiliate-link`, {
@@ -173,5 +193,41 @@ test('admin API removes a saved affiliate link without removing the product', as
     assert.equal(response.status, 200);
     const catalog = await (await fetch(`${origin}/api/catalog`)).json();
     assert.deepEqual(catalog.items.find((item) => item.key === 'PP-C01').affiliateLinks, {});
+  });
+});
+
+test('removing a pipeline product clears its private links and never reuses its intake ID', async () => {
+  await withServer(async (origin, root) => {
+    await fetch(`${origin}/api/affiliate-link`, {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        productKey: 'IN-2026-0001',
+        retailer: 'Amazon Egypt',
+        url: 'https://www.amazon.eg/dp/CANDIDATE?ref=private-test',
+        status: 'verified',
+      }),
+    });
+    assert.equal((await fetch(`${origin}/api/intake/IN-2026-0001`, { method: 'DELETE' })).status, 200);
+
+    const response = await fetch(`${origin}/api/intake`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        name: 'Replacement Candidate',
+        category: 'Connectivity',
+        problemHypothesis: 'Needs a replacement test record.',
+        priority: 'medium',
+        providers: [{
+          retailer: 'Amazon Egypt',
+          productUrl: 'https://www.amazon.eg/dp/REPLACEMENT',
+          affiliateKeyRef: 'amazonEgypt.replacement',
+        }],
+      }),
+    });
+    const item = (await response.json()).item;
+    assert.equal(item.intakeId, 'IN-2026-0002');
+    const registry = JSON.parse(readFileSync(path.join(root, '.vault', 'affiliate-links.local.json'), 'utf8'));
+    assert.equal(registry.links['IN-2026-0001'], undefined);
   });
 });

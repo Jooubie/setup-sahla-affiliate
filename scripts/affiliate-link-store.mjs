@@ -85,6 +85,14 @@ export class AffiliateLinkStore {
     this._save(registry);
     return true;
   }
+
+  removeProduct(productKey) {
+    const registry = this._all();
+    if (!registry.links[productKey]) return false;
+    delete registry.links[productKey];
+    this._save(registry);
+    return true;
+  }
 }
 
 export { DEFAULT_FILE as AFFILIATE_LINK_FILE, LINK_STATUS as AFFILIATE_LINK_STATUS };

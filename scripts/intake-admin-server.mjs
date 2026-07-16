@@ -12,7 +12,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { AffiliateLinkStore } from './affiliate-link-store.mjs';
-import { FileIntakeSource } from './intake-source.mjs';
+import { FileIntakeSource, nextIntakeId } from './intake-source.mjs';
 import { PRIORITY, IMAGE_RIGHTS, DELEGATION_KEYS } from './intake-constants.mjs';
 
 const HOST = '127.0.0.1';
@@ -47,18 +47,9 @@ const readBody = (req, limit = 64 * 1024) =>
   });
 
 const json = (res, code, body) => {
-  res.writeHead(code, { 'content-type': 'application/json' });
+  res.writeHead(code, { 'content-type': 'application/json', 'cache-control': 'no-store' });
   res.end(JSON.stringify(body));
 };
-
-function nextIntakeId(items) {
-  const year = new Date().getFullYear();
-  const max = items
-    .map((i) => /^IN-\d{4}-(\d{4})$/.exec(i.intakeId || ''))
-    .filter(Boolean)
-    .reduce((m, x) => Math.max(m, Number(x[1])), 0);
-  return `IN-${year}-${String(max + 1).padStart(4, '0')}`;
-}
 
 export function createAdminServer({ source = new FileIntakeSource(), links = new AffiliateLinkStore(), root = ROOT } = {}) {
   return http.createServer(async (req, res) => {
@@ -66,7 +57,7 @@ export function createAdminServer({ source = new FileIntakeSource(), links = new
     const url = new URL(req.url, `http://${HOST}:${PORT}`);
 
     if (req.method === 'GET' && url.pathname === '/') {
-      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' });
       return res.end(PAGE);
     }
 
@@ -103,9 +94,12 @@ export function createAdminServer({ source = new FileIntakeSource(), links = new
       const body = await readBody(req);
       if (!body) return json(res, 400, { error: 'invalid JSON body' });
       const products = JSON.parse(readFileSync(path.join(root, 'data/products.json'), 'utf8'));
-      const knownPublished = products.some((product) => product.candidateId === body.productKey);
-      const knownPipeline = !knownPublished && Boolean(await source.get(body.productKey));
-      if (!knownPublished && !knownPipeline) return json(res, 404, { error: 'unknown product key' });
+      const product = products.find((candidate) => candidate.candidateId === body.productKey)
+        || await source.get(body.productKey);
+      if (!product) return json(res, 404, { error: 'unknown product key' });
+      if (!(product.providers || []).some((provider) => provider.retailer === body.retailer)) {
+        return json(res, 400, { error: 'retailer is not configured for this product' });
+      }
       try {
         const link = links.set(body);
         return json(res, 200, { ok: true, link });
@@ -146,7 +140,7 @@ export function createAdminServer({ source = new FileIntakeSource(), links = new
           ? [{ kind: 'reference', sourceUrl: b.imageSourceUrl.trim(), imageRights: b.imageRights || 'SOURCE_LINK_ONLY' }]
           : [];
       const item = {
-        intakeId: nextIntakeId(items),
+        intakeId: typeof source.nextIntakeId === 'function' ? await source.nextIntakeId() : nextIntakeId(items),
         name: (b.name || '').trim(),
         category: (b.category || '').trim(),
         problemHypothesis: (b.problemHypothesis || '').trim(),
@@ -202,6 +196,7 @@ export function createAdminServer({ source = new FileIntakeSource(), links = new
       const id = decodeURIComponent(url.pathname.slice('/api/intake/'.length));
       try {
         await source.remove(id);
+        links.removeProduct(id);
         return json(res, 200, { ok: true });
       } catch (e) {
         return json(res, 404, { error: e.message });
@@ -276,7 +271,6 @@ const PAGE = `<!doctype html><html lang="en"><head><meta charset="utf-8">
         <div><label for="productCategory">Category</label><input id="productCategory" required></div>
         <div class="field--wide"><label for="productProblem">Problem hypothesis</label><textarea id="productProblem" required></textarea></div>
         <div><label for="productPriority">Priority</label><select id="productPriority"></select></div>
-        <div id="statusField" hidden><label for="productStatus">Owner status</label><select id="productStatus"><option value="new">New</option><option value="on-hold">On hold</option><option value="rejected">Rejected</option></select></div>
         <div class="field--wide"><label>Retailer references</label><div class="provider-rows" id="providerRows"></div><button class="btn btn--small" id="addProviderBtn" type="button">+ Add retailer</button><p class="help">These are normal retailer/reference URLs. Add your affiliate URL separately.</p></div>
         <div><label for="imageSourceUrl">Image reference URL</label><input id="imageSourceUrl" type="url" placeholder="https://..."></div>
         <div><label for="imageRights">Image rights</label><select id="imageRights"></select></div>
@@ -320,14 +314,14 @@ const PAGE = `<!doctype html><html lang="en"><head><meta charset="utf-8">
     const statusCell=document.createElement('td');statusCell.append(element('span','pill pill--'+item.status,item.status),element('div','subtle',item.source==='published'?'Public website':'Private pipeline'));tr.append(statusCell);
     const providers=document.createElement('td');const providerList=element('div','provider-list');for(const provider of item.providers||[]){const line=element('span','',provider.retailer);providerList.append(line)}providers.append(providerList);tr.append(providers);
     const linkCell=document.createElement('td');const stats=affiliateStats(item);if(stats.verified)linkCell.append(element('span','pill pill--verified',stats.verified+' verified'));if(stats.pending)linkCell.append(element('span','pill pill--pending',stats.pending+' pending'));if(!stats.verified&&!stats.pending)linkCell.append(element('span','subtle','Not added yet'));tr.append(linkCell);
-    const actionCell=document.createElement('td');const actions=element('div','actions');actions.append(button('Affiliate link','btn btn--small',()=>openAffiliate(item)));if(item.source==='pipeline'){actions.append(button('Edit product','btn btn--small',()=>openProduct(item)));const holdLabel=item.status==='on-hold'?'Resume':'Put on hold';actions.append(button(holdLabel,'btn btn--small',()=>setOwnerStatus(item,item.status==='on-hold'?'new':'on-hold')));actions.append(button('Remove','btn btn--small btn--danger',()=>removeProduct(item)))}else if(item.route){const view=element('a','btn btn--small','View page');view.href=item.route;view.target='_blank';view.rel='noopener';actions.append(view)}actionCell.append(actions);tr.append(actionCell);return tr}
+    const actionCell=document.createElement('td');const actions=element('div','actions');actions.append(button('Affiliate link','btn btn--small',()=>openAffiliate(item)));if(item.source==='pipeline'){actions.append(button('Edit product','btn btn--small',()=>openProduct(item)));const paused=['on-hold','rejected'].includes(item.status);if(item.status!=='promoted')actions.append(button(paused?'Resume':'Put on hold','btn btn--small',()=>setOwnerStatus(item,paused?'new':'on-hold')));if(!['rejected','promoted'].includes(item.status))actions.append(button('Reject','btn btn--small',()=>setOwnerStatus(item,'rejected')));actions.append(button('Remove','btn btn--small btn--danger',()=>removeProduct(item)))}else if(item.route){const view=element('a','btn btn--small','View page');view.href=item.route;view.target='_blank';view.rel='noopener';actions.append(view)}actionCell.append(actions);tr.append(actionCell);return tr}
   function addProviderRow(provider){const row=element('div','provider-row');const retailerWrap=document.createElement('div');const retailerLabel=element('label','', 'Retailer');const retailer=document.createElement('input');retailer.className='provider-retailer';retailer.value=provider?.retailer||'';retailer.required=true;retailerWrap.append(retailerLabel,retailer);
     const urlWrap=document.createElement('div');urlWrap.append(element('label','','Public product URL'));const url=document.createElement('input');url.className='provider-url';url.type='url';url.value=provider?.productUrl||'';url.required=true;urlWrap.append(url);
     const keyWrap=document.createElement('div');keyWrap.append(element('label','','Affiliate key reference'));const key=document.createElement('input');key.className='provider-key';key.value=provider?.affiliateKeyRef||'';key.required=true;keyWrap.append(key);
     row.append(retailerWrap,urlWrap,keyWrap,button('Remove','btn btn--small btn--danger',()=>{if(byId('providerRows').children.length>1)row.remove()}));byId('providerRows').append(row)}
-  function openProduct(item){state.editingKey=item?.key||null;byId('productDialogTitle').textContent=item?'Edit product':'Add product';byId('productName').value=item?.name||'';byId('productCategory').value=item?.category||'';byId('productProblem').value=item?.problemHypothesis||'';fillSelect(byId('productPriority'),PRIORITIES,item?.priority||'medium');byId('statusField').hidden=!item;if(item)byId('productStatus').value=['new','on-hold','rejected'].includes(item.status)?item.status:'new';byId('ownerNotes').value=item?.ownerNotes||'';const image=item?.images?.[0];byId('imageSourceUrl').value=image?.sourceUrl||'';fillSelect(byId('imageRights'),RIGHTS,image?.imageRights||'SOURCE_LINK_ONLY');byId('providerRows').replaceChildren();for(const provider of item?.providers?.length?item.providers:[{}])addProviderRow(provider);byId('productDialog').showModal()}
+  function openProduct(item){state.editingKey=item?.key||null;byId('productDialogTitle').textContent=item?'Edit product':'Add product';byId('productName').value=item?.name||'';byId('productCategory').value=item?.category||'';byId('productProblem').value=item?.problemHypothesis||'';fillSelect(byId('productPriority'),PRIORITIES,item?.priority||'medium');byId('ownerNotes').value=item?.ownerNotes||'';const image=item?.images?.[0];byId('imageSourceUrl').value=image?.sourceUrl||'';fillSelect(byId('imageRights'),RIGHTS,image?.imageRights||'SOURCE_LINK_ONLY');byId('providerRows').replaceChildren();for(const provider of item?.providers?.length?item.providers:[{}])addProviderRow(provider);byId('productDialog').showModal()}
   function collectProviders(){return Array.from(document.querySelectorAll('.provider-row')).map((row)=>({retailer:row.querySelector('.provider-retailer').value.trim(),productUrl:row.querySelector('.provider-url').value.trim(),affiliateKeyRef:row.querySelector('.provider-key').value.trim()}))}
-  async function saveProduct(event){event.preventDefault();const imageUrl=byId('imageSourceUrl').value.trim();const payload={name:byId('productName').value.trim(),category:byId('productCategory').value.trim(),problemHypothesis:byId('productProblem').value.trim(),priority:byId('productPriority').value,providers:collectProviders(),images:imageUrl?[{kind:'reference',sourceUrl:imageUrl,imageRights:byId('imageRights').value}]:[],ownerNotes:byId('ownerNotes').value.trim()};try{if(state.editingKey){await api('/api/intake/'+encodeURIComponent(state.editingKey),{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});const wanted=byId('productStatus').value;const current=state.items.find((item)=>item.key===state.editingKey);if(current&&current.status!==wanted)await api('/api/intake/'+encodeURIComponent(state.editingKey)+'/status',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({status:wanted})})}else await api('/api/intake',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});byId('productDialog').close();notify(state.editingKey?'Product updated':'Product added to the private pipeline');await load()}catch(error){notify(error.message,true)}}
+  async function saveProduct(event){event.preventDefault();const imageUrl=byId('imageSourceUrl').value.trim();const payload={name:byId('productName').value.trim(),category:byId('productCategory').value.trim(),problemHypothesis:byId('productProblem').value.trim(),priority:byId('productPriority').value,providers:collectProviders(),images:imageUrl?[{kind:'reference',sourceUrl:imageUrl,imageRights:byId('imageRights').value}]:[],ownerNotes:byId('ownerNotes').value.trim()};try{if(state.editingKey)await api('/api/intake/'+encodeURIComponent(state.editingKey),{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});else await api('/api/intake',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});byId('productDialog').close();notify(state.editingKey?'Product updated':'Product added to the private pipeline');await load()}catch(error){notify(error.message,true)}}
   async function setOwnerStatus(item,status){try{await api('/api/intake/'+encodeURIComponent(item.key)+'/status',{method:'PATCH',headers:{'content-type':'application/json'},body:JSON.stringify({status})});notify('Status updated');await load()}catch(error){notify(error.message,true)}}
   async function removeProduct(item){if(!confirm('Remove '+item.name+' from the private pipeline?'))return;try{await api('/api/intake/'+encodeURIComponent(item.key),{method:'DELETE'});notify('Product removed');await load()}catch(error){notify(error.message,true)}}
   function selectedAffiliateItem(){return state.items.find((item)=>item.key===state.affiliateKey)}

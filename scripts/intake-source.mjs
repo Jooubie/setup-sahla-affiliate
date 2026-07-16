@@ -21,8 +21,17 @@ import { validateIntakeItem } from './validate_intake.mjs';
 
 const DEFAULT_ROOT = fileURLToPath(new URL('../', import.meta.url));
 
+export function nextIntakeId(items, reservedIds = [], year = new Date().getUTCFullYear()) {
+  const ids = [...items.map((item) => item.intakeId), ...reservedIds];
+  const max = ids
+    .map((id) => new RegExp(`^IN-${year}-(\\d{4})$`).exec(id || ''))
+    .filter(Boolean)
+    .reduce((highest, match) => Math.max(highest, Number(match[1])), 0);
+  return `IN-${year}-${String(max + 1).padStart(4, '0')}`;
+}
+
 export class FileIntakeSource {
-  constructor({ root = DEFAULT_ROOT, file = INTAKE_FILE, gateRunner, sealRunner, writeCanonical, clock } = {}) {
+  constructor({ root = DEFAULT_ROOT, file = INTAKE_FILE, gateRunner, validationRunner, sealRunner, writeCanonical, clock } = {}) {
     this.root = root;
     this.file = path.join(root, file);
     this.clock = clock || (() => new Date().toISOString());
@@ -32,6 +41,16 @@ export class FileIntakeSource {
       (() => {
         try {
           execFileSync('node', ['scripts/vault.mjs', 'gate'], { cwd: root, stdio: 'pipe' });
+          return true;
+        } catch {
+          return false;
+        }
+      });
+    this.validationRunner =
+      validationRunner ||
+      (() => {
+        try {
+          execFileSync('node', ['scripts/vault.mjs', 'compliance'], { cwd: root, stdio: 'pipe' });
           return true;
         } catch {
           return false;
@@ -90,6 +109,14 @@ export class FileIntakeSource {
 
   async list() {
     return this._all();
+  }
+
+  async nextIntakeId() {
+    const logPath = path.join(this.root, INTAKE_LOG);
+    const reservedIds = existsSync(logPath)
+      ? readFileSync(logPath, 'utf8').match(/IN-\d{4}-\d{4}/g) || []
+      : [];
+    return nextIntakeId(this._all(), reservedIds, new Date(this.clock()).getUTCFullYear());
   }
 
   // Validate + append a new intake item (used by the admin dashboard).
@@ -174,7 +201,7 @@ export class FileIntakeSource {
     const advanced = [];
     let changed = false;
     for (const it of targets) {
-      if (['promoted', 'rejected', 'new'].includes(it.status)) continue;
+      if (['promoted', 'rejected', 'new', 'on-hold'].includes(it.status)) continue;
       it.delegations = it.delegations || {};
       for (const agent of DELEGATION_KEYS) {
         const sig = this._readSignal(agent)[it.intakeId];
@@ -205,9 +232,9 @@ export class FileIntakeSource {
     if (current.status !== 'ready') throw new Error(`intake: ${id} must be ready before promotion`);
     if (!this.gateRunner()) throw new Error(`intake: promote refused for ${id} — vault gate failed`);
     const rollbackCanonical = this.writeCanonical(canonicalRecord);
-    if (!this.gateRunner()) {
+    if (!this.validationRunner()) {
       if (typeof rollbackCanonical === 'function') rollbackCanonical();
-      throw new Error(`intake: promote refused for ${id} — post-write gate failed`);
+      throw new Error(`intake: promote refused for ${id} — post-write validation failed`);
     }
     let it;
     try {
@@ -225,7 +252,17 @@ export class FileIntakeSource {
         item.status = 'ready';
         delete item.promotedProductId;
       });
+      this.sealRunner();
       throw new Error(`intake: promote refused for ${id} — vault reseal failed`);
+    }
+    if (!this.gateRunner()) {
+      if (typeof rollbackCanonical === 'function') rollbackCanonical();
+      this._mutate(id, (item) => {
+        item.status = 'ready';
+        delete item.promotedProductId;
+      });
+      this.sealRunner();
+      throw new Error(`intake: promote refused for ${id} — final vault gate failed`);
     }
     this._log(`promoted ${id} -> ${it.promotedProductId}`);
     return it;

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Setup Sahla Vault Protocol engine.
-// One dependency-free tool with five modes:
+// One dependency-free tool with six modes:
 //   seal          recompute checksums of canonical files -> .vault/integrity.manifest.json
 //   verify        recompute and compare against the sealed manifest (tamper check)
 //   secrets-scan  fail if a secret file is tracked or a secret pattern appears (--staged for pre-commit)
+//   compliance    validate publication invariants without checking the current integrity seal
 //   gate          compliance invariants (5 products / 3 guides / affiliate + image enums / dated prices) + verify
 //   guard         PreToolUse hook mode: read a tool call on stdin, block writes outside an agent's lane
 //
@@ -203,7 +204,7 @@ function secretsScan(staged) {
   return 0;
 }
 
-function gate() {
+function compliance({ reportSuccess = true } = {}) {
   const problems = [];
   const products = readJson('data/products.json');
   if (!Array.isArray(products) || products.length !== 5)
@@ -231,6 +232,13 @@ function gate() {
     console.error('vault: compliance gate FAILED\n  ' + problems.join('\n  '));
     return 1;
   }
+  if (reportSuccess) console.log('vault: compliance checks OK (5 products, 3 guides, enums + dated prices valid)');
+  return 0;
+}
+
+function gate() {
+  const compliant = compliance({ reportSuccess: false });
+  if (compliant !== 0) return compliant;
   const integrity = verify();
   if (integrity !== 0) return 1;
   console.log('vault: compliance gate OK (5 products, 3 guides, enums + dated prices valid)');
@@ -314,11 +322,14 @@ switch (mode) {
   case 'gate':
     code = gate();
     break;
+  case 'compliance':
+    code = compliance();
+    break;
   case 'guard':
     code = await guard();
     break;
   default:
-    console.error('usage: node scripts/vault.mjs <seal|verify|secrets-scan [--staged]|gate|guard>');
+    console.error('usage: node scripts/vault.mjs <seal|verify|secrets-scan [--staged]|compliance|gate|guard>');
     code = 1;
 }
 process.exit(code);

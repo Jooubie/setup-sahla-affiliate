@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { mkdtempSync, writeFileSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { copyFileSync, mkdtempSync, writeFileSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { validateIntakeItem, validateIntakeArray } from '../scripts/validate_intake.mjs';
@@ -54,7 +55,7 @@ function tempSource(extra = {}) {
   mkdirSync(path.join(root, 'data'), { recursive: true });
   writeFileSync(path.join(root, INTAKE_FILE), JSON.stringify([validItem()], null, 2));
   mkdirSync(path.join(root, '.superpowers', 'sdd'), { recursive: true });
-  return { root, src: new FileIntakeSource({ root, sealRunner: () => true, ...extra }) };
+  return { root, src: new FileIntakeSource({ root, validationRunner: () => true, sealRunner: () => true, ...extra }) };
 }
 
 test('dispatch moves new -> dispatched and requests all delegations', async () => {
@@ -106,6 +107,23 @@ test('reconcile places an item on hold when an agent lane is skipped', async () 
   rmSync(root, { recursive: true, force: true });
 });
 
+test('reconcile preserves an owner hold even when every lane previously finished', async () => {
+  const { root, src } = tempSource();
+  await src.dispatch('IN-2026-0001');
+  for (const rel of Object.values(SIGNAL_FILES)) {
+    const signalPath = path.join(root, rel);
+    mkdirSync(path.dirname(signalPath), { recursive: true });
+    writeFileSync(signalPath, JSON.stringify({ 'IN-2026-0001': 'done' }));
+  }
+  await src.reconcile('IN-2026-0001');
+  await src.setStatus('IN-2026-0001', 'on-hold');
+
+  const [item] = await src.reconcile('IN-2026-0001');
+
+  assert.equal(item.status, 'on-hold');
+  rmSync(root, { recursive: true, force: true });
+});
+
 test('promote refuses when the gate fails and writes nothing', async () => {
   const writes = [];
   const { root, src } = tempSource({ gateRunner: () => false, writeCanonical: (r) => writes.push(r) });
@@ -127,11 +145,15 @@ test('promote refuses an item that is not ready', async () => {
   rmSync(root, { recursive: true, force: true });
 });
 
-test('promote rolls canonical data back when the post-write gate fails', async () => {
+test('promote rolls canonical data back when post-write compliance validation fails', async () => {
   const writes = [];
   let gateRuns = 0;
   const { root, src } = tempSource({
-    gateRunner: () => ++gateRuns === 1,
+    gateRunner: () => {
+      gateRuns += 1;
+      return true;
+    },
+    validationRunner: () => false,
     writeCanonical: (record) => {
       writes.push(record);
       return () => writes.pop();
@@ -139,8 +161,8 @@ test('promote rolls canonical data back when the post-write gate fails', async (
   });
   await src.dispatch('IN-2026-0001');
   await src.setStatus('IN-2026-0001', 'ready');
-  await assert.rejects(() => src.promote('IN-2026-0001', { slug: 'test-hub' }), /post-write gate failed/);
-  assert.equal(gateRuns, 2);
+  await assert.rejects(() => src.promote('IN-2026-0001', { slug: 'test-hub' }), /post-write validation failed/);
+  assert.equal(gateRuns, 1);
   assert.equal(writes.length, 0, 'failed canonical write must be rolled back');
   assert.equal((await src.get('IN-2026-0001')).status, 'ready');
   rmSync(root, { recursive: true, force: true });
@@ -162,6 +184,46 @@ test('promote rolls back canonical and queue state when vault resealing fails', 
   const item = await src.get('IN-2026-0001');
   assert.equal(item.status, 'ready');
   assert.equal(item.promotedProductId, undefined);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('promote succeeds with the real vault gate and leaves the new seal valid', async () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'intake-real-vault-'));
+  for (const directory of ['data', 'content', 'scripts', '.vault', '.superpowers/sdd']) {
+    mkdirSync(path.join(root, directory), { recursive: true });
+  }
+  copyFileSync(new URL('../scripts/vault.mjs', import.meta.url), path.join(root, 'scripts', 'vault.mjs'));
+  writeFileSync(path.join(root, '.vault', 'vault.config.json'), JSON.stringify({
+    sealGlobs: ['data/products.json'],
+    sealExclude: [],
+    protectedFromAgents: [],
+    secretFilesNeverTracked: [],
+    secretScanExempt: [],
+  }));
+  const products = Array.from({ length: 5 }, (_, index) => ({
+    candidateId: `PP-C0${index + 1}`,
+    slug: `product-${index + 1}`,
+    providers: [],
+  }));
+  const productsPath = path.join(root, 'data', 'products.json');
+  writeFileSync(productsPath, JSON.stringify(products, null, 2));
+  writeFileSync(path.join(root, 'content', 'editorial-map.json'), JSON.stringify({ articles: [{}, {}, {}] }));
+  writeFileSync(path.join(root, INTAKE_FILE), JSON.stringify([{ ...validItem(), status: 'ready' }], null, 2));
+  execFileSync('node', ['scripts/vault.mjs', 'seal'], { cwd: root });
+
+  const src = new FileIntakeSource({
+    root,
+    writeCanonical: (record) => {
+      const before = readFileSync(productsPath, 'utf8');
+      const current = JSON.parse(before);
+      writeFileSync(productsPath, JSON.stringify([record, ...current.slice(1)], null, 2));
+      return () => writeFileSync(productsPath, before);
+    },
+  });
+  const promoted = await src.promote('IN-2026-0001', { candidateId: 'PP-C99', slug: 'promoted-product', providers: [] });
+
+  assert.equal(promoted.status, 'promoted');
+  execFileSync('node', ['scripts/vault.mjs', 'gate'], { cwd: root });
   rmSync(root, { recursive: true, force: true });
 });
 
