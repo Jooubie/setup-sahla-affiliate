@@ -22,7 +22,7 @@ import { validateIntakeItem } from './validate_intake.mjs';
 const DEFAULT_ROOT = fileURLToPath(new URL('../', import.meta.url));
 
 export class FileIntakeSource {
-  constructor({ root = DEFAULT_ROOT, file = INTAKE_FILE, gateRunner, writeCanonical, clock } = {}) {
+  constructor({ root = DEFAULT_ROOT, file = INTAKE_FILE, gateRunner, sealRunner, writeCanonical, clock } = {}) {
     this.root = root;
     this.file = path.join(root, file);
     this.clock = clock || (() => new Date().toISOString());
@@ -32,6 +32,16 @@ export class FileIntakeSource {
       (() => {
         try {
           execFileSync('node', ['scripts/vault.mjs', 'gate'], { cwd: root, stdio: 'pipe' });
+          return true;
+        } catch {
+          return false;
+        }
+      });
+    this.sealRunner =
+      sealRunner ||
+      (() => {
+        try {
+          execFileSync('node', ['scripts/vault.mjs', 'seal'], { cwd: root, stdio: 'pipe' });
           return true;
         } catch {
           return false;
@@ -94,6 +104,22 @@ export class FileIntakeSource {
     return item;
   }
 
+  async update(id, changes) {
+    const editable = new Set(['name', 'category', 'problemHypothesis', 'providers', 'images', 'ownerNotes', 'priority']);
+    const unknown = Object.keys(changes || {}).filter((key) => !editable.has(key));
+    if (unknown.length) throw new Error(`intake: fields are not owner-editable: ${unknown.join(', ')}`);
+    const items = this._all();
+    const index = items.findIndex((item) => item.intakeId === id);
+    if (index < 0) throw new Error(`intake: no item ${id}`);
+    const updated = { ...items[index], ...changes };
+    const errors = validateIntakeItem(updated, index);
+    if (errors.length) throw new Error('invalid intake item:\n  ' + errors.join('\n  '));
+    items[index] = updated;
+    this._save(items);
+    this._log(`updated ${id} (${updated.name})`);
+    return updated;
+  }
+
   async remove(id) {
     const items = this._all();
     const next = items.filter((i) => i.intakeId !== id);
@@ -140,26 +166,33 @@ export class FileIntakeSource {
     }
   }
 
-  // Fold each agent's own-lane signal file into the intake delegation flags. When all
-  // delegations are 'done'/'skipped' and the item is past dispatch, advance it to 'ready'.
+  // Fold each agent's own-lane signal file into the intake delegation flags. All lanes must
+  // report done for readiness; a skipped lane moves the item to on-hold for owner review.
   async reconcile(id) {
     const items = this._all();
     const targets = id ? items.filter((i) => i.intakeId === id) : items;
     const advanced = [];
+    let changed = false;
     for (const it of targets) {
       if (['promoted', 'rejected', 'new'].includes(it.status)) continue;
       it.delegations = it.delegations || {};
       for (const agent of DELEGATION_KEYS) {
         const sig = this._readSignal(agent)[it.intakeId];
-        if (sig && DELEGATION_STATE.includes(sig)) it.delegations[agent] = sig;
+        if (sig && DELEGATION_STATE.includes(sig) && it.delegations[agent] !== sig) {
+          it.delegations[agent] = sig;
+          changed = true;
+        }
       }
       const settled = DELEGATION_KEYS.every((k) => ['done', 'skipped'].includes(it.delegations[k]));
-      if (settled && it.status !== 'ready') {
-        it.status = 'ready';
-        advanced.push(it.intakeId);
+      const skipped = DELEGATION_KEYS.some((key) => it.delegations[key] === 'skipped');
+      const nextStatus = skipped ? 'on-hold' : 'ready';
+      if (settled && it.status !== nextStatus) {
+        it.status = nextStatus;
+        if (nextStatus === 'ready') advanced.push(it.intakeId);
+        changed = true;
       }
     }
-    this._save(items);
+    if (changed) this._save(items);
     if (advanced.length) this._log(`reconciled -> ready: ${advanced.join(', ')}`);
     return targets;
   }
@@ -167,12 +200,33 @@ export class FileIntakeSource {
   // The one gate-checked bridge into canonical data.
   async promote(id, canonicalRecord) {
     if (!this.writeCanonical) throw new Error('intake: promote requires a writeCanonical function');
+    const current = await this.get(id);
+    if (!current) throw new Error(`intake: no item ${id}`);
+    if (current.status !== 'ready') throw new Error(`intake: ${id} must be ready before promotion`);
     if (!this.gateRunner()) throw new Error(`intake: promote refused for ${id} — vault gate failed`);
-    this.writeCanonical(canonicalRecord);
-    const it = this._mutate(id, (it) => {
-      it.status = 'promoted';
-      it.promotedProductId = canonicalRecord?.candidateId || canonicalRecord?.slug || null;
-    });
+    const rollbackCanonical = this.writeCanonical(canonicalRecord);
+    if (!this.gateRunner()) {
+      if (typeof rollbackCanonical === 'function') rollbackCanonical();
+      throw new Error(`intake: promote refused for ${id} — post-write gate failed`);
+    }
+    let it;
+    try {
+      it = this._mutate(id, (item) => {
+        item.status = 'promoted';
+        item.promotedProductId = canonicalRecord?.candidateId || canonicalRecord?.slug || null;
+      });
+    } catch (error) {
+      if (typeof rollbackCanonical === 'function') rollbackCanonical();
+      throw error;
+    }
+    if (!this.sealRunner()) {
+      if (typeof rollbackCanonical === 'function') rollbackCanonical();
+      this._mutate(id, (item) => {
+        item.status = 'ready';
+        delete item.promotedProductId;
+      });
+      throw new Error(`intake: promote refused for ${id} — vault reseal failed`);
+    }
     this._log(`promoted ${id} -> ${it.promotedProductId}`);
     return it;
   }

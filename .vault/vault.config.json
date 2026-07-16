@@ -4,10 +4,11 @@
   "protectedFromAgents": [
     ".vault/integrity.manifest.json",
     ".vault/secrets.local.json",
+    ".vault/affiliate-links.local.json",
     ".vault/vault.config.json",
     ".vault/agent-lanes.json"
   ],
-  "secretFilesNeverTracked": [".vault/secrets.local.json", ".env", ".env.local"],
+  "secretFilesNeverTracked": [".vault/secrets.local.json", ".vault/affiliate-links.local.json", ".env", ".env.local"],
   "secretScanExempt": [
     "scripts/vault.mjs",
     "docs/business-os/VAULT_PROTOCOL.md",

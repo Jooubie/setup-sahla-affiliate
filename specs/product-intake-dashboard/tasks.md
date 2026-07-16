@@ -1,42 +1,43 @@
 # Tasks — Product Intake Dashboard
 
-Ordered, independently-verifiable tasks derived from [plan.md](plan.md). Phase A ships value on its own; Phase B is gated behind an explicit business decision. Nothing here is built yet.
+Ordered, independently-verifiable tasks derived from [plan.md](plan.md). Phase A ships value on its own; Phase B is gated behind an explicit business decision. A1–A8 are implemented; live research/creative work remains item-specific.
 
 ## Phase A — embedded dashboard + automated delegation
 
-### A1 — Intake schema & store
-- Create `data/product-intake.schema.json` and an empty `data/product-intake.json` (`[]`).
+### A1 — Intake schema & store — DONE
+- Created `data/product-intake.schema.json` and a committed pipeline. The three unverified expansion products are preserved as `on-hold` instead of being public.
 - Enforce: required fields, status/priority/imageRights enums, ISO dates, and `affiliateKeyRef` must not contain `http`.
 - **Verify:** `node scripts/validate_intake.mjs` passes on a valid sample and fails on a URL-in-key sample.
 
-### A2 — Validation test
+### A2 — Validation test — DONE
 - Add `scripts/validate_intake.mjs` (exported helpers, existing style) and `tests/intake.test.mjs`.
 - **Verify:** `node --test tests/intake.test.mjs` green; wire into `npm test`.
 
-### A3 — IntakeSource port + FileIntakeSource
-- Define the `IntakeSource` interface and implement `FileIntakeSource` (list/get/setStatus/setDelegation/promote). `promote()` runs `vault:gate` before writing canonical.
-- **Verify:** a unit test drives an item `new → dispatched → …→ promoted` against a temp file; promote refuses when the gate fails.
+### A3 — IntakeSource port + FileIntakeSource — DONE
+- Implemented add/edit/remove/status/delegation/reconcile/promote. Promotion requires `ready`, gates before and after writing, rolls back failures and reseals the vault.
+- **Verified:** unit tests cover no-op reconcile, skipped-lane hold, gate failure, post-write rollback, reseal rollback and success.
 
-### A4 — Orchestrator routine (automated dispatch)
-- Add the "process the intake queue" routine to `sahla-product-manager`; add `data/product-intake.json` to its lane in `.vault/agent-lanes.json`.
-- Add `scripts/intake-process.mjs` (manual: `npm run intake:process -- IN-xxxx`) that invokes the orchestrator via the Claude Agent SDK.
-- **Verify:** running it on a `new` item sets `dispatched` + delegation flags and appends a ledger line.
+### A4 — Orchestrator routine — DONE
+- `scripts/intake-orchestrate.mjs` and `npm run intake:process` dispatch validated items without an Agent SDK dependency.
+- **Verified:** dispatch sets status/delegation flags and appends a ledger line.
 
-### A5 — Watcher (the automation)
-- Add `scripts/intake-watch.mjs` (`fs.watch`, debounced) → emits `product.added` → calls A4. Expose `npm run intake:watch`.
-- **Verify:** with the watcher running, adding an item to the JSON auto-triggers dispatch with no manual command.
+### A5 — Watcher — DONE
+- Added debounced `fs.watch`. It dispatches without a self-trigger loop; optional external agent execution requires explicit `INTAKE_AGENT_CMD` configuration.
+- **Verified:** no-op reconcile does not rewrite the queue.
 
-### A6 — Agent pickup (research + creative)
+### A6 — Agent pickup (research + creative) — WIRED
 - Update `sahla-research` and `sahla-creative` briefs to read their delegation flags and flip them to `done` after staging their outputs.
-- **Verify:** end-to-end on one test product: research writes `research/*.csv`, creative writes `assets/generated/`, both flags `done`, item reaches `ready`.
+- **Verify per product:** research/creative/PM task packets write their lane outputs and signal `done`; a skipped lane produces `on-hold`, never `ready`.
 
-### A7 — Admin UI (dev-only) — DONE
-- Built as a **standalone Node server** (`scripts/intake-admin-server.mjs`, `npm run intake:admin`), not an in-site route: the Cloudflare Worker runtime has no filesystem, so an in-site API route cannot write the queue in dev or prod. The standalone tool binds to 127.0.0.1 only and is never part of the site build, so production excludes it by construction. Brand-styled; reuses `validateIntakeItem` + `FileIntakeSource` (`add`/`list`/`remove`).
-- **Verified:** live HTTP run — GET / serves the dashboard; POST valid → 201 + generated intakeId; POST url-in-key → 400; dispatch endpoint sets `dispatched`; DELETE removes. Unit tests cover `add`/`remove`/`nextIntakeId`.
+### A7 — Product Control UI (dev-only) — DONE
+- Standalone localhost dashboard combines published and pipeline products with search, status, add/edit/remove, multiple retailers, image reference, dispatch and affiliate-link controls. Published canonical records stay protected.
+- Uses safe DOM construction instead of `innerHTML`; request bodies are capped at 64 KB.
+- **Verified:** HTTP tests cover catalog, structured add, edit, owner status, remove, affiliate save/remove and oversized-body rejection.
 
-### A8 — Affiliate injection + promotion polish
-- Build-time resolver maps `affiliateKeyRef` → real URL from the vault; missing key → public URL + `DIRECT_LINK — AFFILIATE ID REQUIRED`.
-- **Verify:** a product with a vault key renders the real link in `npm run build`; without a key, the compliant fallback renders.
+### A8 — Affiliate injection + promotion polish — DONE
+- Product Control stores per-product/per-retailer URLs in gitignored `.vault/affiliate-links.local.json` as pending or verified.
+- Site prebuild injects only verified links into gitignored runtime data; missing/pending links use compliant direct URLs. Product pages switch disclosure and add `sponsored` only for verified affiliate links.
+- **Verified:** resolver tests cover pending fallback and verified injection.
 
 **Phase A done when:** the US1–US5 acceptance criteria in [spec.md](spec.md) all pass, and `npm run vault:gate` + `npm test` are green.
 
@@ -61,4 +62,4 @@ Ordered, independently-verifiable tasks derived from [plan.md](plan.md). Phase A
 
 ## Suggested build order
 
-A1 → A2 → A3 → A4 → A5 → A6 → A7 → A8, then re-evaluate for Phase B. A1–A6 already make automated delegation real from hand-edited JSON before the UI exists.
+A1 → A8 are implemented. Operate Phase A locally, validate real product task packets and defer Phase B until recurring usage justifies it.

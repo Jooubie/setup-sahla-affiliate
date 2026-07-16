@@ -46,9 +46,9 @@ The research captured an official Amazon Egypt Associates enrollment page and an
 1. After enrollment provides account access, obtain [OWNER INPUT REQUIRED — Amazon Associates ID/tag] from the owner's approved account.
 2. Start from the approved canonical direct Amazon Egypt URL for one exact product.
 3. Generate the special tagged link using the current Amazon Associates tool available in that account.
-4. Store the owner-provided tag in the deployment secret/configuration path, not in editorial prose. Do not invent a fallback tag.
+4. Open `npm run intake:admin` and store the complete generated link under that exact product and retailer as `pending`. Product Control writes the gitignored `.vault/affiliate-links.local.json`; do not place the URL in editorial prose or canonical evidence.
 5. Open the generated destination and verify retailer, Egypt storefront, exact model/variant, secure protocol, expected tag behavior, and absence of unrelated redirects.
-6. Record reviewer and UTC check time. Change only that provider record to `AFFILIATE_LINK — VERIFIED`.
+6. Record reviewer and UTC check time, then mark only that dashboard link `verified`. The site prebuild resolver changes only that provider's runtime status to `AFFILIATE_LINK — VERIFIED`.
 7. Repeat one link at a time. A successful link does not approve the others.
 8. Keep the known-safe direct destination as rollback. If the tagged link fails later, restore the direct link or disable it.
 
@@ -98,7 +98,7 @@ No Noon product imagery may be scraped. An approved account still requires a fre
 |---|---|
 | Product and provider ID | Must map to the canonical exact model and retailer |
 | Direct URL | Verified Egypt retailer product-detail destination |
-| Affiliate URL | Empty until generated through an approved program method |
+| Affiliate URL | Empty until generated through an approved program method; stored only in the private Product Control registry |
 | Status | One of the three exact activation states |
 | Noon eligibility | `Unverified — public terms do not establish Egypt eligibility` until written owner confirmation is retained |
 | Owner account reference | Owner-supplied non-secret identifier; never guessed |

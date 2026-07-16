@@ -1,31 +1,46 @@
-# Setup Sahla agents
+# Setup Sahla Claude agents
 
-Five Claude Code subagents that make the [business operating system](../../docs/business-os/OPERATING_SYSTEM.md) executable. Invoke them by name (e.g. "use the sahla-research agent to …") or let the product-manager agent sequence them.
+Five file-bound agents execute the business gates without loading the whole repository for every task.
 
-| Agent | Owns | Gates | Writable lane |
-|-------|------|-------|---------------|
-| **sahla-research** | Product/provider + SEO/trend evidence gathering (web search, dated sources). Stages, never selects. | G1 | `research/*.csv` (staging), `research/reports/` |
-| **sahla-product-manager** | Roadmap + the 5-product/3-guide selection, canonical evidence merge, evidence-bound claims & guide content, and coordinating the other agents. | G0, G2, G3 | `data/`, `research/evidence.csv`, `content/`, `docs/research/`, `docs/editorial/`, `docs/business/`, `.superpowers/sdd/progress.md` |
-| **sahla-creative** | Brand + voice system and original, accessible logo/category/lifestyle creatives; hands site-ready files to the website agent. | G4 | `brand/`, `assets/generated/`, `tests/brand-assets.test.mjs` |
-| **sahla-website-developer** | Building/maintaining the public site from approved canonical data, brand, and guides; runs the verification matrix. | G5 | `site/` only |
-| **sahla-reviewer** | Independent final review — runs the full verification matrix fresh, assigns each defect to the earliest gate, blesses publish/refresh. Fixes nothing outside its report. | G5/G6 | `docs/launch/`, `.superpowers/sdd/progress.md` |
+| Agent | Gate | Writable lane |
+|---|---|---|
+| `sahla-research` | G1 | Research staging and focused reports; never `research/evidence.csv`. |
+| `sahla-product-manager` | G0/G2/G3 | Canonical data/evidence, content, business decisions and intake ledger. |
+| `sahla-creative` | G4 | `brand/`, `assets/generated/`, brand asset test. |
+| `sahla-website-developer` | G5 | `site/` only. |
+| `sahla-reviewer` | G5/G6 | `docs/launch/` and append-only progress verdicts. |
 
-## Mapping to the original 7 briefs
+`.vault/agent-lanes.json` is the authoritative path boundary.
 
-The seven prose contracts in [AGENT_BRIEFS.md](../../docs/business-os/AGENT_BRIEFS.md) map onto these five:
+## Invocation
 
-- **sahla-research** = Product/Provider Research + SEO/Trend Research
-- **sahla-product-manager** = Research Integration + Editorial + orchestration/roadmap
-- **sahla-creative** = Identity/Creatives
-- **sahla-website-developer** = Website
-- **sahla-reviewer** = Final Review
+Give the selected agent a packet from `docs/business-os/AGENT_TASK_CONTRACT.md`:
 
-Every original role now has an owner. Two roles stay merged: research collapses the two parallel research briefs into one agent (run it twice — once for product/provider, once for SEO/trend), and the product-manager still carries both Research Integration and Editorial. Split either out if the workload justifies a dedicated agent.
+```text
+Task:
+Intake ID or route:
+Current gate:
+Read:
+Write:
+Do not touch:
+Evidence needed:
+Verification:
+Return:
+```
 
-## The `.superpowers/sdd/progress.md` overlap
+Do not invoke an agent with “review the whole project” unless the task is an explicit full launch review.
 
-Both **sahla-product-manager** and **sahla-reviewer** may write the durable ledger. That is intentional and matches the operating system: the PM records roadmap/gate progress; the reviewer records final verdicts, commit ranges, and remaining dependencies. To avoid collisions, treat the reviewer's entries as append-only sign-off blocks and never rewrite each other's sections.
+## Efficient orchestration
 
-## Boundary discipline
+- Run `sahla-research` in one named mode: product/provider **or** SEO/trend.
+- Run independent research and creative work in parallel only when their write lanes do not overlap.
+- Product Manager merges and selects after staged evidence passes; it never fills evidence gaps itself.
+- Website agent receives exact approved routes/assets, not the entire research history.
+- Reviewer checks the changed range for focused work; it loads all launch artifacts only for final approval.
+- Handoffs use `path:line`, real command results and at most eight bullets unless a report is requested.
 
-Each agent writes **only** its own lane and stops at the boundary — matching the ownership model in the operating system. An agent that finds a problem upstream returns it to the owning agent instead of silently editing another lane. This mirrors the gate/rollback rules so nothing flows downstream unverified.
+## Intake boundary
+
+The dashboard may hold unlimited private items. The public launch set remains five gate-approved products and three guides. A watcher dispatch is not automatic agent execution unless `INTAKE_AGENT_CMD` is configured. All lanes must report `done`; skipped work is held. Selection, replacement and promotion are always explicit Product Manager decisions.
+
+Both Product Manager and Reviewer may append to `.superpowers/sdd/progress.md`; neither rewrites the other's entries.

@@ -1,1 +1,71 @@
-[]
+[
+  {
+    "intakeId": "IN-2026-0001",
+    "name": "Anker Nano II 65W GaN USB-C Charger",
+    "category": "Power delivery",
+    "problemHypothesis": "A USB-C laptop needs a compact second charger for a desk or travel setup.",
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "productUrl": "https://www.amazon.eg/-/en/dp/B0DHF1K1B5",
+        "affiliateKeyRef": "amazonEgypt.anker-nano-ii-65w-charger"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "productUrl": "https://www.noon.com/egypt-en/anker-nano-ii-65w-gan-ii-pps-fast-usb-c-charger-adapter-a2147/N70224985V/p/",
+        "affiliateKeyRef": "noonEgypt.anker-nano-ii-65w-charger"
+      }
+    ],
+    "images": [],
+    "ownerNotes": "On hold: A2147 currently maps to a 30W Anker model and the captured Amazon listing failed. Re-research the exact 65W model before promotion.",
+    "priority": "high",
+    "status": "on-hold",
+    "createdAt": "2026-07-16"
+  },
+  {
+    "intakeId": "IN-2026-0002",
+    "name": "UGREEN 1080P Full HD Webcam",
+    "category": "Video communication",
+    "problemHypothesis": "A laptop user needs a clearer external camera for calls and classes.",
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "productUrl": "https://www.amazon.eg/-/en/dp/B0C5DVRJ7H",
+        "affiliateKeyRef": "amazonEgypt.ugreen-1080p-webcam"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "productUrl": "https://www.noon.com/egypt-en/ugreen-webcam-full-hd-1080p-30fps/N70173213V/p/",
+        "affiliateKeyRef": "noonEgypt.ugreen-1080p-webcam"
+      }
+    ],
+    "images": [],
+    "ownerNotes": "On hold: manufacturer and Amazon sources failed, and the Noon URL redirected to another product. Replace every source before research resumes.",
+    "priority": "medium",
+    "status": "on-hold",
+    "createdAt": "2026-07-16"
+  },
+  {
+    "intakeId": "IN-2026-0003",
+    "name": "Gallaway Leather Desk Mat (92 x 43 cm)",
+    "category": "Desk surface",
+    "problemHypothesis": "A desk user wants a protected, consistent keyboard and mouse surface.",
+    "providers": [
+      {
+        "retailer": "Amazon Egypt",
+        "productUrl": "https://www.amazon.eg/-/en/dp/B0BQFLB24N",
+        "affiliateKeyRef": "amazonEgypt.gallaway-desk-mat"
+      },
+      {
+        "retailer": "Noon Egypt",
+        "productUrl": "https://www.noon.com/egypt-en/gallaway-leather-desk-pad-92-x-43-cm/N70106682V/p/",
+        "affiliateKeyRef": "noonEgypt.gallaway-desk-mat"
+      }
+    ],
+    "images": [],
+    "ownerNotes": "On hold: both retailer destinations failed or mismatched, and the old record treated a retailer page as manufacturer evidence. Re-check scope and evidence.",
+    "priority": "low",
+    "status": "on-hold",
+    "createdAt": "2026-07-16"
+  }
+]

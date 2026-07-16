@@ -7,4 +7,4 @@ Task 2: implemented from staged research commit 6886b55 (five canonical records;
 Task 2 commercial limitation: Noon Egypt commission eligibility remains unconfirmed because current public terms name UAE and KSA, not Egypt.
 Agents: five execution subagents added under .claude/agents/ (commit 9be255a).
 Vault Protocol: secrets/integrity/boundary/compliance enforcement added (commits e624c2b, 343df72); pre-commit gate active via core.hooksPath .githooks.
-Product Intake Dashboard: spec-kit plan authored at specs/product-intake-dashboard/ (constitution/spec/plan/tasks); not yet built. Phase A embedded + automated delegation; Phase B SaaS extraction gated behind an explicit go-ahead.
+Product Control Phase A: local unified dashboard, validated unlimited intake pipeline, safe watcher/reconcile, explicit gate/rollback/reseal promotion, and private pending/verified affiliate-link resolver implemented. Public launch remains five verified products; three unverified additions are on hold. Phase B SaaS extraction still requires explicit go-ahead.

@@ -6,10 +6,15 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "resolve:products": "node ../scripts/resolve-site-products.mjs",
+    "predev": "npm run resolve:products",
     "dev": "vinext dev",
+    "prebuild": "npm run resolve:products",
     "build": "vinext build",
+    "prestart": "npm run resolve:products",
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "prelint": "npm run resolve:products",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {

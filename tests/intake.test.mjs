@@ -24,7 +24,7 @@ test('valid item passes', () => {
   assert.deepEqual(validateIntakeItem(validItem()), []);
 });
 
-test('the shipped empty queue is valid', () => {
+test('the shipped intake queue is valid', () => {
   const items = JSON.parse(readFileSync(new URL('../' + INTAKE_FILE, import.meta.url), 'utf8'));
   assert.deepEqual(validateIntakeArray(items), []);
 });
@@ -54,7 +54,7 @@ function tempSource(extra = {}) {
   mkdirSync(path.join(root, 'data'), { recursive: true });
   writeFileSync(path.join(root, INTAKE_FILE), JSON.stringify([validItem()], null, 2));
   mkdirSync(path.join(root, '.superpowers', 'sdd'), { recursive: true });
-  return { root, src: new FileIntakeSource({ root, ...extra }) };
+  return { root, src: new FileIntakeSource({ root, sealRunner: () => true, ...extra }) };
 }
 
 test('dispatch moves new -> dispatched and requests all delegations', async () => {
@@ -79,10 +79,38 @@ test('reconcile folds agent signals and advances to ready when all settled', asy
   rmSync(root, { recursive: true, force: true });
 });
 
+test('reconcile does not rewrite the queue when no signal changed', async () => {
+  const { root, src } = tempSource();
+  await src.dispatch('IN-2026-0001');
+  let saves = 0;
+  const save = src._save.bind(src);
+  src._save = (items) => {
+    saves += 1;
+    return save(items);
+  };
+  await src.reconcile('IN-2026-0001');
+  assert.equal(saves, 0, 'a no-op reconcile must not trigger the watcher again');
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('reconcile places an item on hold when an agent lane is skipped', async () => {
+  const { root, src } = tempSource();
+  await src.dispatch('IN-2026-0001');
+  for (const [agent, rel] of Object.entries(SIGNAL_FILES)) {
+    const signalPath = path.join(root, rel);
+    mkdirSync(path.dirname(signalPath), { recursive: true });
+    writeFileSync(signalPath, JSON.stringify({ 'IN-2026-0001': agent === 'creative' ? 'skipped' : 'done' }));
+  }
+  const [item] = await src.reconcile('IN-2026-0001');
+  assert.equal(item.status, 'on-hold');
+  rmSync(root, { recursive: true, force: true });
+});
+
 test('promote refuses when the gate fails and writes nothing', async () => {
   const writes = [];
   const { root, src } = tempSource({ gateRunner: () => false, writeCanonical: (r) => writes.push(r) });
   await src.dispatch('IN-2026-0001');
+  await src.setStatus('IN-2026-0001', 'ready');
   await assert.rejects(() => src.promote('IN-2026-0001', { slug: 'test' }), /gate failed/);
   assert.equal(writes.length, 0, 'canonical must not be written when the gate fails');
   const it = await src.get('IN-2026-0001');
@@ -90,10 +118,58 @@ test('promote refuses when the gate fails and writes nothing', async () => {
   rmSync(root, { recursive: true, force: true });
 });
 
+test('promote refuses an item that is not ready', async () => {
+  const writes = [];
+  const { root, src } = tempSource({ gateRunner: () => true, writeCanonical: (r) => writes.push(r) });
+  await src.dispatch('IN-2026-0001');
+  await assert.rejects(() => src.promote('IN-2026-0001', { slug: 'test' }), /must be ready/);
+  assert.equal(writes.length, 0);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('promote rolls canonical data back when the post-write gate fails', async () => {
+  const writes = [];
+  let gateRuns = 0;
+  const { root, src } = tempSource({
+    gateRunner: () => ++gateRuns === 1,
+    writeCanonical: (record) => {
+      writes.push(record);
+      return () => writes.pop();
+    },
+  });
+  await src.dispatch('IN-2026-0001');
+  await src.setStatus('IN-2026-0001', 'ready');
+  await assert.rejects(() => src.promote('IN-2026-0001', { slug: 'test-hub' }), /post-write gate failed/);
+  assert.equal(gateRuns, 2);
+  assert.equal(writes.length, 0, 'failed canonical write must be rolled back');
+  assert.equal((await src.get('IN-2026-0001')).status, 'ready');
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('promote rolls back canonical and queue state when vault resealing fails', async () => {
+  const writes = [];
+  const { root, src } = tempSource({
+    gateRunner: () => true,
+    sealRunner: () => false,
+    writeCanonical: (record) => {
+      writes.push(record);
+      return () => writes.pop();
+    },
+  });
+  await src.setStatus('IN-2026-0001', 'ready');
+  await assert.rejects(() => src.promote('IN-2026-0001', { candidateId: 'PP-C99', slug: 'test-hub' }), /reseal failed/);
+  assert.equal(writes.length, 0);
+  const item = await src.get('IN-2026-0001');
+  assert.equal(item.status, 'ready');
+  assert.equal(item.promotedProductId, undefined);
+  rmSync(root, { recursive: true, force: true });
+});
+
 test('promote succeeds when the gate passes', async () => {
   const writes = [];
   const { root, src } = tempSource({ gateRunner: () => true, writeCanonical: (r) => writes.push(r) });
   await src.dispatch('IN-2026-0001');
+  await src.setStatus('IN-2026-0001', 'ready');
   const it = await src.promote('IN-2026-0001', { slug: 'test-hub' });
   assert.equal(it.status, 'promoted');
   assert.equal(it.promotedProductId, 'test-hub');
@@ -109,6 +185,24 @@ test('add() appends a valid item and rejects invalid + duplicate', async () => {
   assert.equal((await src.list()).length, 2);
   await assert.rejects(() => src.add({ intakeId: 'IN-2026-0003' }), /invalid intake item/);
   await assert.rejects(() => src.add(validItem()), /duplicate/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('update() edits owner fields without overwriting workflow state', async () => {
+  const { root, src } = tempSource();
+  await src.dispatch('IN-2026-0001');
+  const updated = await src.update('IN-2026-0001', {
+    name: 'Updated Hub',
+    category: 'Connectivity',
+    problemHypothesis: 'Needs one-cable desk connectivity.',
+    priority: 'medium',
+    ownerNotes: 'Recheck the exact model.',
+  });
+  assert.equal(updated.name, 'Updated Hub');
+  assert.equal(updated.priority, 'medium');
+  assert.equal(updated.status, 'dispatched');
+  assert.deepEqual(updated.delegations, { research: 'requested', creative: 'requested', marketing: 'requested' });
+  await assert.rejects(() => src.update('IN-2026-0001', { name: '' }), /invalid intake item/);
   rmSync(root, { recursive: true, force: true });
 });
 

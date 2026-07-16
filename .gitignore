@@ -10,6 +10,7 @@ Thumbs.db
 
 # Vault Protocol — secrets never enter the repo
 /.vault/secrets.local.json
+/.vault/affiliate-links.local.json
 .env
 .env.local
 
@@ -19,3 +20,6 @@ Thumbs.db
 /assets/generated/intake-status.json
 /docs/editorial/intake-status.json
 /.superpowers/sdd/intake-log.md
+
+# Build-time product data resolved from private affiliate links
+/site/data/products.runtime.json

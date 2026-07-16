@@ -40,15 +40,33 @@ function ProviderSnapshot({ product }: { product: Product }) {
             <div className="provider-card__top"><h3>{provider.retailer}</h3><span>{formatEgp(provider.priceEgp)}</span></div>
             <p className="provider-date">Observed {formatDate(provider.capturedAt)}</p>
             <p>{provider.sellerNotes}</p>
-            <a
-              className="retailer-link"
-              href={provider.directUrl}
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              aria-label={`Open the exact ${product.name} listing at ${provider.retailer} in a new tab`}
-            >
-              Check exact listing <span aria-hidden="true">↗</span>
-            </a>
+            {provider.affiliateUrl && provider.affiliateStatus === "AFFILIATE_LINK — VERIFIED" ? (
+              <>
+                <span className="provider-link-status provider-link-status--affiliate">Verified affiliate link</span>
+                <a
+                  className="retailer-link"
+                  href={provider.affiliateUrl}
+                  target="_blank"
+                  rel="sponsored nofollow noopener noreferrer"
+                  aria-label={`Open the exact ${product.name} affiliate listing at ${provider.retailer} in a new tab`}
+                >
+                  Check exact listing <span aria-hidden="true">↗</span>
+                </a>
+              </>
+            ) : (
+              <>
+                <span className="provider-link-status">Direct retailer link</span>
+                <a
+                  className="retailer-link"
+                  href={provider.directUrl}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  aria-label={`Open the exact ${product.name} listing at ${provider.retailer} in a new tab`}
+                >
+                  Check exact listing <span aria-hidden="true">↗</span>
+                </a>
+              </>
+            )}
           </article>
         ))}
       </div>
@@ -60,6 +78,7 @@ export function ProductDetail({ route }: { route: string }) {
   const product = getProduct(route);
   const image = productImages[route];
   const mouseCaution = route === "/products/ergonomic-mouse/";
+  const hasAffiliate = product.providers.some((provider) => provider.affiliateStatus === "AFFILIATE_LINK — VERIFIED" && provider.affiliateUrl);
   return (
     <>
       <Breadcrumbs items={[{ label: "Product fits", href: "/products/" }, { label: product.name, href: route }]} />
@@ -81,7 +100,7 @@ export function ProductDetail({ route }: { route: string }) {
           </figure>
         </header>
 
-        <DirectLinkDisclosure />
+        <DirectLinkDisclosure hasAffiliate={Boolean(hasAffiliate)} />
 
         <section className="problem-verdict-grid">
           <div><p className="eyebrow">Start here</p><h2>The problem</h2><p>{product.problem}</p></div>

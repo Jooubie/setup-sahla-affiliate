@@ -11,6 +11,7 @@ Enforcement layer for the [Vault Protocol](../docs/business-os/VAULT_PROTOCOL.md
 | `integrity.manifest.json` | yes | SHA-256 checksums of sealed canonical files |
 | `secrets.example.json` | yes | Template showing the shape of secrets |
 | `secrets.local.json` | **NO — gitignored** | Your real affiliate IDs / API keys. You create and fill this. |
+| `affiliate-links.local.json` | **NO — gitignored** | Per-product affiliate URLs entered through the local Product Control dashboard. |
 
 ## Commands (run from repo root)
 
@@ -25,7 +26,8 @@ npm run vault:secrets  # fail if a secret file is tracked or a key leaks    [nod
 
 1. `cp .vault/secrets.example.json .vault/secrets.local.json`
 2. Fill your real values in `secrets.local.json` (it is gitignored — it never gets committed).
-3. Claude/agents never read these values. When an affiliate link is verified, **you** — not an agent — flip the provider's `affiliateStatus` to `AFFILIATE_LINK — VERIFIED`.
+3. Open `npm run intake:admin`, choose a product and paste its complete affiliate URL under **Affiliate link**.
+4. Keep it `pending` until the exact destination and tracking parameter are checked. Only you can mark it `verified`; the site build then resolves it without changing committed product evidence.
 
 ## Overrides
 

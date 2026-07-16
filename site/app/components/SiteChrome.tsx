@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navigation = [
   { href: "/products/", label: "Product fits" },
@@ -9,6 +12,7 @@ const navigation = [
 ];
 
 export function SiteHeader() {
+  const pathname = usePathname();
   return (
     <header className="site-header">
       <div className="site-header__inner">
@@ -19,7 +23,12 @@ export function SiteHeader() {
           <ul className="nav-list">
             {navigation.map((item) => (
               <li key={item.href}>
-                <Link href={item.href}>{item.label}</Link>
+                <Link
+                  href={item.href}
+                  aria-current={pathname === item.href || pathname.startsWith(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>

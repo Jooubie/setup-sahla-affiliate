@@ -45,10 +45,10 @@ If any local copy conflicts with the parent project, defer to the parent project
 
 ## Commercial and evidence rules
 
-- Current provider links are direct exact-product links only. `affiliateUrl` is `null` and status is `DIRECT_LINK — AFFILIATE ID REQUIRED`.
-- Never claim current commission. Amazon Egypt activation requires owner enrollment/tag and verified final links. Noon Egypt eligibility remains unconfirmed because public terms do not establish Egypt territory.
-- Before the first retailer CTA on every commercial page, explain the current direct-link state. Do not use the Amazon Associate statement until verified Amazon affiliate links are active.
-- Mark external retailer links safely; use clear retailer names, `target="_blank"`, and `rel="nofollow noopener noreferrer"` for current direct links. Add `sponsored` only when links become verified affiliate links.
+- `data/products.json` is canonical. `npm run resolve:products` creates gitignored `data/products.runtime.json`; only owner-marked `verified` affiliate URLs are merged there.
+- Pending/missing affiliate URLs remain exact direct-product links. Agents never read or write `.vault/affiliate-links.local.json`.
+- Before the first retailer CTA, disclose the actual page state. Verified links may state that Setup Sahla may earn a commission at no added cost; direct links must not claim commission.
+- Mark direct links `nofollow noopener noreferrer`; verified affiliate links add `sponsored`. Noon Egypt eligibility remains unconfirmed until owner evidence changes that status.
 - Prices, stock, seller, fulfillment, ratings, and return observations are dated snapshots. Show capture dates and a “recheck before buying” note.
 - Every product page needs: problem, verdict, best-for, skip-if, compatibility gate, score breakdown, evidence/source panel, provider comparison, image disclaimer, and internal guide links.
 - Do not invent demand volume, difficulty, popularity, sales, conversion, commission, performance, temperature, medical, adhesion, or warranty outcomes.
@@ -65,4 +65,4 @@ If any local copy conflicts with the parent project, defer to the parent project
 
 - Extend tests for route rendering, disclosures before retailer CTAs, exact provider URLs/status, metadata, structured-data safety, unsupported-claim patterns, no starter remnants, and accessible external links.
 - Run `npm test` and `npm run build` using the environment-variable-compatible Windows invocation when necessary.
-- Do not perform browser screenshots or UI automation; the user did not request browser QA.
+- Perform browser QA only when the task packet or user explicitly requests it; otherwise rely on build/render tests.

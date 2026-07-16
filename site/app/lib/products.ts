@@ -1,9 +1,9 @@
-import rawProducts from "@/data/products.json";
+import rawProducts from "@/data/products.runtime.json";
 
 export type Provider = {
   retailer: "Amazon Egypt" | "Noon Egypt";
   directUrl: string;
-  affiliateUrl: null;
+  affiliateUrl: string | null;
   affiliateStatus: string;
   listingTitle: string;
   sellerNotes: string;
